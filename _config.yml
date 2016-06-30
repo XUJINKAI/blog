@@ -72,3 +72,4 @@ analytics:
 # blugs
 gems:
  - jekyll-paginate
+ - jekyll-sitemap
