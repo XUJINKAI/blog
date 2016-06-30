@@ -1,0 +1,104 @@
+---
+layout: frame
+title: Tools
+---
+<div class="row" style="max-width: 768px; margin-left: auto; margin-right: auto;">
+<h4><a href="/tools/http-request" style="text-decoration: underline;">http-request</a></h4>
+<h4><a href="/tools/html-encode" style="text-decoration: underline;">html-encode</a></h4>
+<table class="table table-bordered">
+   <tbody>
+      <tr>
+         <td style="min-width: 130px;">IP Address</td>
+         <td id="ip"><span class="text-muted">loading...</span></td>
+      </tr>
+      <tr>
+         <td>Screen Size</td>
+         <td id="screenSize"></td>
+      </tr>
+      <tr>
+         <td>Document Size</td>
+         <td id="docSize"></td>
+      </tr>
+      <tr>
+         <td>Mouse Position</td>
+         <td id="mousePos"><span class="text-muted">move your mouse</span></td>
+      </tr>
+      <tr>
+         <td>Platform</td>
+         <td id="platform"></td>
+      </tr>
+      <tr>
+         <td>Mobile Device</td>
+         <td id="isMobile"></td>
+      </tr>
+      <tr>
+         <td>App Name</td>
+         <td id="appName"></td>
+      </tr>
+      <tr>
+         <td>AppCodeName</td>
+         <td id="appCodeName"></td>
+      </tr>
+      <tr>
+         <td>UserAgent</td>
+         <td id="userAgent"></td>
+      </tr>
+      <tr>
+         <td>Cookie Enabled</td>
+         <td id="cookieEnabled"></td>
+      </tr>
+      <tr>
+         <td>Time</td>
+         <td id="time"></td>
+      </tr>
+   </tbody>
+</table>
+
+<script>
+$(this).resize(function(e) {
+    winResize();
+});
+$(this).mousemove(function(e) {
+    mouseLoc(e.clientX,e.clientY);
+});
+
+function winResize(){
+   $("#docSize").text($(document).width()+" X "+$(document).height());
+};
+
+function mouseLoc(x,y){
+   $("#mousePos").text(x+" X "+y);
+}
+
+function mobile(){ //Mobile device
+   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+function gettime(){
+   $("#time").text(Date());
+   setTimeout("gettime()",1000);
+}
+
+var js_info_reload = function(){
+   var url = 'https://api.ipify.org/';
+   $.get(url, function(data){$("#ip").text(data);})
+
+   $("#screenSize").text(screen.width+" X "+screen.height);
+
+   winResize();
+
+   $("#platform").text(navigator.platform);
+   $("#isMobile").text(mobile()?"YES":"NO");
+   $("#appName").text(navigator.appName);
+   $("#appCodeName").text(navigator.appCodeName);
+   $("#userAgent").text(navigator.userAgent);
+   $("#cookieEnabled").text(navigator.cookieEnabled);
+
+   gettime();
+}
+
+$(function(){
+   js_info_reload();
+});
+</script>
+</div>

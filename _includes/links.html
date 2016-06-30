@@ -1,0 +1,16 @@
+<div class="links" id="links">
+	<h4>
+	  Links
+	</h4>
+	<div>
+		<ul class="list-unstyled" id="links-content">
+		{% for lk in site.links %}
+	      <li>
+	        <a href="{{lk[1]}}" target="{{lk[2]}}">
+	        {{lk[0]}}
+	        </a>
+	      </li>
+	    {% endfor %}
+        </ul>
+	</div>
+</div>

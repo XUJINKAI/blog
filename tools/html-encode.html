@@ -1,0 +1,142 @@
+---
+layout: frame
+title: str-encode
+---
+<div class="row" style="max-width: 768px; margin-left: auto; margin-right: auto;">
+	<h4><a href="/tools/" style="text-decoration: underline;">back</a></h4>
+	<p>将字符串或任何html编码成javascript的形式，防止网页被爬虫抓取。</p>
+	<textarea rows=5 style="width: 100%;" id="str-to-encode"></textarea>
+	<label><input type="checkbox" name="ascii-encode" value="" checked="true">ascii-encode</label>
+	<label><input type="checkbox" name="lzw-encode" value="">lzw-encode</label>
+	<br>
+	<label><input type="checkbox" name="script-output" value="">script(document.write)</label>
+	<label><input type="checkbox" name="is-email" value="">mailto:email</label>
+	<textarea rows=5 style="width: 100%;" id="encoded-result" readonly="readonly"></textarea>
+	<div id="compression-info"></div>
+</div>
+<script>
+var ascii_encode = (function(){
+	var to_list = function (s,o){return '['+s.replace(/[\s\S]/g, function(e){return (e.charCodeAt(0)+o)+',';}).slice(0,-1)+']';}
+	var from_list = function(l,o){var s='';l.forEach(function(e){s+=String.fromCharCode(e-o);});return s;}
+	var get_result = function(str) {
+		var min = 10;
+		var max = 40;
+		var rand = Math.floor(Math.random() * (max - min) + min);
+		var list_str = to_list(str, rand);
+		var wrap_str = '('+from_list.toString()+')('+list_str+','+rand+')';
+		return wrap_str;
+	}
+	return get_result;
+})();
+var lzw_encode = (function(){
+	// http://stackoverflow.com/questions/294297/javascript-implementation-of-gzip
+	// LZW-compress a string
+	var lzw_encode = function(s) {
+		var dict = {};
+		var data = (escape(s) + "").split("");
+		var out = [];
+		var currChar;
+		var phrase = data[0];
+		var code = 256;
+		for (var i=1; i<data.length; i++) {
+			currChar=data[i];
+			if (dict[phrase + currChar] != null) {
+				phrase += currChar;
+			}
+			else {
+				out.push(phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0));
+				dict[phrase + currChar] = code;
+				code++;
+				phrase=currChar;
+			}
+		}
+		out.push(phrase.length > 1 ? dict[phrase] : phrase.charCodeAt(0));
+		for (var i=0; i<out.length; i++) {
+			out[i] = String.fromCharCode(out[i]);
+		}
+		return out.join("");
+	}
+	// Decompress an LZW-encoded string
+	lzw_decode = function(s) {
+		var dict = {};
+		var data = (s + "").split("");
+		var currChar = data[0];
+		var oldPhrase = currChar;
+		var out = [currChar];
+		var code = 256;
+		var phrase;
+		for (var i=1; i<data.length; i++) {
+			var currCode = data[i].charCodeAt(0);
+			if (currCode < 256) {
+				phrase = data[i];
+			}
+			else {
+			   phrase = dict[currCode] ? dict[currCode] : (oldPhrase + currChar);
+			}
+			out.push(phrase);
+			currChar = phrase.charAt(0);
+			dict[code] = oldPhrase + currChar;
+			code++;
+			oldPhrase = phrase;
+		}
+		return unescape(out.join(""));
+	}
+	// http://jscompress.com/
+	var lzw_decode_compress = function(e){for(var r,n={},t=(e+"").split(""),a=t[0],c=a,o=[a],h=256,u=1;u<t.length;u++){var d=t[u].charCodeAt(0);r=256>d?t[u]:n[d]?n[d]:c+a,o.push(r),a=r.charAt(0),n[h]=c+a,h++,c=r}return unescape(o.join(""))};
+	var get_result = function(str) {
+		// var str = str.replace(/[\\|\"|\'|\/|\t|\n|\r|\f|\b]/g, function(s){
+		// 	return {
+		// 		'\\':'\\\\', '\"':'\\\"', '\'':'\\\'', 
+		// 		'\/':'\\\/', '\t':'\\t', '\n':'\\n', 
+		// 		'\r':'\\r', '\f':'\\f', '\b':'\\b', 
+		// 	}[s];
+		// });
+		var zip_str = lzw_encode(str).replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+		var wrap_str = '('+lzw_decode_compress.toString()+')("'+zip_str+'")'
+		return wrap_str;
+	};
+	return get_result;
+})();
+var str_change = function(){
+	// get
+	var o = $('#str-to-encode').val();
+	// wrap mailto
+	if($('input[name="is-email"]').prop('checked')) {
+		o = '<a href=\'mailto:'+o+'\'>'+o+'</a>';
+	}
+	// encode
+	var e = o;
+	var check_ascii = $('input[name="ascii-encode"]').prop('checked');
+	var check_lzw = $('input[name="lzw-encode"]').prop('checked')
+	if(check_ascii){
+		e = ascii_encode(e)
+	}
+	if(check_lzw){
+		e = lzw_encode(e);
+	}
+	if(check_ascii && check_lzw) {
+		e = 'eval('+e+')';
+	}
+	// wrap script write
+	if($('input[name="script-output"]').prop('checked')) {
+		e = '<script>document.write('+e+')\<\/script\>';
+	}
+	// set
+	$('#encoded-result').val(e);
+	// compression ratio
+	var o_length = $('#str-to-encode').val().length;
+	var e_length = e.length;
+	var info =  o_length+ ', ' + e_length + ', ' + e_length/o_length;
+	$('#compression-info').html(info);
+};
+$(function(){
+	$('#str-to-encode').bind('input propertychange', str_change);
+	$('input[name]').change(str_change);
+	$('#encoded-result').on('click', function(){
+		$(this).select();
+	})
+	// ini
+	$('#str-to-encode').val('test-str@xujinkai.info');
+	str_change();
+});
+</script>

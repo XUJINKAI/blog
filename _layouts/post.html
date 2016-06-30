@@ -1,0 +1,54 @@
+--- 
+layout: frame
+--- 
+<div class="container" style="max-width: 768px; margin-left: auto; margin-right: auto;" id="post-container">
+<!-- Title -->
+<h2>{{ page.title }}</h2>
+{% if page.tags.size > 0 %}
+<i>
+Tags: {% for tag in page.tags %}{% if tag != "" %}
+<a class="post-tag" href="/tags#{{ tag }}">{{ tag }}</a>
+{% if forloop.index != page.tags.size %}, {% endif %}{% endif %}{% endfor %}
+</i>
+{% endif %}
+<div class="post-date" style="padding: 15px 0 0 0px; color: gray;">
+	{{ page.date | date:"%Y-%m-%d" }}
+</div>
+<div style="padding-top: 20px;">
+{{ content }}
+</div>
+<br/>
+<b>原创文章，转载请注明出处！</b><br>
+<a class="post-url" href="{{site.url}}{{page.url}}" title="{{page.title}}">{{site.url}}{{page.url}}</a>
+<br/>
+<hr>
+
+<!-- next and previous -->
+<ul class="pager" id="post-pager">
+  {%if page.next%}
+  <li class="next pull-right">
+    <a href="{{page.next.url}}">
+      Newer: {{page.next.title}}
+    </a>
+  </li>
+  {%endif%}
+  {%if page.previous%}
+  <li class="previous">
+    <a href="{{page.previous.url}}">
+      Older: {{page.previous.title}}
+    </a>
+  </li>
+  {%endif%} 
+</ul>
+<script>
+$(function(){
+  static_pjax(".post-tag", "#frame-main-content");
+  static_pjax(".pager li a", "#frame-main-content");
+});
+</script>
+
+<!-- Blog Comments -->
+<div class="media">
+  {% include comment.html %} 
+</div>
+</div>

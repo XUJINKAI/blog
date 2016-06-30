@@ -1,0 +1,31 @@
+<div class="row author" id="author">
+	<h4>About ME</h4>
+	{% if site.owner.gavatar %}
+	<img src="{{site.owner.gavatar}}" alt="gavatar" style="max-width: 100%; padding-bottom: 20px;" />
+	{% endif %}
+	<!-- <div> -->
+	<p><b>{{site.owner.name}}</b></p>
+	{% if site.owner.email %} <p><a href="mailto:{{site.owner.email}}">{{site.owner.email}}</a></p> {% endif %}
+	{% if site.owner.direct_print %} <p>{{site.owner.direct_print}}</p> {% endif %}
+	<p>
+	{% for link in site.owner.fonts-links %}
+		{% if link[0] == "zhihu" %}
+			<a href="{{link[1]}}" target="_blank">
+				<i class="fa" style="font-size: 18px;">知</i>
+			</a>
+		{% else %}
+			{% if link[1] %}
+				<a href="{{link[1]}}" target="_blank">
+					<i class="fa fa-{{link | first}} fa-lg"></i>
+				</a> 
+			{% endif %}
+		{% endif %}
+	{% endfor %}
+	</p>
+	{% for lk in site.owner.links %}
+	    <a href="{{lk[1]}}" target="{{lk[2]}}">
+	    {{lk[0]}}
+	    </a><br>
+	{% endfor %}
+	<!-- </div> -->
+</div>

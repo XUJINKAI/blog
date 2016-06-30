@@ -1,0 +1,78 @@
+---
+layout: post
+published: true
+comment: true
+permalink: 
+title: 从购买域名到建立博客
+tags: 网站 github
+date: 2016-03-23 21:58:32 +0800
+---
+简单记录一下建立这个博客的过程（除了头脑发热这部分）。  
+
+
+### 1. 先从godaddy上购买域名
+
+贪图便宜就买的info，先来一年的尝尝鲜。godaddy上续费貌似挺贵，不过可以transfer，就到时候再说啦。
+
+
+### 2. 域名解析
+
+简单的可以直接设置跳转，不过那样没啥意思，而且跳转以后域名就变了，体现不出购买域名的价值。
+
+可以去godaddy直接设置，也可以从godaddy转到国内的服务如DNSpod再设置。  
+以DNSpod举例，去godaddy的DNS设定页面，将域名服务器改成以下(DNSpod)地址。
+
+<!--more-->
+
+		F1G1NS1.DNSPOD.NET
+		F1G1NS2.DNSPOD.NET
+
+然后去DNSpod设置页面。
+
+- 添加两条**@/A**记录指向github的服务器。
+
+		192.30.252.153
+		192.30.252.154
+
+- 添加一条**www/CNAME**记录指向自己的github地址，如我的 XUJINKAI.github.io  
+
+关于github pages，github规定要以自己的用户名命名仓库。（还有一种是建立gh-pages分支）
+
+- 再去自己的仓库中，添加一个**CNAME**文件，内容是域名，如我的为xujinkai.net。
+
+
+### 3. 博客模板
+
+Github使用jekyll作引擎，网页可以用jekyll写，传上去以后github会自动做转换。
+
+模板可以去github搜。从我自己的经验来看，有很多很棒的主页没几个人star。  
+事实上，star非常多的模板就那么几个，大多数都没人关注，在那中间不乏非常棒的，所以找模板，其实是个耗体力的活。  
+
+添加评论系统非常简单，去[disqus](https://disqus.com/){:target="_blank"}或者[多说](http://duoshuo.com/){:target="_blank"}注册，把相应代码附到_layouts/post.html的相应位置即可。也有的模板已经做好了，把注册以后的id添加到_config.yml中即可。
+
+- 强烈建议在本地安装jekyll环境，不然要上传以后才能看到效果，调起页面来很纠结。  
+先下载安装ruby，再照着<https://jekyllrb.com/docs/quickstart/>{:target="_blank"}运行几行命令就行了。
+
+一个问题是，修改_config.yml文件后，jekyll不会重新生成网站，这样必须重新运行jekyll。不知有没有解。
+
+
+### 4. 开始写博客
+
+博客在_posts目录中，按照`年-月-日-名字.md`的格式建立。开头先定义博客信息，如layout、title、tags等，以三个杠---隔开，后边是正文。
+
+嫌每次建立麻烦，可以[参考这里](/posts/auto-create-post)用脚本自动生成。  
+
+建议以英文命名，因为中文地址转码后会非常长。  
+
+
+
+目前比较好奇，这个markdown转换成的网页也是不太好看，比如下边这个引用就显得过大了，以后再看看。  
+不同markdown引擎转换的效果也有略微差异，比如我现在用的这个，地址不会自动转为超链接。  
+补充：需要用尖括号让地址自动转换，要弹出的话在后边添加{:target="_blank"}。
+ 
+
+> <https://pages.github.com/versions/>{:target="_blank"}
+>
+> <https://jekyllrb.com/docs/home/>{:target="_blank"}
+>
+> <http://kramdown.gettalong.org/syntax.html>{:target="_blank"}

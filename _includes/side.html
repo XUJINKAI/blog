@@ -1,0 +1,14 @@
+{% include sticky.html %}
+<hr>
+{% include tags.html %}
+<hr>
+{% include links.html %}
+<hr>
+{% include author.html %}
+
+{% if site.show_rss %}
+<hr>
+<a href="/atom.xml" target="_blank" id="atom-xml">
+  <i class="fa fa-rss fa-lg"></i>
+</a>
+{% endif %}

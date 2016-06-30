@@ -1,0 +1,24 @@
+{% if page.comment != false %}
+<div>
+
+{% if site.comment.serve == "disqus" %}
+<!--Disqus-->
+<hr>
+<div id="disqus_thread"></div>
+<script>var disqus_url = '{{site.url}}{{page.url}}';</script>
+{% endif %}
+
+
+
+{% if site.comment.serve == "duoshuo" %}
+<!--duoshuo-->
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-thread-key="{{page.id}}" data-title="{{page.title}}" data-url="{{site.url}}{{page.url}}">
+<!-- <a href='javascript:void(0);' onclick="DUOSHUO.EmbedThread($('.ds-thread'));">评论框：点击刷新</a> -->
+</div>
+<!-- 多说评论框 end -->
+{% endif %}
+
+
+</div>
+{% endif %}

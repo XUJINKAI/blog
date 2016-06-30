@@ -1,0 +1,24 @@
+---
+layout: frame
+---
+<style type="text/css">
+	.auther h4 {
+		display: none;
+	}
+	.auther img {
+		float: left;
+		padding-right: 40px;
+		padding-bottom: 10px !important;
+	}
+	@media (max-width: 520px) {
+		.auther img {
+			float: none;
+			padding-bottom: 20px !important;
+		}
+	}
+</style>
+<div class="container" style="max-width: 600px; margin-left: auto; margin-right: auto;">
+{% include author.html %}
+{{content}}
+{% include comment.html %}
+</div>

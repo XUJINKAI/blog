@@ -1,0 +1,19 @@
+<div class="sticky" id="sticky">
+	<h4>
+	  <a href='/posts/'>Sticky</a>
+	</h4>
+	<div class="sticky-content">
+		<ul class="list-unstyled" id="sticky-content">
+			{% for post in site.posts %}
+				{% if post.sticky == true %}
+					<li><a href="{{post.url}}">{{post.title}}</a></li>
+				{% endif %}
+			{% endfor %}
+        </ul>
+	</div>
+</div>
+<script>
+$(function() {
+	static_pjax(".sticky a", "#frame-main-content");
+})
+</script>

@@ -1,0 +1,248 @@
+---
+layout: frame
+title: http-request
+---
+<div class="row" style="max-width: 768px; margin-left: auto; margin-right: auto;">
+	<h4><a href="/tools/" style="text-decoration: underline;">back</a></h4>
+	<div>
+		<lable>With PHP, set following command first. And it's suggested to use them ONLY in development environment.<br>
+		<span style="color:blue;">
+		header("Access-Control-Allow-Origin: *");<br>
+		header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+		</span></lable>
+		<div style="height:10px"></div>
+		<form role="form" id="http-request-form">
+			<label for="input-url">REQUEST URL:</label>
+			<div class="form-group input-group">
+				<input type="text" class="form-control" id="input-url" placeholder="request url" value="http://localhost/" spellcheck=false>
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">HISTORY<span class="caret"></span></button>
+			        <ul class="dropdown-menu" id="input-url-list">
+			        </ul>
+		        </div>
+			</div>
+			<div class="form-group">
+				<label for="input-para">Parameter:
+				<div class="input-group-btn">
+					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">HISTORY<span class="caret"></span></button>
+			        <ul class="dropdown-menu" id="input-para-list">
+			        </ul>
+		        </div></label>
+				<textarea class="form-control" id="input-para" rows="15" spellcheck=false>{}</textarea>
+			</div>
+			<label class="btn btn-default" onclick="http_request('GET');">GET</label>
+			<label class="btn btn-default" onclick="http_request('POST');">POST</label>
+			<label class="btn btn-default" onclick="http_request('PUT');">PUT</label>
+			<label class="btn btn-default" onclick="http_request('DELETE');">DELETE</label>
+			<label class="btn btn-default pull-right" onclick="request_storage.clear();">Clear History</label>
+		</form>
+	</div>
+</div>
+<script src="/tools/layer/layer.js"></script>
+<script>
+$(function(){
+	http_request_ini();
+});
+$(document).on('pjax:success', function() {
+	http_request_ini();
+});
+$(document).on('click', '#input-url-list a', function(event) {
+	event.preventDefault();
+	$("#input-url").val($(this).text());
+});
+$(document).on('click', '#input-para-list a', function(event) {
+	event.preventDefault();
+	$("#input-para").val($(this).text());
+});
+
+// http_request
+function http_request(method)
+{
+	var url = $("#input-url").val();
+	var para_str = $("#input-para").val();
+	var para = $.parseJSON(para_str);
+	var title = method+": "+url;
+	request_storage.add_url(url);
+	request_storage.add_para(para_str);
+	if(method == "GET") {
+		$.layer.iframe(url, title);
+	}
+	else {
+		$.ajax({
+			url: url,
+			type: method,
+			data: para,
+			complete: function(data){
+				console.log(data);
+				if(data.statusText == 'error')
+					$.layer.msg("error: 404 not found or server denied.", 4);
+				else
+					$.layer.html(data.responseText, title);
+			}
+		});
+	}
+}
+function http_request_ini(){
+	$("#input-url").val(request_storage.get_url());
+	$("#input-para").val(request_storage.get_para());
+	request_storage.refresh();
+}
+
+// extention
+$.Array = (function(){
+	return {
+		add_to_end: function(value, array) {
+			var i = $.inArray(value, array);
+			if(i>=0) array.remove_id(i);
+			array.push(value);
+		}
+	}
+})();
+// http://stackoverflow.com/questions/500606/javascript-array-delete-elements
+Array.prototype.remove_id = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
+
+// http request storage in local
+var request_storage = (function(){
+	var num_url_rem = 20;
+	var num_para_rem = 20;
+	var arr_url = localStorage["request_url"];
+	var arr_para = localStorage["request_para"];
+	if(typeof(arr_url) !== 'undefined') arr_url = JSON.parse(arr_url);
+	if(typeof(arr_para) !== 'undefined') arr_para = JSON.parse(arr_para);
+	if(!Array.isArray(arr_url)) arr_url = new Array();
+	if(!Array.isArray(arr_para)) arr_para = new Array();
+	function save(){
+		localStorage["request_url"] = JSON.stringify(arr_url);
+		localStorage["request_para"] = JSON.stringify(arr_para);
+	}
+	var refresh_url_list = function() {
+		$("#input-url-list").html("");
+		arr_url.reverse();
+		arr_url.forEach(function(element){
+			$("#input-url-list").append("<li><a>"+element+"</a></li>");
+		});
+		arr_url.reverse();
+	}
+	var refresh_para_list = function() {
+		$("#input-para-list").html("");
+		arr_para.reverse();
+		arr_para.forEach(function(element){
+			$("#input-para-list").append("<li><a>"+element+"</a></li>");
+		});
+		arr_para.reverse();
+	}
+	$(function(){
+		refresh_url_list();
+		refresh_para_list();
+	});
+	return {
+		clear: function(){
+			arr_url = [];
+			arr_para = [];
+			refresh_url_list();
+			refresh_para_list();
+			save();
+		},
+		refresh: function(){
+			refresh_url_list();
+			refresh_para_list();
+		},
+		get_url: function(){
+			if(arr_url.length > 0)
+				return arr_url[arr_url.length-1];
+			else
+				return "http://localhost/";
+		},
+		get_para: function(){
+			if(arr_para.length > 0)
+				return arr_para[arr_para.length-1];
+			else
+				return "{\n\n}";
+		},
+		add_url: function(url){
+			$.Array.add_to_end(url, arr_url);
+			if(arr_url.length > num_url_rem) arr_url.remove_id(0);
+			refresh_url_list();
+			save();
+		},
+		add_para: function(para){
+			$.Array.add_to_end(para, arr_para);
+			if(arr_para.length > num_para_rem) arr_para.remove_id(0);
+			refresh_para_list();
+			save();
+		}
+	}
+})();
+
+// layer
+$(function(){
+	// extend layer prompt
+	layer.config({extend: 'extend/layer.ext.js'});
+	// layer to $
+	$.layer = (function(lay){
+		if(!!lay) return lay;
+		var lay = {};
+		var idx_msg;
+		var idx_html;
+		var idx_iframe;
+		var idx_load;
+		function width() {
+			return Math.min(lay.width, $(document).width()-lay.width_margin, screen.width);
+		}
+		function height() {
+			return Math.min(lay.height, $(document).height()-lay.height_margin, screen.height);
+		}
+		lay.width = 1280;
+		lay.height = 768;
+		lay.width_margin = 30;
+		lay.height_margin = 80;
+		lay.msg = function(m, sec){
+			layer.close(idx_msg);
+			if(m) return idx_msg = layer.msg(m, {time: (sec!=null)?sec*1000:2000});
+			else layer.close(idx_msg);
+		};
+		lay.html = function(content, title) {
+			if(content) return idx_html = layer.open({
+			    type: 1,
+			    maxmin: true,
+			    shadeClose: true,
+			    area: [width()+'px', height()+'px'],
+			    time: 0,
+			    shift: 2,
+			    title: title,
+			    content: content,
+			});
+			else layer.close(idx_html);
+		};
+		lay.iframe = function(content, title) {
+			if(content) return idx_iframe = layer.open({
+			    type: 2,
+			    maxmin: true,
+			    shadeClose: true,
+			    area: [width()+'px', height()+'px'],
+			    time: 0,
+			    shift: 2,
+			    title: title,
+			    content: [content, 'yes'],
+			});
+			else layer.close(idx_iframe);
+		};
+		lay.load = function(bool) {
+			if((bool==null)&&(idx_load==null)||(bool==true)){
+				idx_load = layer.load(1, {
+					shade: false
+				});
+			} else {
+				layer.close(idx_load);
+				idx_load = null;
+			}
+		};
+		return lay;
+	})($.layer);
+});
+
+</script>

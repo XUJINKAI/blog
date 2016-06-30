@@ -1,0 +1,328 @@
+/*!
+ * Start Bootstrap - Blog Home HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/*
+全局
+*/
+html {
+    overflow-y:scroll;
+}
+
+body {
+    /*Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    /*padding-top: 70px;  */
+    border-radius: 0;
+}
+
+/* 避免图片超出范围 */
+img {
+	max-width: 100%;
+}
+
+a:hover {
+	text-decoration: none;
+}
+a:visited {
+	text-decoration: none;
+}
+a:active {
+	text-decoration: none;
+}
+a:link {
+	text-decoration: none;
+}
+
+blockquote {
+	font-size: 14.5px;
+}
+.btn {
+	border-radius: 0;
+}
+
+/*
+导航栏
+*/
+/* navbar */
+.navbar {
+	position: absolute;
+	width: 100%;
+	height: 20px;
+	z-index: 20;
+	border-radius: 0;
+	background-color: rgba(255, 255, 255, 0);
+	/*border-bottom-color: #C8C8C8;*/
+    /*border-bottom-width: thin;*/
+    /*border-bottom-style: dotted;*/
+    font-family: initial;
+}
+
+.navbar-brand {
+	color: rgba(255, 255, 255, 0.90);
+}
+.navbar-brand:hover {
+	color: rgba(182, 182, 182, 0.8);
+}
+
+.navbar li a{
+	color: rgba(255, 255, 255, 0.90);
+	margin-top: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.navbar li a:hover {
+	color: rgba(182, 182, 182, 0.8);
+	background-color: rgba(255, 255, 255, 0);
+}
+.navbar li a:visited {
+	background-color: rgba(255, 255, 255, 0);
+}
+.navbar li a:active {
+	background-color: rgba(255, 255, 255, 0);
+}
+.navbar li a:link {
+	background-color: rgba(255, 255, 255, 0);
+}
+
+.icon-bar {
+	background-color: #898989;
+}
+
+@media (max-width: 768px) {
+	.navbar {
+		/*position: static;*/
+	}
+	.navbar-nav {
+		margin-top: 0;
+	}
+	div .navbar-collapse {
+	    position: absolute;
+	    background-color: rgba(0, 0, 0, 0.80);
+	    z-index: 20;
+		width: 105px;
+	    right: 37px;
+	    padding-left: 25px;
+	}
+}
+.navbar-right {
+	margin-right: 10px;
+}
+
+/*
+Header
+*/
+.header-outer {
+	padding: 0 60px;
+	height: 50px;
+	/*height: 256px;*/
+	border-bottom: 1px solid #e0e0e0;
+	background: url(/img/header.jpg) center center no-repeat;
+	background-size: cover;
+}
+@media (max-width: 768px) {
+	.header-outer {
+		padding: 0 16px;
+	}
+}
+.header-outer a:hover {
+	color: rgba(255, 255, 255, 0.84);
+}
+.header-inner {
+	display: none;
+	max-width: 978px;
+	margin: auto;
+	margin-left: auto;
+	margin-right: auto;
+	/*padding: 0px;*/
+}
+.header-logo {
+	max-width: 900px;
+	font-size: 60px;
+	top: 43px;
+    margin-left: 24px;
+	/*position: absolute;*/
+	position: relative;
+	color: rgba(255, 255, 255, 0.95);
+    font-family: cursive;
+	z-index: 1;
+}
+.header-side {
+    position: absolute;
+    top: 80px;
+    left: 33px;
+    font-size: 21px;
+    /*text-decoration: underline;*/
+}
+
+@media (max-width: 768px) {
+	.header-logo {
+		/*top: 58px;*/
+	}
+	.header-side {
+		/*top: 100px;*/
+		/*left: 0;*/
+	}
+}
+
+/*.header-desc a {
+    color: rgba(255, 255, 255, 0.66);
+}
+.header-desc a:hover {
+    color: rgba(255, 255, 255, 0.90);
+}*/
+
+/*
+/index.html
+frame (除nav和footer)
+*/
+.main-content {
+	padding-top: 20px;
+}
+@media (max-width: 768px) {
+	.main-content {
+		padding-top: 0px;
+	}
+}
+.main-content a {
+	word-wrap: break-word;
+	word-break: break-all;
+}
+
+/*
+index-left
+*/
+.index-left {
+	padding-right: 5%;
+}
+.index-left a {
+	/*color: black;*/
+}
+/* index-post */
+.index-posts h2 a {
+	margin-bottom: 4px;
+	color: rgba(0, 0, 0, 0.83);
+}
+.index-posts h2 a:hover {
+	color: #4184F3;
+}
+.index-posts .post-date {
+	color: rgba(52, 52, 52, 0.66);
+	font-size: 17px;
+	padding-bottom: 20px;
+}
+
+/*摘要*/
+.index-posts .post-excerpt {
+	color: rgba(0, 0, 0, 0.86);
+	line-height: 25px;
+}
+.index-posts .post-excerpt * {
+	font-size: 16px;
+    line-height: 22px;
+    margin-top: 0;
+}
+.index-posts .post-excerpt img {
+	max-width: 50%;
+	max-height: 160px; 
+}
+.index-posts hr {
+	margin-top: 35px;
+    margin-bottom: 35px;
+    border-top-color: rgba(184, 184, 184, 0.12);
+}
+
+/*
+/posts/xxxx-xxxx
+post博文
+*/
+#post-container p{
+    margin: 0px 0 20px;
+    line-height: 28px;
+    font-size: 16px;
+}
+#post-container .h1, .h2, .h3, h1, h2, h3 {
+	margin-top: 28px;
+}
+#post-container a {
+	color: #0c79d7;
+}
+/*post里的上一篇下一篇*/
+.pager .next {
+	max-width: 45%;
+}
+.pager .previous a {
+	max-width: 45%;
+}
+.pager li a {
+	border-radius: 0;
+	font-size: large;
+}
+/* for .post-date 日期 */
+@media (min-width: 992px) {
+	.pull-right-md {
+	  float: right;
+	}
+}
+
+@media (min-width: 1200px) {
+	.pull-right-lg {
+	  float: right;
+	}
+}
+
+/*
+主页右侧
+*/
+.sidebar-container {
+	/*max-width: 300px;*/
+	padding-right: 5%;
+	margin-left: auto;
+	margin-right: auto;
+}
+.sidebar-container h4 {
+	font-weight: bold;
+	color: #808080;
+}
+.sidebar-container a {
+	color: #747474;
+	line-height: 25px;
+}
+.sidebar-container a:hover {
+	color: #1C1C1C;
+}
+/* 右侧tags 框*/
+.tags sup {
+	font-size: xx-small;
+}
+.tags-content a {
+	padding-right: 8px;
+	word-break:keep-all; /* 不换行 */
+	white-space:nowrap; 
+}
+/* 用户信息 */
+.author {
+	margin: 20px 0 16px 0; 
+}
+.author p {
+	line-height: 110%;
+}
+.author a {
+	color: #337ab7;
+}
+.author a:hover {
+	color: #184F7F;
+}
+
+/* 链接图标 */
+a .fa {
+	font-size: x-large;
+    padding-right: 10px;
+}
+
+/* footer */
+footer {
+    margin: 20px 0 20px 0;
+}
