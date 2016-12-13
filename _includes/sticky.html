@@ -4,9 +4,10 @@
 	</h4>
 	<div class="sticky-content">
 		<ul class="list-unstyled" id="sticky-content">
+			<li><a href="http://onequick.org" target="_blank">OneQuick - Windows快捷键工具</a></li>
 			{% for post in site.posts %}
 				{% if post.sticky == true %}
-					<li><a href="{{post.url}}">{{post.title}}</a></li>
+					<li><a class="pjax" href="{{post.url}}">{{post.title}}</a></li>
 				{% endif %}
 			{% endfor %}
         </ul>
@@ -14,6 +15,6 @@
 </div>
 <script>
 $(function() {
-	static_pjax(".sticky a", "#frame-main-content");
+	static_pjax(".sticky a.pjax", "#frame-main-content");
 })
 </script>

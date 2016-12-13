@@ -1,7 +1,7 @@
 # site
 title: JK的博客
 description: ^_^
-description-under: "<span style='color: rgba(255, 255, 255, 0.92); text-shadow: -1px 0 rgba(0, 0, 0, 0.26), 0 1px rgba(0, 0, 0, 0.26), 1px 0 rgba(0, 0, 0, 0.26), 0 -1px rgba(0, 0, 0, 0.26);'>本博新地址：<a href='http://xujinkai.net' style='color: rgba(255, 255, 255, 0.92);'>xujinkai.net</a></span>"
+description-under: "<span style='color: rgba(255, 255, 255, 0.92); text-shadow: -1px 0 rgba(0, 0, 0, 0.26), 0 1px rgba(0, 0, 0, 0.26), 1px 0 rgba(0, 0, 0, 0.26), 0 -1px rgba(0, 0, 0, 0.26);'>Windows快捷工具：<a href='http://onequick.org' style='color: rgba(255, 255, 255, 0.92);' target='_blank'>OneQuick.org</a></span>"
 url: http://xujinkai.net
 domain: xujinkai.net
 
@@ -18,13 +18,12 @@ owner:
     weibo: http://weibo.com/johnkale
     zhihu: https://www.zhihu.com/people/xxxjin
   links: [
-  ['test-blog', 'http://t.xujinkai.net'],
   ]
 # links
 links: [
-  ["biic-test", "http://140.114.27.242/~Eval/cn", "_blank"],
   ["GitHub", "https://github.com/XUJINKAI", "_blank"],
   ["潘学文博客", "http://www.panxw.com", "_blank"],
+  ["biic-test", "http://140.114.27.242/~Eval/cn", "_blank"],
 ]
 # Top navbar
 left_nav: [
@@ -73,3 +72,4 @@ analytics:
 gems:
  - jekyll-paginate
  - jekyll-sitemap
+ - jekyll-admin

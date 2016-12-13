@@ -15,6 +15,7 @@ body {
     /*Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
     /*padding-top: 70px;  */
     border-radius: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif !important;
 }
 
 /* 避免图片超出范围 */

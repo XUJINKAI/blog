@@ -1,9 +1,9 @@
-Jekyll博客模板
+Jekyll博客
 ==============================
 
 by XUJINKAI
 
-演示地址：http://xujinkai.github.io
+地址：http://xujinkai.net
 
 全站无刷新，  
 动态tags多选，  
