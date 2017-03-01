@@ -1,7 +1,7 @@
 # site
 title: JK的博客
 description: ^_^
-description-under: "<span style='color: rgba(255, 255, 255, 0.92); text-shadow: -1px 0 rgba(0, 0, 0, 0.26), 0 1px rgba(0, 0, 0, 0.26), 1px 0 rgba(0, 0, 0, 0.26), 0 -1px rgba(0, 0, 0, 0.26);'>Windows快捷工具：<a href='http://onequick.org' style='color: rgba(255, 255, 255, 0.92);' target='_blank'>OneQuick.org</a></span>"
+description-under: "<span style='color: rgba(255, 255, 255, 0.92); text-shadow: -1px 0 rgba(0, 0, 0, 0.26), 0 1px rgba(0, 0, 0, 0.26), 1px 0 rgba(0, 0, 0, 0.26), 0 -1px rgba(0, 0, 0, 0.26);'><a href='http://blog.xujinkai.net/' style='color: rgba(255, 255, 255, 0.92); text-decoration: underline;' target='_blank'>新博客blog.xujinkai.net</a>, <a href='http://onequick.org' style='color: rgba(255, 255, 255, 0.92); text-decoration: underline;' target='_blank'>Windows快捷工具OneQuick.org</a></span>"
 url: http://xujinkai.net
 domain: xujinkai.net
 
@@ -9,7 +9,7 @@ domain: xujinkai.net
 owner:
   name: XUJINKAI
   gavatar: /img/jk.png
-  email: jack777@xujinkai.net
+  email: 
   direct_print: 
   # http://fortawesome.github.io/Font-Awesome/3.2.1/icons/
   fonts-links:
