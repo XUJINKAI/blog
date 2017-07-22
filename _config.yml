@@ -1,40 +1,6 @@
-# site
-title: JK的博客
-description: ^_^
-description-under: "<span style='color: rgba(255, 255, 255, 0.92); text-shadow: -1px 0 rgba(0, 0, 0, 0.26), 0 1px rgba(0, 0, 0, 0.26), 1px 0 rgba(0, 0, 0, 0.26), 0 -1px rgba(0, 0, 0, 0.26);'><a href='http://blog.xujinkai.net/' style='color: rgba(255, 255, 255, 0.92); text-decoration: underline;' target='_blank'>新博客blog.xujinkai.net</a>, <a href='http://onequick.org' style='color: rgba(255, 255, 255, 0.92); text-decoration: underline;' target='_blank'>Windows快捷工具OneQuick.org</a></span>"
+title: XUJINKAI
+description: 
 url: http://xujinkai.net
-domain: xujinkai.net
-
-#owner
-owner:
-  name: XUJINKAI
-  gavatar: /img/jk.png
-  email: 
-  direct_print: 
-  # http://fortawesome.github.io/Font-Awesome/3.2.1/icons/
-  fonts-links:
-    github: https://github.com/XUJINKAI
-    tumblr: 
-    weibo: http://weibo.com/johnkale
-    zhihu: https://www.zhihu.com/people/xxxjin
-  links: [
-  ]
-# links
-links: [
-  ["GitHub", "https://github.com/XUJINKAI", "_blank"],
-  ["潘学文博客", "http://www.panxw.com", "_blank"],
-  ["biic-test", "http://140.114.27.242/~Eval/cn", "_blank"],
-]
-# Top navbar
-left_nav: [
-]
-right_nav: [
-  ["HOME", "/"],
-  ["POSTS", "/posts/"],
-  ["ABOUT","/about"],
-  # ["NOTE", "http://xujinkai.tumblr.com"],
-  # ["FORK", "https://github.com/XUJINKAI/XUJINKAI.github.io"]
-]
 
 # Conversion
 markdown: kramdown
@@ -47,29 +13,3 @@ exclude: ["*.lnk", "*.bat"]
 # or post would missing after upload
 permalink: /posts/:title
 timezone: Europe/Amsterdam
-paginate_path: "page/:num"
-paginate: 5
-recent_limit: 7
-show_rss: true
-
-# comment
-# serve: disqus, duoshuo
-comment:
-  serve: disqus
-  disqus:
-    id: xujinkai
-  duoshuo:
-    id: xujinkai
-
-# analytics
-# serve: ga(google), 
-analytics:
-  serve: ga
-  ga:
-    id: UA-52509591-2
-
-# blugs
-gems:
- - jekyll-paginate
- - jekyll-sitemap
- - jekyll-admin

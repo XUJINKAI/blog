@@ -6,11 +6,10 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=2,user-scalable=no"/>
 		<link rel="shortcut icon" type="image/x-ico" href="/favicon.ico"/>
 		<meta name="author" content="{{site.owner.name}}" />
-		<title>{% if page.title == "HOME" %} {{site.description}} - {{ site.title }} {%else%}
-		{{page.title}} - {{ site.title }} {%endif%}</title>
+		<title>POSTS</title>
 		<!-- pace (progress bar) -->
-		<script src="/js/pace.min.js"></script>
- 		<link href="/css/pace.theme.Minimal.css" rel="stylesheet" />
+		<!-- <script src="/js/pace.min.js"></script> -->
+ 		<!-- <link href="/css/pace.theme.Minimal.css" rel="stylesheet" /> -->
 		<!-- jQuery -->
 		<script src="/js/jquery-1.12.2.min.js"> </script>
 		<!-- Bootstrap -->
@@ -21,179 +20,28 @@
 		<!-- Promise polyfill -->
 		<script src="/js/promise.min.js"></script>
 		<!-- Custom -->
-		<link href="/css/blog.css" rel="stylesheet"/>
-		<script src="/js/blog.js"></script>
-		<script src="/js/blog-animate.js"></script>
+		<!-- <link href="/css/blog.css" rel="stylesheet"/> -->
+		<!-- <script src="/js/blog.js"></script> -->
+		<!-- <script src="/js/blog-animate.js"></script> -->
 	</head>
 	
 	<body>
-		<!-- Navigation -->
-		<nav class="navbar" role="navigation" id="navbar">
-			<div class="">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-content" style="padding-top: 3px;">
-						<span class="sr-only">Toggle navigation</span>
-						<img src="/favicon.ico" alt="MENU" style="max-height: 20px;">
-					</button>
-					<a href="/" class="navbar-brand" id="navbar-brand">{{site.title}}</a>
-				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="navbar-content">
-					<ul class="nav navbar-nav" id="navbar-content-left">
-						{% for nav in site.left_nav %}
-							<li>
-								<a href="{{nav[1]}}" target="{{nav[2]}}">
-								{{nav[0]}}
-								</a>
-							</li>
-						{% endfor %}
-					</ul>
-					<ul class="nav navbar-nav navbar-right" id="navbar-content-right">
-						{% for nav in site.right_nav %}
-							<li>
-								<a href="{{nav[1]}}" target="{{nav[2]}}">
-								{{nav[0]}}
-								</a>
-							</li>
-						{% endfor %}
-					</ul> 
-				</div>
-				<!-- /.navbar-collapse -->
-			</div>
-			<!-- /.container -->
-		</nav>
-	<div class="header-outer" id="header">
-		<div class="header-inner">
-			<a class="header-logo" href="/" id="header-title">{{site.title}}</a>
-			<div style="position: relative; height: 100%; width: 100%;">
-				<div class="header-side">
-					<div class="header-desc" id="header-desc">{{site.description-under}}</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Page Content -->
 	<div class="main-content container" id="frame-main-content">
+		<nav class="navbar" role="navigation" id="navbar">
+			<div id="navbar-content">
+				<ul class="nav navbar-nav" id="navbar-content-left">
+					<li><a href="/">Back</a>
+					<li><a href="/posts/">博文列表</a>
+					<li><a href="/atom.xml">rss</a>
+				</ul>
+			</div>
+		</nav>
 		<div class="row" style="margin: auto;">
 			{{ content }}
 		</div>
-		<!-- Footer -->
-		<footer>
-			<div class="row">
-				{% include footer.html %} 
-			</div>
-			<!-- /.row -->
-		</footer>
 	</div>
-	<script>
-	// loading plugins (if have)
-	// 第一次会自动更新, 只在pushState以后使用
-	var _reload_plugins = function() {
-		{% if site.analytics.serve == "ga" %}
-		// google analytics
-		ga('set', 'page', window.location.pathname);
-		ga('send', 'pageview');
-		{% endif %}
-		{% if site.comment.serve == "duoshuo" %}
-		// 多说
-		DUOSHUO.EmbedThread($('.ds-thread'));
-		{% endif %}
-		{% if site.comment.serve == "disqus" %}
-		DISQUS.reset({reload:true});
-		{% endif %}
-	}
-	var _load_debug = function(){
-		if(DEBUG) {
-			// 将DEBUG由false改为true以后，页面还没有加载debugJS
-			if(typeof(_debug)=="undefined") {
-				$.getScript('/js/blog-debug.js');
-			} else {
-				_debug();
-			}
-		}
-	}
-	$(function(){
-		_load_debug();
-		// 无刷新
-		static_pjax("nav a", "#frame-main-content");
-		//全局动画效果
-		static_pjax.global_bind({
-			before: function(){
-				return new Promise(function(resolve, reject){
-					log('[static_pjax] global before');
-					nav.go_top(true);
-					nav.header_height_auto();
-					nav.header_inner_auto();
-					Promise.all([
-						nav.main_out(),
-						])
-						.then(function(){
-							// 不return，不用等
-							nav.navbar_brand_auto();
-							return;
-						})
-						.then(resolve)
-						.catch(error);
-			})},
-			after: function(){
-				return new Promise(function(resolve, reject) {
-					log('[static_pjax] global after');
-					nav.main_in()
-					.then(_reload_plugins)
-					.then(_load_debug)
-					.then(resolve)
-					.catch(error);
-			})}
-		});
-		$(window).on("popstate", function (event) {
-			info('--------------- window: popstate ---------------');
-			Pace.restart();
-			// 这个函数同样会调用static_pjax.global_bind {before, after}
-			static_pjax.on_url_change(window.location.href, '#frame-main-content');
-		});
-		// navbar auto hide & show when scroll
-		scroll_listener.bind({
-			scroll_up: function(scrollpos){
-				nav.collapse();
-				nav.on_scroll(false);
-			},
-			scroll_down: function(scrollpos){
-				nav.collapse();
-				nav.on_scroll(true);
-			}
-		});
-		// auto collapse navbar
-		document.addEventListener("click", function(evnt){
-		    nav.collapse();
-		});
-		// click navbar blank to scroll top
-		var do_not_scroll_top = false;
-		$('.navbar').click(function(event){
-			if(do_not_scroll_top) {do_not_scroll_top = false; return;}
-			do_not_scroll_top = false;
-			nav.go_top();
-		});
-		$('.navbar-toggle').click(function(event){
-			do_not_scroll_top = true;
-		});
-		$('.navbar a').click(function(event){
-			do_not_scroll_top = true;
-		});
-	});
-	</script>
-	<!-- /.container -->
-	<!-- analytics -->
-	{% include analytics.html %}
-	<!-- DUOSHUO -->
-	{% if site.comment.serve == "duoshuo" %}
-	<script>duoshuoQuery = {short_name:"{{site.comment.duoshuo.id}}"};</script>
-	<script src="http://static.duoshuo.com/embed.js"></script>
-	{% endif %}
-	<!-- disqus -->
-	{% if site.comment.serve == "disqus" %}
-	<script src="http://{{site.comment.disqus.id}}.disqus.com/embed.js"></script>
-	{% endif %}
+
+{% include analytics.html %}
 </body>
 
 </html>
