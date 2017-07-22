@@ -38,7 +38,7 @@ title: XUJINKAI
 
 ## _Contact_
 
-Email: contact(at)xujinkai.net
+Email: i(at)xujinkai.net
 
 
 ## _Project_
@@ -53,7 +53,8 @@ Email: contact(at)xujinkai.net
 
 <div class="footer">
 <a href="/donate">Donate捐赠</a>. 
-<a href="/posts">过往博文</a>.
+<a href="/posts">过往博文</a>. 
+<a href="https://github.com/XUJINKAI/XUJINKAI.github.io/issues">留言板</a>. 
 
 <div style="height: 6px;"></div>
 <small style="color: gray;">© 2016 - 2017, <a href="https://github.com/XUJINKAI/XUJINKAI.github.io" style="text-decoration: none; color: gray;">XUJINKAI.NET</a></small>
