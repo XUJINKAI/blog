@@ -8,6 +8,7 @@ layout: null
   <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=2,user-scalable=no"/>
   <link rel="shortcut icon" type="image/x-ico" href="/favicon.ico"/>
+  <meta name="author" content="{{site.author}}" />
   <title>{{ page.title }}</title>
   <!-- jQuery -->
   <!-- <script src="/js/jquery-1.12.2.min.js"> </script> -->
@@ -20,43 +21,13 @@ layout: null
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Hiragino Sans GB", "Heiti SC", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
 }
-a, a:visited {
-  text-decoration: none;
-  color: black;
-}
-h2 {
-  color: gray;
-  font-size: x-large;
-}
-hr {
-  border-style: solid;
-  border-color: gray;
-  border-width: thin;
-}
-.grid {
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -o-flex;
-  display: -ms-flex;
-  display: flex;
-}
-.col {
-  flex: 1;
-}
-.icon-span {
-  height: 10px;
-}
-.footer a {
-  color: #2e0000;
-  text-decoration: underline;
-}
 </style>
 </head>
   
 <body>
 
 <div align="center">
-<div style="max-width: 500px;" align="left">
+<div class="index-content" align="left">
 {{ content }}
 </div>
 </div>
