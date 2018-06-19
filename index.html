@@ -17,79 +17,78 @@ a:hover {
   max-height: 100px;
 }
 .section {
-  color: rgba(128, 128, 128, 0.85);
+  color: rgba(128, 128, 128, 0.63);
   font-style: italic;
-  font-size: x-large;
+  font-size: 1.8em;
   margin-top: 20px;
   margin-bottom: 12px;
+  margin-left: .2em;
 }
 hr {
-  border-style: solid;
-  border-color: gray;
-  border-width: thin;
+	width: 300px;
+	margin-left: 0;
+	margin-top: 20px;
+	border-style: solid;
+	border-color: #8080803d;
+	border-width: thin;
 }
-.grid {
-  display: -webkit-flex;
-  display: -moz-flex;
-  display: -o-flex;
-  display: -ms-flex;
-  display: flex;
-}
-.icon-div {
-	font-size: 14px;
-}
-.icon-span {
-  height: 8px;
+.links {
+  font-size: 1.1em;
 }
 .project {
-  margin-bottom: 15px;
+  margin-top: .5em;
+  margin-bottom: 1.5em;
 }
 .project .project-title {
-  font-size: large;
+  font-size: 1.4em;
   color: #005298;
 }
 .project .project-desc {
 	color: #545454;
-  font-size: small;
+  font-size: 1em;
   margin-top: 5px;
 }
 .footer a {
+	font-size: .9em;
   color: rgba(0, 93, 174, 0.95);
 }
 </style>
 
 <h1><a href="/">{{site.title}}</a></h1>
 <img class="avatar" src="/img/jk.png">
-<div class="icon-span"></div>
 
-<div class="icon-div">
+<div class="section">Network</div>
 
-<a href="http://blog.xujinkai.net" target="_blank">自建博客: blog.xujinkai.net</a>
-<div class="icon-span"></div>
+<div class="links">
+<p>
+<a href="https://gitbook.xujinkai.net" target="_blank">博客随笔: gitbook.xujinkai.net</a>
+</p>
 
-<a href="https://github.com/XUJINKAI" target="_blank"><i class="fa fa-github" style="color: #24292e;"></i> XUJINKAI</a>
-<div class="icon-span"></div>
+<p>
+<a href="https://github.com/XUJINKAI" target="_blank"><i class="fa fa-github" style="color: #24292e;"></i> GitHub (XUJINKAI)</a>
+</p>
 
-<a href="http://weibo.com/johnkale" target="_blank"><i class="fa fa-weibo" style="color: #e6162d;"></i> 从余JK</a>
+<div class="section">Social</div>
 
-<a href="https://www.zhihu.com/people/xxxjin" target="_blank"><i class="fa" style="font-weight: bolder; color: #0f88eb;">知</i> 许晋</a>
+<p>
+<a href="https://www.zhihu.com/people/xxxjin" target="_blank"><i class="fa" style="font-weight: bolder; color: #0f88eb;">知</i> 知乎 (许晋)</a>
+</p>
 
-<div class="icon-span"></div>
-
-<a href="https://t.me/xujinkai" target="_blank"><i class="fa fa-telegram" style="color: #32afed;"></i> xujinkai</a>
-
-<a href="https://twitter.com/jinkaixu" target="_blank"><i class="fa fa-twitter" style="color: #1da1f2;"></i> xujinkai</a>
-
+<p>
+<a href="http://weibo.com/johnkale" target="_blank"><i class="fa fa-weibo" style="color: #e6162d;"></i> 微博 (从余JK)</a>
+</p>
 </div>
-<!-- //icon-div -->
+
+<hr>
 
 <div class="section">Project</div>
 
 <div class="project">
-<a class="project-title" href="http://onequick.org/" target="_blank">OneQuick<span style="font-size: 11px; color: gray;">.org</span></a>
+<a class="project-title" href="http://onequick.org/" target="_blank">OneQuick<span style="font-size: .5em; color: gray;">.org</span></a>
 <div class="project-desc">
-Windows辅助操作，简洁、高效、优雅。<br>
-短语替换，屏幕边缘操作，热键自定义，窗口操作（置顶、半透明）等。<br>
+Windows热键辅助工具，简化操作，提高效率。<br>
+屏幕边缘操作，热键自定义，窗口操作（置顶、半透明）等。<br>
+强烈推荐，已上架微软应用商店👍
 </div>
 </div>
 
@@ -100,14 +99,29 @@ Windows辅助操作，简洁、高效、优雅。<br>
 </div>
 </div>
 
+<div class="project">
+<a class="project-title" href="https://github.com/XUJINKAI/XJKdotNetLibrary" target="_blank">XJK.Net 库</a>
+<div class="project-desc">
+自用整理，常见的实践及扩展。<br>
+主要是.net standard项目，这样WPF和UWP项目都可导入。
+</div>
+</div>
 
-<hr style="width: 300px; margin-left: 0; margin-top: 20px;">
+<div class="project">
+<a class="project-title" href="https://github.com/XUJINKAI/DuoBlog" target="_blank">DuoBlog (博客系统)</a>
+<div class="project-desc">
+支持多域名，统一的后台管理。<br>
+已弃坑😔
+</div>
+</div>
+
+
+<hr>
 
 <div class="footer">
 <a href="/donate">Donate捐赠</a>. 
-<a href="/posts">过往博文</a>. 
-<a href="https://github.com/XUJINKAI/XUJINKAI.github.io/issues">留言板</a>. 
+<a href="/posts">过往博文</a>
 
 <div style="height: 6px;"></div>
-<small style="color: gray;">© 2016 - 2017, <a href="https://github.com/XUJINKAI/XUJINKAI.github.io" style="color: gray;">XUJINKAI.NET</a></small>
+<small style="color: gray;">© 2016 - 2018, <a href="https://github.com/XUJINKAI/XUJINKAI.github.io" style="color: gray;">XUJINKAI.NET</a></small>
 </div>
