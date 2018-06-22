@@ -1,0 +1,35 @@
+backend:
+  name: github
+  repo: xujinkai/xujinkai.github.io
+  branch: master # Branch to update (master by default)
+
+media_folder: "uploads" # Folder where user uploaded files should go
+
+collections: # A list of collections the CMS should be able to edit
+  - name: "post" # Used in routes, ie.: /admin/collections/:slug/edit
+    label: "Post" # Used in the UI, ie.: "New Post"
+    folder: "_posts" # The path to the folder where the documents are stored
+    sort: "date:desc" # Default is title:asc
+    create: true # Allow users to create new documents in this collection
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields: # The fields each document in this collection have
+      - {label: "Title", name: "title", widget: "string", tagname: "h1"}
+      - {label: "Tags", name: "tags", widget: "string", required: false}
+      - {label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD hh:mm:ss"}
+      - {label: "Layout", name: "layout", widget: "hidden", options: ["post"], default: "post"}
+      - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Published", name: "published", widget: "boolean", default: "true"}
+      - {label: "Comment", name: "comment", widget: "boolean", default: "true"}
+      - {label: "Permalink", name: "permalink", widget: "string", default: ""}
+    meta: # Meta data fields. Just like fields, but without any preview element
+  - name: "pages"
+    label: "Pages"
+    folder: "/"
+    sort: "title:asc"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Layout", name: "layout", widget: "select", options: ["null", "index", "frame", "post"], default: "post"}
+      - {label: "Sitemap", name: "sitemap", widget: "boolean", default: "true"}
+      - {label: "Body", name: "body", widget: "markdown"}
