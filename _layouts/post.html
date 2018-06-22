@@ -38,4 +38,8 @@ Tags: {% for tag in page.tags %}{% if tag != "" %}
 {{ content }}
 </div>
 
+{%if page.comment %}
+{% include comments.html %}
+{% endif %}
+
 </div>

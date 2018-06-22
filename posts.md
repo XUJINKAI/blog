@@ -1,7 +1,7 @@
 ---
 layout: frame
 permalink: /posts/
-title: POSTS
+title: 博文列表
 ---
 <style type="text/css">
 	.sticky h4 {
@@ -15,6 +15,9 @@ title: POSTS
 	#posts-archive-list li {
 		font-size: 18px;
 	}
+	#posts-archive-list li .disqus-comment-count{
+		font-size: .8em;
+	}
 	.posts-content {
 		line-height: 1.9;
 	}
@@ -27,7 +30,13 @@ title: POSTS
 		{% if year != nyear %}
 	    	<h2>{{ post.date | date: '%Y' }}</h2>
 	    {% endif %}
-    	<li><span>{{ post.date | date:"%Y-%m-%d" }}</span>&nbsp;&raquo;&nbsp;<a href="{{ post.url }}">{{ post.title }}</a></li>
+    	<li>
+    		<span>{{ post.date | date:"%Y-%m-%d" }}</span>
+    		<span>&nbsp;&raquo;&nbsp;</span>
+    		<a href="{{ post.url }}">{{ post.title }}</a>
+    		<span class="disqus-comment-count" data-disqus-identifier="{{post.url}}"></span>
+    	</li>
 	{% endfor %} 
 </ul>
 </div>
+<script id="dsq-count-scr" src="//xujinkai.disqus.com/count.js" async></script>

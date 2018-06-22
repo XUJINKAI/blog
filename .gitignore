@@ -2,7 +2,4 @@ _site
 _drafts
 *.jekyll-metadata
 *.lnk
-*.bat
-!create_new_post.bat
-test.html
 *.ignore.html

@@ -7,10 +7,14 @@ domain: https://xujinkai.net
 markdown: kramdown
 highlighter: rouge
 excerpt_separator: <!--more-->
-exclude: ["*.lnk", "*.bat"]
+exclude: ["*.lnk", "*.bat", "README.md"]
 
 # Outputting
 # DO NOT use date as url AND change timezone,
 # or post would missing after upload
 permalink: /posts/:title
 timezone: Europe/Amsterdam
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+  

@@ -18,7 +18,6 @@ collections: # A list of collections the CMS should be able to edit
       - {label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD hh:mm:ss"}
       - {label: "Layout", name: "layout", widget: "hidden", options: ["post"], default: "post"}
       - {label: "Body", name: "body", widget: "markdown"}
-      - {label: "Published", name: "published", widget: "boolean", default: "true"}
       - {label: "Comment", name: "comment", widget: "boolean", default: "true"}
       - {label: "Permalink", name: "permalink", widget: "string", default: ""}
     meta: # Meta data fields. Just like fields, but without any preview element

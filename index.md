@@ -44,8 +44,21 @@ hr {
   color: #005298;
 }
 .project .project-desc {
-	color: #545454;
+  color: #545454;
   font-size: 1em;
+  margin-top: 5px;
+}
+.project-others {
+  margin-top: .5em;
+  margin-bottom: .8em;
+}
+.project-others .project-title {
+  font-size: 1em;
+  color: #005298;
+}
+.project-others .project-desc {
+  color: #545454;
+  font-size: .8em;
   margin-top: 5px;
 }
 .footer a {
@@ -61,10 +74,9 @@ hr {
 
 <div class="links">
 <p>
-	<span>✏</span>
-	<a href="/posts">博客随笔</a>
+	<a href="/posts"><span>📝</span>博客随笔</a>
 	<span style="margin-right: .5em;">, </span>
-	<a href="https://wiki.xujinkai.net" target="_blank">Wiki</a>
+	<a href="https://wiki.xujinkai.net" target="_blank"><span>📖</span>Wiki</a>
 </p>
 
 <p>
@@ -111,18 +123,19 @@ Windows热键辅助工具，简化操作，提高效率。<br>
 </div>
 </div>
 
-<div class="project">
+<hr>
+
+<div class="project-others">
 <a class="project-title" href="https://hub.docker.com/r/xujinkai/aria2-with-webui/" target="_blank">Aria2-with-webui (docker)</a>
 <div class="project-desc">
 下载神器，集成界面，一行命令安装。
 </div>
 </div>
 
-<div class="project">
+<div class="project-others">
 <a class="project-title" href="https://github.com/XUJINKAI/DuoBlog" target="_blank">DuoBlog (博客系统)</a>
 <div class="project-desc">
-支持多域名，统一的后台管理。<br>
-【已弃坑】
+【已弃坑】 Django + Vue. 支持多域名，统一的后台管理。
 </div>
 </div>
 
@@ -131,7 +144,8 @@ Windows热键辅助工具，简化操作，提高效率。<br>
 
 <div class="footer">
 <a href="/donate">Donate捐赠</a>. 
-<a href="/admin">管理</a>
+<a href="/feed.xml">RSS</a>.
+<a href="/sitemap.xml">Sitemap</a>
 
 <div style="height: 6px;"></div>
 <small style="color: gray;">© 2016 - 2018, <a href="https://github.com/XUJINKAI/XUJINKAI.github.io" target="_blank" style="color: gray;">XUJINKAI.NET</a></small>
