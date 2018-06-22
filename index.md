@@ -61,21 +61,24 @@ hr {
 
 <div class="links">
 <p>
-<a href="https://gitbook.xujinkai.net" target="_blank">博客随笔: gitbook.xujinkai.net</a>
+	<span>✏</span>
+	<a href="/posts">博客随笔</a>
+	<span style="margin-right: .5em;">, </span>
+	<a href="https://wiki.xujinkai.net" target="_blank">Wiki</a>
 </p>
 
 <p>
-<a href="https://github.com/XUJINKAI" target="_blank"><i class="fa fa-github" style="color: #24292e;"></i> GitHub (XUJINKAI)</a>
+<a href="https://github.com/XUJINKAI" target="_blank">GitHub (XUJINKAI)</a>
 </p>
 
 <div class="section">Social</div>
 
 <p>
-<a href="https://www.zhihu.com/people/xxxjin" target="_blank"><i class="fa" style="font-weight: bolder; color: #0f88eb;">知</i> 知乎 (许晋)</a>
+<a href="https://www.zhihu.com/people/xxxjin" target="_blank">知乎 (许晋)</a>
 </p>
 
 <p>
-<a href="http://weibo.com/johnkale" target="_blank"><i class="fa fa-weibo" style="color: #e6162d;"></i> 微博 (从余JK)</a>
+<a href="http://weibo.com/johnkale" target="_blank">微博 (从余JK)</a>
 </p>
 </div>
 
@@ -128,8 +131,8 @@ Windows热键辅助工具，简化操作，提高效率。<br>
 
 <div class="footer">
 <a href="/donate">Donate捐赠</a>. 
-<a href="/posts">过往博文</a>
+<a href="/admin">管理</a>
 
 <div style="height: 6px;"></div>
-<small style="color: gray;">© 2016 - 2018, <a href="https://github.com/XUJINKAI/XUJINKAI.github.io" style="color: gray;">XUJINKAI.NET</a></small>
+<small style="color: gray;">© 2016 - 2018, <a href="https://github.com/XUJINKAI/XUJINKAI.github.io" target="_blank" style="color: gray;">XUJINKAI.NET</a></small>
 </div>
