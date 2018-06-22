@@ -5,9 +5,9 @@ backend:
 
 # display_url: 
 media_folder: "uploads" # Folder where user uploaded files should go
-slug:
-  encoding: "ascii"
-  clean_accents: true
+# slug:
+#   encoding: "ascii"
+#   clean_accents: true
 
 collections: # A list of collections the CMS should be able to edit
   - name: "post" # Used in routes, ie.: /admin/collections/:slug/edit
@@ -32,7 +32,7 @@ collections: # A list of collections the CMS should be able to edit
     create: true
     slug: "{{slug}}"
     fields:
-      - {label: "Permalink", name: "permalink", widget: "string", default: "/pages/new", required: false}
+      - {label: "Permalink", name: "permalink", widget: "string", default: "/pages/new", required: true}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Sitemap", name: "sitemap", widget: "boolean", default: true}
@@ -45,7 +45,7 @@ collections: # A list of collections the CMS should be able to edit
     create: true
     slug: "{{slug}}"
     fields:
-      - {label: "Permalink", name: "permalink", widget: "string", default: "/new", required: false}
+      - {label: "Permalink", name: "permalink", widget: "string", default: "/new", required: true}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Sitemap", name: "sitemap", widget: "boolean", default: true}
