@@ -33,8 +33,10 @@ title: 博文列表
     	<li>
     		<span>{{ post.date | date:"%Y-%m-%d" }}</span>
     		<span>&nbsp;&raquo;&nbsp;</span>
-    		<a href="{{ post.url }}">{{ post.title }}</a>
-    		<span class="disqus-comment-count" data-disqus-identifier="{{post.url}}"></span>
+    		<a href="{{ post.url }}">
+    			<span>{{ post.title }}</span>
+    			<span class="disqus-comment-count" data-disqus-identifier="{{post.url}}"></span>
+    		</a>
     	</li>
 	{% endfor %} 
 </ul>
