@@ -3,7 +3,7 @@ backend:
   repo: xujinkai/xujinkai.github.io
   branch: master # Branch to update (master by default)
 
-#display_url: https://xujinkai.net
+# display_url: 
 media_folder: "uploads" # Folder where user uploaded files should go
 
 collections: # A list of collections the CMS should be able to edit
@@ -20,7 +20,7 @@ collections: # A list of collections the CMS should be able to edit
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Comment", name: "comment", widget: "boolean", default: true}
       - {label: "Layout", name: "layout", widget: "select", options: ["null", "index", "frame", "post"], default: "post"}
-      - {label: "Permalink", name: "permalink", widget: "string", default: ""}
+      - {label: "Permalink", name: "permalink", widget: "string", default: "", required: false}
     meta: # Meta data fields. Just like fields, but without any preview element
   - name: "pages"
     label: "Pages"
@@ -34,7 +34,7 @@ collections: # A list of collections the CMS should be able to edit
       - {label: "Sitemap", name: "sitemap", widget: "boolean", default: true}
       - {label: "Comment", name: "comment", widget: "boolean", default: true}
       - {label: "Layout", name: "layout", widget: "select", options: ["null", "index", "frame", "post"], default: "index"}
-      - {label: "Permalink", name: "permalink", widget: "string", default: ""}
+      - {label: "Permalink", name: "permalink", widget: "string", default: "", required: false}
   - name: "sites"
     label: "Root Page"
     folder: "/"
@@ -47,4 +47,4 @@ collections: # A list of collections the CMS should be able to edit
       - {label: "Sitemap", name: "sitemap", widget: "boolean", default: true}
       - {label: "Comment", name: "comment", widget: "boolean", default: false}
       - {label: "Layout", name: "layout", widget: "select", options: ["null", "index", "frame", "post"], default: "index"}
-      - {label: "Permalink", name: "permalink", widget: "string", default: ""}
+      - {label: "Permalink", name: "permalink", widget: "string", default: "", required: false}
