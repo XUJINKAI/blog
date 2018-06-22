@@ -26,6 +26,11 @@ body {
 <div align="center">
 <div class="index-content" align="left">
 {{ content }}
+
+{%if page.comment %}
+{% include comments.html %}
+{% endif %}
+
 </div>
 </div>
 

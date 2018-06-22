@@ -1,7 +1,11 @@
 --- 
 layout: frame
 --- 
-<div class="container" style="max-width: 768px; margin-left: auto; margin-right: auto;" id="post-container">
+<style>
+#frame-content {
+  max-width: 768px;
+}
+</style>
 
 <!-- next and previous -->
 <ul class="pager" id="post-pager">
@@ -36,10 +40,4 @@ Tags: {% for tag in page.tags %}{% if tag != "" %}
 </div>
 <div style="padding-top: 20px; padding-bottom: 50px;">
 {{ content }}
-</div>
-
-{%if page.comment %}
-{% include comments.html %}
-{% endif %}
-
 </div>

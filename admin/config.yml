@@ -30,8 +30,9 @@ collections: # A list of collections the CMS should be able to edit
     slug: "{{slug}}"
     fields:
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Sitemap", name: "sitemap", widget: "boolean", default: true}
       - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Sitemap", name: "sitemap", widget: "boolean", default: true}
+      - {label: "Comment", name: "comment", widget: "boolean", default: true}
       - {label: "Layout", name: "layout", widget: "select", options: ["null", "index", "frame", "post"], default: "index"}
       - {label: "Permalink", name: "permalink", widget: "string", default: ""}
   - name: "sites"
@@ -42,7 +43,8 @@ collections: # A list of collections the CMS should be able to edit
     slug: "{{slug}}"
     fields:
       - {label: "Title", name: "title", widget: "string"}
-      - {label: "Sitemap", name: "sitemap", widget: "boolean", default: true}
       - {label: "Body", name: "body", widget: "markdown"}
+      - {label: "Sitemap", name: "sitemap", widget: "boolean", default: true}
+      - {label: "Comment", name: "comment", widget: "boolean", default: false}
       - {label: "Layout", name: "layout", widget: "select", options: ["null", "index", "frame", "post"], default: "index"}
       - {label: "Permalink", name: "permalink", widget: "string", default: ""}

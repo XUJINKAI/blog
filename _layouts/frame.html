@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=2,user-scalable=no"/>
 		<link rel="shortcut icon" type="image/x-ico" href="/favicon.ico"/>
 		<meta name="author" content="{{site.author}}" />
-		<title>POSTS</title>
+		<title>{{page.title}} - XUJINKAI</title>
 		<!-- pace (progress bar) -->
 		<!-- <script src="/js/pace.min.js"></script> -->
  		<!-- <link href="/css/pace.theme.Minimal.css" rel="stylesheet" /> -->
@@ -32,12 +32,18 @@
 				<ul class="nav navbar-nav" id="navbar-content-left">
 					<li><a href="/">主页</a>
 					<li><a href="/posts/">博文列表</a>
+					<li><a href="/tags">Tags</a>
 					<li><a href="/admin">管理</a>
 				</ul>
 			</div>
 		</nav>
-		<div class="row" style="margin: auto;">
+		<div id="frame-content" class="row" style="margin: auto;">
 			{{ content }}
+
+{%if page.comment %}
+{% include comments.html %}
+{% endif %}
+
 		</div>
 	</div>
 
