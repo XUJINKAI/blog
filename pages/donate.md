@@ -1,7 +1,9 @@
 ---
+permalink: /donate
 layout: index
 title: DONATE 捐赠
 sitemap: false
+comment: false
 ---
 <!-- jQuery -->
 <script src="/js/jquery-1.12.2.min.js"> </script>

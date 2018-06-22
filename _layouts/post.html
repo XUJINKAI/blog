@@ -2,6 +2,9 @@
 layout: frame
 --- 
 <style>
+.post-content{
+  font-size: 1.2em;
+}
 #frame-content {
   max-width: 768px;
 }
@@ -38,6 +41,6 @@ Tags: {% for tag in page.tags %}{% if tag != "" %}
 <div class="post-date" style="padding: 15px 0 0 0px; color: gray;">
 	{{ page.date | date:"%Y-%m-%d" }}
 </div>
-<div style="padding-top: 20px; padding-bottom: 50px;">
+<div class="post-content markdown-body" style="padding-top: 20px; padding-bottom: 50px;">
 {{ content }}
 </div>

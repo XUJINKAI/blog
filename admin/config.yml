@@ -5,6 +5,9 @@ backend:
 
 # display_url: 
 media_folder: "uploads" # Folder where user uploaded files should go
+slug:
+  encoding: "ascii"
+  clean_accents: true
 
 collections: # A list of collections the CMS should be able to edit
   - name: "post" # Used in routes, ie.: /admin/collections/:slug/edit
@@ -14,13 +17,13 @@ collections: # A list of collections the CMS should be able to edit
     create: true # Allow users to create new documents in this collection
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields: # The fields each document in this collection have
+      - {label: "Permalink", name: "permalink", widget: "string", default: "/posts/new", required: true}
       - {label: "Title", name: "title", widget: "string", tagname: "h1"}
       - {label: "Tags", name: "tags", widget: "string", required: false}
-      - {label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DD hh:mm:ss"}
+      - {label: "Publish Date", name: "date", widget: "datetime", format: "YYYY-MM-DDTHH:mm:ssZ"}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Comment", name: "comment", widget: "boolean", default: true}
       - {label: "Layout", name: "layout", widget: "select", options: ["null", "index", "frame", "post"], default: "post"}
-      - {label: "Permalink", name: "permalink", widget: "string", default: "", required: false}
     meta: # Meta data fields. Just like fields, but without any preview element
   - name: "pages"
     label: "Pages"
@@ -29,12 +32,12 @@ collections: # A list of collections the CMS should be able to edit
     create: true
     slug: "{{slug}}"
     fields:
+      - {label: "Permalink", name: "permalink", widget: "string", default: "/pages/new", required: false}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Sitemap", name: "sitemap", widget: "boolean", default: true}
       - {label: "Comment", name: "comment", widget: "boolean", default: true}
       - {label: "Layout", name: "layout", widget: "select", options: ["null", "index", "frame", "post"], default: "index"}
-      - {label: "Permalink", name: "permalink", widget: "string", default: "", required: false}
   - name: "sites"
     label: "Root Page"
     folder: "/"
@@ -42,9 +45,9 @@ collections: # A list of collections the CMS should be able to edit
     create: true
     slug: "{{slug}}"
     fields:
+      - {label: "Permalink", name: "permalink", widget: "string", default: "/new", required: false}
       - {label: "Title", name: "title", widget: "string"}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Sitemap", name: "sitemap", widget: "boolean", default: true}
       - {label: "Comment", name: "comment", widget: "boolean", default: false}
       - {label: "Layout", name: "layout", widget: "select", options: ["null", "index", "frame", "post"], default: "index"}
-      - {label: "Permalink", name: "permalink", widget: "string", default: "", required: false}
