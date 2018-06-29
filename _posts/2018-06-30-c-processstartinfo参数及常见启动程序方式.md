@@ -33,7 +33,7 @@ layout: post
 
 UseShellExecute = true 时此值无效，为正常方式启动。
 
-UseShellExecute = false；CreateNoWindow = false 时，
+UseShellExecute = false；CreateNoWindow = true 时，控制台窗口不会显示。这种方式下无法通过窗口关闭程序，所以运行的程序最好是可以自己运行完关闭的，不然需要到任务管理器中关闭。
 
 ## Verb
 
