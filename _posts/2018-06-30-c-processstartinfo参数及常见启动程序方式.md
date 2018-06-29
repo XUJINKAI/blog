@@ -86,12 +86,12 @@ PATH为目录时 `ProcessStartInfo.Arguments = PATH;`即可。
 
 ```C#
 ProcessInfoChain.New(Command, Args)
-			  .SetWindow(WindowType.Maximized)
-			  .LaunchBy(LaunchType.CmdStart)
-			  .RunAs(Privilege.Admin)
-			  .Excute()
-			  .Catch(ex=>{throw ex;})
-			  .Finally(result=>{ // });
+                .SetWindow(WindowType.Maximized)
+                .LaunchBy(LaunchType.CmdStart)
+                .RunAs(Privilege.Admin)
+                .Excute()
+                .Catch(ex=>{throw ex;})
+                .Finally(result=>{ // });
 ```
 
 此外还有一个更简单的包装：
