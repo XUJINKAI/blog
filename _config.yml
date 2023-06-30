@@ -1,0 +1,58 @@
+title: JKxz
+author: XUJINKAI
+description: 努力写点儿有用的❤️
+footer_desc: >-
+  <br>
+  © 2016-2023 XUJINKAI.NET <br>
+  Powered by <a href="https://github.com/XUJINKAI/blog">XUJINKAI blog</a>
+
+url: https://xujinkai.net
+baseurl: 
+disqus: xujinkai
+ga4: G-4Q0MVTQ7HL
+
+defaults:
+  - scope:
+      path: "_posts"
+      type: "posts"
+    values:
+      layout: "post"
+      excerpt: ""
+      comments: true
+      toc: true
+  - scope:
+      path: "pages"
+      type: "pages"
+    values:
+      layout: "page"
+      comments: false
+
+show_excerpts: false
+locale: zh-Hans
+date_format: "%Y-%m-%d"
+timezone: Asia/Shanghai
+# timezone: Europe/Amsterdam
+permalink: /posts/:title
+plugins:
+  - jekyll-seo-tag
+  - jekyll-toc
+  - jekyll-feed
+  - jekyll-sitemap
+
+feed:
+  posts_limit: 5
+  excerpt_only: false
+
+exclude:
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - README.md
+  - vercel.json
