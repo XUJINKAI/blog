@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ "/assets/css/global.css" | relative_url }}">
     <link rel="manifest" href="/manifest.json">
     {%- seo -%}
-    <link type="application/atom+xml" rel="alternate" href="{{ "feed.xml" | absolute_url }}" {%if site.title%}title="{{site.title}}"{%endif%} />
+    {%- feed_meta -%}
   </head>
   <body>
 
