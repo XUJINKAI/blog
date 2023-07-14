@@ -29,6 +29,7 @@ defaults:
 
 show_excerpts: false
 locale: zh-Hans
+lang: zh-Hans
 date_format: "%Y-%m-%d"
 timezone: Asia/Shanghai
 # timezone: Europe/Amsterdam
@@ -36,12 +37,10 @@ permalink: /posts/:title
 plugins:
   - jekyll-seo-tag
   - jekyll-toc
-  - jekyll-feed
   - jekyll-sitemap
 
 feed:
-  posts_limit: 5
-  excerpt_only: false
+  posts_limit: 100
 
 exclude:
   - .sass-cache/
