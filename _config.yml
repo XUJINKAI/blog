@@ -40,8 +40,8 @@ plugins:
   - jekyll-sitemap
 
 feed:
-  posts_limit: 5
-  excerpt_only: false
+  posts_limit: 20
+  excerpt_only: true
 
 exclude:
   - .sass-cache/

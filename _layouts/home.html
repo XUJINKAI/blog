@@ -37,8 +37,8 @@ layout: base
         <tags>{% for tag in post.tags %} {{tag}}{% endfor %}</tags>{{- '' -}}
       </pmeta>
       {%- if site.show_excerpts -%}
-      <span class="post-excerpt">{{ post.excerpt }}</span>
-      {%- endif -%}
+      <excerpt>{{ post.content | markdownify | strip_html | truncate: 50 }}</excerpt>
+      {% endif -%}
     </li>
     {{- '
 ' -}}

@@ -18,29 +18,15 @@ ul {
 
 我的GitHub是[github/XUJINKAI](https://github.com/XUJINKAI)
 
-#### 个人项目
+#### OneQuick
 
-- [OneQuick](https://OneQuick.org)
+这是我个人开发的Windows软件，可以方便的自定义全局快捷键。
 
 ![screen-volume-demo](https://onequick.org/img/feature/screen-volume.gif)
 
-Windows快捷键工具，招牌功能是：鼠标移动到左面左上角，滚轮即可调整音量，按下滚轮可切换静音。
+例如：将鼠标移动到桌面左上角，滚动滚轮调整音量，按下滚轮切换静音。
 
-- [ShellCommand](https://github.com/XUJINKAI/ShellCommand)
-
-通过配置文件自定义右键菜单，可以方便地向右键菜单添加一些命令。
-
-- [cmdparser](https://github.com/XUJINKAI/cmdparser)
-
-C语言库，用来解析命令行，替代getopt和argp。
-
-#### 开发中
-
-- [xx-crypto-cli](https://github.com/XUJINKAI/xx-crypto-cli)
-
-跨平台的密码运算CLI，C语言写的，目标是替代常用openssl命令，并有一些特色功能。
-
-这个项目也用到了cmdparser库。
+官网：[OneQuick.org](https://OneQuick.org)
 
 #### 关于本站
 
