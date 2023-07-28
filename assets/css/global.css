@@ -783,11 +783,11 @@ a.post-filter-emoji.active {
 }
 
 .post-list>li {
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
 .post-list li h3 {
-  margin-bottom: 0;
+  margin-bottom: 2px;
 }
 
 .post-list li h3>a {
@@ -796,12 +796,13 @@ a.post-filter-emoji.active {
 }
 
 .post-list pmeta {
-  font-size: 14px;
-  color: #828282;
+  font-size: 13px;
+  /* font-family: cursive; */
+  color: #171717;
 }
 
 .post-list tags {
-  color: #888;
+  /* color: #888; */
 }
 
 .post-list emotag {
@@ -815,6 +816,14 @@ a.post-filter-emoji.active {
   display: inline-block;
   margin-left: 3px;
   color: #888;
+}
+
+.post-list excerpt {
+  margin-top: 2px;
+  font-size: .84rem;
+  color: #1e1e1e;
+  display: block;
+  font-family: monospace;
 }
 
 /** Posts */

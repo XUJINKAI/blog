@@ -4,8 +4,10 @@ title: 微博客
 comments: false
 ---
 
+> 此页面的评论已开启审查（可以在这里私信我）
+
 <div id="disqus_thread">
-    <blockquote>第一次见有人拿disqus当微博用的，话说这和留言板有什么区别-_-|||</blockquote>
+    <blockquote>未曾设想的disqus使用方式😏</blockquote>
     <div class="loading"></div>
 </div>
 
