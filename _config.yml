@@ -17,7 +17,6 @@ defaults:
       type: "posts"
     values:
       layout: "post"
-      excerpt: "博文经常更新，请移步主站查看🫡"
       comments: true
       toc: true
   - scope:
@@ -29,6 +28,7 @@ defaults:
 
 show_excerpts: true
 locale: zh-Hans
+lang: zh-Hans
 date_format: "%Y-%m-%d"
 timezone: Asia/Shanghai
 # timezone: Europe/Amsterdam
@@ -36,12 +36,12 @@ permalink: /posts/:title
 plugins:
   - jekyll-seo-tag
   - jekyll-toc
-  - jekyll-feed
   - jekyll-sitemap
 
 feed:
-  posts_limit: 30
+  posts_limit: 20
   excerpt_only: true
+  excerpt_tip: "博文经常更新，请移步主站查看🫡"
 
 exclude:
   - .sass-cache/

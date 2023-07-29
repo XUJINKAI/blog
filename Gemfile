@@ -7,7 +7,6 @@ gem "jekyll"
 group :jekyll_plugins do
   gem "jekyll-seo-tag"
   gem "jekyll-toc"
-  gem "jekyll-feed"
   gem "jekyll-sitemap"
 end
 
