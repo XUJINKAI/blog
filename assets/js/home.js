@@ -47,7 +47,8 @@ function getPostsList() {
         post.url = li.querySelector("a").getAttribute("href");
         post.date = li.getAttribute("date");
         post.update = li.getAttribute("update") || post.date;
-        post.tags = li.querySelector("tags").innerHTML.split(" ").filter(function (el) { return el != ""; });
+        post.tags = [];
+        li.querySelectorAll("tags tag").forEach(tag_dom => { post.tags.push(tag_dom.innerHTML); });
         post.emotag = li.querySelector("h3 emotag")?.innerHTML;
         posts_list.push(post);
     });
@@ -88,8 +89,9 @@ function getTagsList(postsList) {
                 tagItem.count = 1;
                 tagItem.posts = [];
                 tagItem.posts.push(post);
-                tagItem.item = document.createElement("span");
-                tagItem.item.innerHTML = `<a href="javascript:toggleTag('${tagItem.name}');">${tagItem.name}<span class="tag-count">${tagItem.count}</span></a>`;
+                tagItem.item = document.createElement("a");
+                tagItem.item.href = "javascript:toggleTag('" + tagItem.name + "');";
+                tagItem.item.innerHTML = `<span class="tag-name">${tagItem.name}</span><span class="tag-count">${tagItem.count}</span>`;
                 tags_list.push(tagItem);
             } else {
                 var tagItem = tags_list.find(x => x.name === tag);
