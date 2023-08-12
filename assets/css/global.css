@@ -855,26 +855,61 @@ table td {
 }
 
 .section-nav {
+  font-size: 14px;
   margin: 5px 0px 30px 0px;
   padding: 10px 30px;
   border: 1px solid #e8e8e8;
   border-radius: 5px;
 }
 
+.section-nav a {
+  color: rgb(71 75 80);
+  font-weight: 500;
+}
+
+.section-nav a:hover {
+  text-decoration: none;
+  color: rgb(47 107 224);
+}
+
+.section-nav:not(:has(li)) {
+  display: none;
+}
+
 .post-meta {
   font-size: 14px;
   color: #828282;
+  margin-bottom: .875rem;
 }
 
-.post-title,
-.post-content h1 {
-  font-size: 1.5rem;
-  letter-spacing: -1px;
-  line-height: 1.15;
+.post-meta a.tag {
+  font-weight: 600;
+  padding: 0 8px;
+  color: rgb(134 144 156);
+  background-color: rgb(243 244 245);
+  border-radius: 5px;
+  display: inline-block;
+  line-height: 1.5rem;
+  height: 1.5rem;
+}
+
+.post-meta a.tag:hover {
+  color: rgb(47 107 224);
+  text-decoration: none;
+}
+
+.post-header .post-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding: 3px 2px;
+  letter-spacing: 1px;
 }
 
 .post-content {
-  margin-bottom: 30px;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+  border-bottom: solid 1px rgb(204, 207, 213);
 }
 
 .post-content h1,
@@ -884,30 +919,23 @@ table td {
 .post-content h5,
 .post-content h6 {
   margin-top: 30px;
+  font-weight: bold;
+}
+
+.post-content h1 {
+  font-size: 1.5rem;
 }
 
 .post-content h2 {
-  font-size: 1.75rem;
-}
-
-@media screen and (min-width: 800px) {
-  .post-content h2 {
-    font-size: 2rem;
-  }
-}
-
-.post-content h3 {
   font-size: 1.375rem;
 }
 
-@media screen and (min-width: 800px) {
-  .post-content h3 {
-    font-size: 1.625rem;
-  }
+.post-content h3 {
+  font-size: 1.25rem;
 }
 
 .post-content h4 {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
 }
 
 .post-content h5 {

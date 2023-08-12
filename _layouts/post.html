@@ -24,7 +24,7 @@ layout: base
       Tags:
       {% if page.tags %}
       {% for tag in page.tags %}
-        <a href="{{ site.baseurl }}/?tag={{ tag | cgi_escape }}">{{ tag }}</a>
+        <a class="tag" href="{{ site.baseurl }}/?tag={{ tag | cgi_escape }}">{{ tag }}</a>
       {% endfor %}
       {% endif %}
     </p>
