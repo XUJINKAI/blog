@@ -850,8 +850,12 @@ table td {
 }
 
 /** Posts */
-.post-header {
-  margin-bottom: 20px;
+.post-header h1.post-title {
+  font-size: 1.5em;
+  font-weight: 700;
+  padding: 3px 2px;
+  letter-spacing: 1px;
+  margin-bottom: .5rem;
 }
 
 .section-nav {
@@ -879,7 +883,7 @@ table td {
 .post-meta {
   font-size: 14px;
   color: #828282;
-  margin-bottom: .875rem;
+  margin-bottom: .5rem;
 }
 
 .post-meta a.tag {
@@ -898,12 +902,19 @@ table td {
   text-decoration: none;
 }
 
-.post-header .post-title {
-  font-size: 1.5em;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  padding: 3px 2px;
-  letter-spacing: 1px;
+.post-toc {
+  margin-top: 1.5rem;
+}
+
+.post-content .anchor {
+  position: absolute;
+  margin-left: -.8rem;
+}
+
+.post-content :hover .anchor::before {
+  color: rgb(134 144 156);
+  content: "#";
+  font-size: 1rem;
 }
 
 .post-content {
@@ -918,32 +929,45 @@ table td {
 .post-content h4,
 .post-content h5,
 .post-content h6 {
-  margin-top: 30px;
   font-weight: bold;
+  margin-left: -2rem;
+  padding-left: 2rem;
 }
 
 .post-content h1 {
   font-size: 1.5rem;
+  margin-top: 2.1rem;
+  margin-bottom: 1rem;
 }
 
 .post-content h2 {
   font-size: 1.375rem;
+  margin-top: 1.875rem;
+  margin-bottom: 1rem;
 }
 
 .post-content h3 {
   font-size: 1.25rem;
+  margin-top: 1.75rem;
+  margin-bottom: .875rem;
 }
 
 .post-content h4 {
   font-size: 1.15rem;
+  margin-top: 1.25rem;
+  margin-bottom: .375rem;
 }
 
 .post-content h5 {
-  font-size: 1.125rem;
+  font-size: 1.0875rem;
+  margin-top: 1rem;
+  margin-bottom: .25rem;
 }
 
 .post-content h6 {
   font-size: 1.0625rem;
+  margin-top: .5rem;
+  margin-bottom: .075rem;
 }
 
 .social-media-list,
