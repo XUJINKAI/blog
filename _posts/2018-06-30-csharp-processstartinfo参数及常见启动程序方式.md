@@ -2,7 +2,7 @@
 permalink: /posts/csharp-use-process-run-command
 title: C# ProcessStartInfo参数及常见启动程序方式
 tags: C#
-emotag:
+emotag: 🔥
 date: 2018-06-30 02:45:23 +08:00
 last_modified_at: 2024-10-27
 ---
@@ -127,7 +127,6 @@ internal static Process? StartProcess(string path, string? args = null, string? 
         psi.Verb = "runas";
     }
 
-    Log.Verbose($"StartProcess: {path}, {args}, {dir}; {runAsAdmin}, {hiddenWindow}");
     var p = Process.Start(psi);
     return p;
 }
