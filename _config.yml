@@ -39,7 +39,7 @@ plugins:
   - jekyll-sitemap
 
 feed:
-  posts_limit: 20
+  posts_limit: 10
   excerpt_only: true
   excerpt_tip: "博文经常更新，请移步主站查看🫡"
 

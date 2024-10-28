@@ -22,6 +22,7 @@ layout: base
   </div>
 
   {%- assign posts = site.posts -%}
+  {%- assign posts = posts | sort: "sort_date" | reverse %}
   {%- if posts.size > 0 -%}
   <ul class="post-list">
     {%- assign date_format = site.date_format | default: "%Y-%m-%d" -%}
