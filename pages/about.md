@@ -22,7 +22,7 @@ ul {
 
 这是我个人开发的Windows软件，可以方便的自定义全局快捷键。
 
-![screen-volume-demo](https://onequick.org/img/feature/screen-volume.gif)
+![screen-volume-demo](https://onequick.org/feature/screen-volume.gif)
 
 例如：将鼠标移动到桌面左上角，滚动滚轮调整音量，按下滚轮切换静音。
 
