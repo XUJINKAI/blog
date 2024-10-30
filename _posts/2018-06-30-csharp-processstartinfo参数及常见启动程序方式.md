@@ -1,8 +1,9 @@
 ---
 permalink: /posts/csharp-use-process-run-command
-title: C# ProcessStartInfo参数及常见启动程序方式
+title: C# 使用 Process 启动程序，ProcessStartInfo 参数详解
 tags: C#
 emotag: 🔥
+keywords: C#, CSharp, dotnet, Process, ProcessStartInfo, command, 启动程序, 进程, Admin, 管理员, CMD, Explorer
 date: 2018-06-30 02:45:23 +08:00
 last_modified_at: 2024-10-27
 ---
