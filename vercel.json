@@ -5,6 +5,10 @@
     },
     "rewrites": [
         {
+            "source": "/crypto",
+            "destination": "https://crypto-online-seven.vercel.app/"
+        },
+        {
             "source": "/crypto/:match*",
             "destination": "https://crypto-online-seven.vercel.app/:match*"
         }
