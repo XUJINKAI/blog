@@ -5,7 +5,7 @@
     },
     "rewrites": [
         {
-            "source": "/crypto",
+            "source": "/crypto/",
             "destination": "https://crypto-online-seven.vercel.app/"
         },
         {
