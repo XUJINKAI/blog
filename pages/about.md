@@ -18,6 +18,8 @@ ul {
 
 我的GitHub是[github/XUJINKAI](https://github.com/XUJINKAI)
 
+私聊可以来这里留言：<a class="page-link" href="{{ "/tweet" | relative_url }}">微博客</a>
+
 #### OneQuick
 
 这是我个人开发的Windows软件，可以方便的自定义全局快捷键。
