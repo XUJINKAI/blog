@@ -59,11 +59,11 @@ export function registerPreprocessors(eleventyConfig, siteData) {
             .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "") // 移除 <script> 块
             .replace(/<[^>]*>/g, "")                          // 移除其他 HTML 标签
             .replace(/^---[\s\S]*?---\s*/m, "")               // 移除可能残留的 frontmatter
-            .replace(/^#+\s+.*/gm, "")                        // 移除标题行
+            // .replace(/^#+\s+.*/gm, "")                        // 移除标题行
             .replace(/!\[.*?\]\(.*?\)/g, "")                  // 移除图片
             .replace(/\[([^\]]*)\]\(.*?\)/g, "$1")            // 链接保留文字
-            .replace(/```[\s\S]*?```/g, "")                   // 移除代码块
-            .replace(/`([^`]*)`/g, "$1")                      // 行内代码保留文字
+            // .replace(/```[\s\S]*?```/g, "")                   // 移除代码块
+            // .replace(/`([^`]*)`/g, "$1")                      // 行内代码保留文字
             .replace(/[*_~>#\-|]/g, "")                       // 移除 markdown 标记符号
             .replace(/\s+/g, " ")                             // 合并空白
             .trim();
