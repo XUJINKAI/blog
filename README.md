@@ -2,24 +2,26 @@
 
 https://xujinkai.net
 
-随意fork，注意修改`_config.yml`等文件，最好加个友链:)
+随意 fork，注意修改 `site.json` 等文件，最好加个友链 :)
 
 ## 相关命令
 
+基于 Node.js 和 Eleventy 构建：
+
 ```sh
-sudo apt install -y ruby-full
-gem update bundler
+# 安装依赖
+npm install
 
-bundle clean --force
-bundle install
-bundle update
+# 本地开发 (包含热更新)
+npm run dev
 
-jekyll serve --force-polling --trace --livereload -P 4000 -H 0.0.0.0
+# 生产环境构建
+npm run build
 ```
 
-注：WSL下不加`--force-polling`会卡死整个WSL，需要重启系统才能解决
-
 ## 更新日志
+
+- 2026-02-28 迁移到 11ty (Node.js) 生态
 
 - 2023-06-30 删除过往git历史
 

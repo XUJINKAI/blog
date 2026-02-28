@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://xujinkai.net/sitemap.xml

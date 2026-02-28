@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="{{ site.locale or 'zh-Hans' }}">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-ico" href="/favicon.ico" />
+    <link rel="stylesheet" href="/assets/css/global.css">
+    <link rel="manifest" href="/manifest.json">
+    {% include "partials/seo.njk" %}
+</head>
+
+<body>
+
+    {% include "partials/header.njk" %}
+
+    <main class="page-content" aria-label="Content">
+        <div class="wrapper">
+            {{ content | safe }}
+
+            {% if site.integrations.disqus and comments %}
+            {% include "partials/disqus.njk" %}
+            {% endif %}
+
+        </div>
+    </main>
+
+    {% include "partials/footer.njk" %}
+
+    {% if site.integrations.ga4 %}
+    {% include "partials/google-analytics.njk" %}
+    {% endif %}
+</body>
+
+</html>

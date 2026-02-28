@@ -1,0 +1,22 @@
+<title>{{ seo.pageTitle }}</title>
+<meta name="description" content="{{ seo.description }}">
+<meta name="author" content="{{ site.author }}">
+<meta property="og:title" content="{{ seo.ogTitle }}">
+<meta property="og:description" content="{{ seo.description }}">
+<meta property="og:url" content="{{ seo.canonicalUrl }}">
+<meta property="og:type" content="{{ seo.ogType }}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:locale" content="{{ site.locale | replace('-', '_') }}">
+{% if seo.isPost %}
+<meta property="article:published_time" content="{{ page.date | toISODate }}">
+{% endif %}
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="{{ seo.ogTitle }}">
+<link rel="canonical" href="{{ seo.canonicalUrl }}">
+<script type="application/ld+json">
+{{ seo.jsonLd | safe }}
+</script>
+{% if keywords %}
+<meta name="keywords" content="{{ keywords }}">{% endif %}
+<link type="application/atom+xml" rel="alternate" href="{{ site.url }}/feed.xml" {% if site.title
+    %}title="{{ site.title }}" {% endif %} />

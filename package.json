@@ -1,0 +1,14 @@
+{
+  "name": "xujinkai-blog-11ty",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "npx @11ty/eleventy --serve",
+    "build": "npx @11ty/eleventy"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^3.1.2",
+    "@11ty/eleventy-plugin-rss": "^2.0.4",
+    "markdown-it-anchor": "^9.2.0"
+  }
+}

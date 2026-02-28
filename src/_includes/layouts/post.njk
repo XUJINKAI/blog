@@ -1,0 +1,38 @@
+---
+layout: layouts/base.njk
+---
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">{{ title }}</h1>
+  </header>
+  <div class="post-meta">
+    {%- if last_modified_at -%}
+    <span>更新于 </span>
+    <time class="dt-modified" datetime="{{ last_modified_at | toISODate }}" itemprop="dateModified">
+      {{ last_modified_at | dateFormat }}
+    </time>
+    <span>, </span>
+    {%- endif -%}
+    <span>创建于 </span>
+    <time class="dt-published" datetime="{{ page.date | toISODate }}" itemprop="datePublished">
+      {{ page.date | dateFormat }}
+    </time>
+  </div>
+  <div class="post-meta">
+    标签:
+    {% if tags %}
+    {% for tag in tags %}
+    <a class="tag" href="/?tag={{ tag | cgiEscape }}">{{ tag }}</a>
+    {% endfor %}
+    {% endif %}
+  </div>
+  <div class="post-toc">
+    {% include "partials/toc.njk" %}
+  </div>
+  <div class="post-content e-content" itemprop="articleBody">
+    {{ content | safe }}
+  </div>
+
+  <a class="u-url" href="{{ seo.canonicalUrl }}" hidden></a>
+</article>

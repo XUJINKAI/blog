@@ -1,0 +1,43 @@
+{# 博文列表：排序/筛选/标签面板 + 文章列表 #}
+
+<div class="post-selector-panel">
+    <div class="post-sort-panel">
+        <span class="post-panel-tip">排序: </span>
+        <a href="javascript:toggleSort('update')" class="post-sort-button" data-sort="update">更新时间<span
+                class="post-sort-sign"></span></a>
+        <a href="javascript:toggleSort('date')" class="post-sort-button" data-sort="date">创建时间<span
+                class="post-sort-sign"></span></a>
+        <span class="post-panel-tip">筛选: </span>
+        <a href="javascript:toggleEmoji()" class="post-filter-emoji">emoji</a>
+    </div>
+    <div class="post-filter-panel">
+        <span class="post-panel-tip">标签: </span>
+        <div class="tags-list"></div>
+    </div>
+</div>
+
+{%- set posts = collections.postsByDate -%}
+{%- if posts.length > 0 -%}
+<ul class="post-list">
+    {%- for post in posts -%}
+    <li date="{{ post.date | toISODate }}" {% if post.data.last_modified_at %}
+        update="{{ post.data.last_modified_at | toISODate }}" {% endif %}>
+        <a href="{{ post.data.cleanUrl or post.url }}">
+            <h3>{{ post.data.title }}
+                {%- if post.data.emotag %}<emotag>{{ post.data.emotag }}</emotag>{% endif -%}
+            </h3>
+            {%- if site.appearance.show_excerpts -%}
+            <excerpt>{{ post.data.excerpt }}</excerpt>
+            {%- endif -%}
+        </a>
+        <pmeta>
+            <date>{{ post.data.displayDate | dateFormat }}</date>
+            <tags>{% for tag in post.data.tags %}<tag>{{ tag }}</tag>{% endfor %}</tags>
+        </pmeta>
+    </li>
+    {{ "" }}
+    {%- endfor -%}
+</ul>
+{%- endif -%}
+
+<script src="/assets/js/home.js" async></script>

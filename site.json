@@ -1,0 +1,48 @@
+{
+    "title": "JKxz",
+    "author": "XUJINKAI",
+    "description": "努力写点儿有用的❤️",
+    "url": "https://xujinkai.net",
+    "locale": "zh-Hans",
+    "timezone": "Asia/Shanghai",
+    "left_nav": [
+        {
+            "text": "Tweet",
+            "url": "/tweet"
+        },
+        {
+            "text": "关于",
+            "url": "/about"
+        }
+    ],
+    "right_nav": [
+        {
+            "text": "OneQuick",
+            "url": "https://OneQuick.org",
+            "title": "Windows快捷热键工具"
+        },
+        {
+            "text": "Crypto",
+            "url": "/crypto/msg",
+            "title": "在线密码应用"
+        }
+    ],
+    "footer": [
+        "© 2016-2026 XUJINKAI.NET",
+        "Github Source: <a href=\"https://github.com/XUJINKAI/blog\">XUJINKAI blog</a>"
+    ],
+    "feed": {
+        "posts_limit": 10,
+        "excerpt_tip": "博文经常更新，请移步主站查看🫡"
+    },
+    "integrations": {
+        "disqus": "xujinkai",
+        "ga4": "G-4Q0MVTQ7HL"
+    },
+    "appearance": {
+        "show_excerpts": true,
+        "excerpt_length": 140,
+        "theme_color": "#03a9f4",
+        "background_color": "#ffffff"
+    }
+}

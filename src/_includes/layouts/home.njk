@@ -1,0 +1,23 @@
+---
+layout: layouts/base.njk
+---
+
+<div class="home">
+
+    {% if site.debug %}
+    <p style="float: right; font-size: 0.8em;">
+        <a href="/debug">[调试页面]</a>
+    </p>
+    {% endif %}
+
+    <div class="home-content">
+        {{ content | safe }}
+    </div>
+
+    {% include "partials/posts.njk" %}
+
+</div>
+<script>
+    /* 用于home.js配置*/
+    var SITE_CONFIG = { disqus: "{{ site.integrations.disqus }}" };
+</script>

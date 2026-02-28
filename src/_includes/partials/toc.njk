@@ -1,0 +1,31 @@
+{# TOC 目录：从 tocItems 结构化数据渲染 #}
+{%- if tocItems and tocItems.length > 0 -%}
+{%- set minLevel = tocItems[0].level -%}
+{%- for item in tocItems %}{%- if item.level < minLevel %}{%- set minLevel=item.level %}{%- endif %}{%- endfor -%} <ul
+    id="toc" class="section-nav">
+    {%- set prevLevel = 0 -%}
+    {%- for item in tocItems -%}
+    {%- if prevLevel == 0 -%}
+    <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text }}</a>
+        {%- elif item.level > prevLevel -%}
+        <ul>
+            <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text }}</a>
+                {%- elif item.level == prevLevel -%}
+            </li>
+            <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text }}</a>
+                {%- else -%}
+                {%- for i in range(prevLevel - item.level) -%}
+            </li>
+        </ul>
+        {%- endfor -%}
+    </li>
+    <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text }}</a>
+        {%- endif -%}
+        {%- set prevLevel = item.level -%}
+        {%- endfor -%}
+        {%- for i in range(prevLevel - minLevel + 1) -%}
+    </li>
+    {%- if not loop.last %}</ul>{%- endif -%}
+    {%- endfor -%}
+    </ul>
+    {%- endif -%}

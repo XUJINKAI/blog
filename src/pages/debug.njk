@@ -1,0 +1,107 @@
+---
+permalink: /debug.html
+layout: false
+eleventyExcludeFromCollections: true
+---
+{% if site.debug %}
+<!DOCTYPE html>
+<html lang="{{ site.locale }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Variables</title>
+    <style>
+        body {
+            font-family: monospace;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        .data-card {
+            background: white;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        pre {
+            background: #282c34;
+            color: #abb2bf;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-size: 13px;
+            font-family: monospace;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <p style="float: right; font-size: 0.8em;">
+        <a href="/">[返回首页]</a>
+    </p>
+
+    <h1>Debug Environment</h1>
+    <p>仅在 <code>site.debug</code> 为 true 时显示此页面。</p>
+
+    <div class="data-card">
+        <h2>所有的页面 (collections.all)</h2>
+        <p>这里展示了所有页面的关键变量</p>
+        <p>Total: {{ collections.all.length }}</p>
+        <div style="margin-top: 20px;">
+            {% for item in collections.all %}
+            <div
+                style="background: #282c34; color: #abb2bf; padding: 15px; border-radius: 5px; margin-bottom: 20px; overflow-x: auto;">
+                <h3 style="color: #61afef; margin-top: 0; border-bottom: 1px solid #3e4451; padding-bottom: 10px;">
+                    #{{ loop.index }} {{ item.inputPath }}
+                </h3>
+                <pre
+                    style="background: transparent; padding: 0; margin: 0; border: none; white-space: pre-wrap; word-wrap: break-word;">{{ item.data | safeDump | safe }}</pre>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+
+</html>
+{% else %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="refresh" content="0; url=/404.html">
+</head>
+
+<body>
+    <p>Debug mode is disabled. Redirecting to 404...</p>
+</body>
+
+</html>
+{% endif %}
