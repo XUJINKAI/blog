@@ -1,4 +1,16 @@
 // preprocessors.js — 预处理器
+import markdownIt from "markdown-it";
+
+// 与 markdown.js 中 markdown-it-anchor 的 slugify 保持一致，保证 toc 锚点 ID 匹配
+function slugify(s) {
+    return s
+        .trim()
+        .toLowerCase()
+        .replace(/[\s]+/g, "-")
+        .replace(/[^\w\u4e00-\u9fff-]/g, "");
+}
+
+const mdParser = markdownIt({ html: true });
 
 export function registerPreprocessors(eleventyConfig, siteData) {
 
@@ -48,54 +60,51 @@ export function registerPreprocessors(eleventyConfig, siteData) {
         }
     });
 
-    // 预处理 excerpt：从原始 markdown 提取纯文本摘要
-    eleventyConfig.addPreprocessor("excerpt", "md", (data, content) => {
-        if (!content) {
-            data.excerpt = "";
-            return;
-        }
-        const plain = content
-            .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")  // 移除 <style> 块
-            .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "") // 移除 <script> 块
-            .replace(/<[^>]*>/g, "")                          // 移除其他 HTML 标签
-            .replace(/^---[\s\S]*?---\s*/m, "")               // 移除可能残留的 frontmatter
-            // .replace(/^#+\s+.*/gm, "")                        // 移除标题行
-            .replace(/!\[.*?\]\(.*?\)/g, "")                  // 移除图片
-            .replace(/\[([^\]]*)\]\(.*?\)/g, "$1")            // 链接保留文字
-            // .replace(/```[\s\S]*?```/g, "")                   // 移除代码块
-            // .replace(/`([^`]*)`/g, "$1")                      // 行内代码保留文字
-            .replace(/[*_~>#\-|]/g, "")                       // 移除 markdown 标记符号
-            .replace(/\s+/g, " ")                             // 合并空白
-            .trim();
-        const excerptLength = siteData?.appearance?.excerpt_length || 140;
-        data.excerpt = plain.slice(0, excerptLength);
-    });
-
-    // 与 markdown-it-anchor 相同的 slugify
-    const slugify = (s) =>
-        s.trim().toLowerCase().replace(/[\s]+/g, "-").replace(/[^\w\u4e00-\u9fff-]/g, "");
-
-    // 预处理 TOC：从原始 markdown 提取标题，生成结构化数据
+    // 预处理 toc：从原始 markdown 提取结构化目录，支持 toc: false 或 toc: { enabled, minLevel, maxLevel }
     eleventyConfig.addPreprocessor("tocItems", "md", (data, content) => {
-        if (!content) {
+        const toc = data.toc;
+
+        let enabled = toc !== false;
+        let minLevel = 2;
+        let maxLevel = 3;
+
+        if (toc && typeof toc === "object") {
+            enabled = toc.enabled !== false;
+            minLevel = toc.minLevel ?? minLevel;
+            maxLevel = toc.maxLevel ?? maxLevel;
+        }
+
+        if (!content || !enabled) {
             data.tocItems = [];
             return;
         }
+
+        const tokens = mdParser.parse(content, {});
         const headings = [];
-        // 匹配 markdown 标题行（## ~ ####）
-        const headingRegex = /^(#{2,4})\s+(.+)$/gm;
-        let match;
-        while ((match = headingRegex.exec(content)) !== null) {
-            const level = match[1].length;
-            const rawText = match[2]
-                .replace(/\[([^\]]*)\]\(.*?\)/g, "$1")  // 链接保留文字
-                .replace(/`([^`]*)`/g, "$1")             // 行内代码保留文字
-                .replace(/[*_~]/g, "")                   // 移除加粗/斜体标记
-                .trim();
-            if (rawText) {
-                headings.push({ level, id: slugify(rawText), text: rawText });
-            }
+
+        for (let i = 0; i < tokens.length; i++) {
+            const token = tokens[i];
+
+            if (token.type !== "heading_open") continue;
+
+            const level = Number(token.tag.slice(1));
+
+            if (level < minLevel || level > maxLevel) continue;
+
+            const inline = tokens[i + 1];
+            if (!inline || inline.type !== "inline") continue;
+
+            const text = mdParser.renderer.renderInline(inline.children ?? [], mdParser.options, {});
+            const plain = text.replace(/<[^>]*>/g, "").trim();
+            if (!plain) continue;
+
+            headings.push({
+                level,
+                id: slugify(plain),
+                text,
+            });
         }
+
         data.tocItems = headings;
     });
 }

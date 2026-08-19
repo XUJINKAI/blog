@@ -6,20 +6,20 @@
     {%- set prevLevel = 0 -%}
     {%- for item in tocItems -%}
     {%- if prevLevel == 0 -%}
-    <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text }}</a>
+    <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text | safe }}</a>
         {%- elif item.level > prevLevel -%}
         <ul>
-            <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text }}</a>
+            <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text | safe }}</a>
                 {%- elif item.level == prevLevel -%}
             </li>
-            <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text }}</a>
+            <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text | safe }}</a>
                 {%- else -%}
                 {%- for i in range(prevLevel - item.level) -%}
             </li>
         </ul>
         {%- endfor -%}
     </li>
-    <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text }}</a>
+    <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text | safe }}</a>
         {%- endif -%}
         {%- set prevLevel = item.level -%}
         {%- endfor -%}
