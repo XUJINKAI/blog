@@ -14,6 +14,7 @@ export default function (eleventyConfig) {
   eleventyConfig.configureErrorReporting({ allowMissingExtensions: true });
   eleventyConfig.ignores.add("README.md");
   eleventyConfig.addGlobalData("site", siteData);
+  eleventyConfig.setServerOptions({ showAllHosts: true });
 
   // --- 注册功能模块 ---
   registerMarkdown(eleventyConfig);

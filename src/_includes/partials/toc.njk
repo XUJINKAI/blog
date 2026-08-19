@@ -1,31 +1,107 @@
 {# TOC 目录：从 tocItems 结构化数据渲染 #}
 {%- if tocItems and tocItems.length > 0 -%}
-{%- set minLevel = tocItems[0].level -%}
-{%- for item in tocItems %}{%- if item.level < minLevel %}{%- set minLevel=item.level %}{%- endif %}{%- endfor -%} <ul
-    id="toc" class="section-nav">
-    {%- set prevLevel = 0 -%}
-    {%- for item in tocItems -%}
-    {%- if prevLevel == 0 -%}
-    <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text | safe }}</a>
-        {%- elif item.level > prevLevel -%}
-        <ul>
-            <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text | safe }}</a>
-                {%- elif item.level == prevLevel -%}
-            </li>
-            <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text | safe }}</a>
-                {%- else -%}
-                {%- for i in range(prevLevel - item.level) -%}
-            </li>
-        </ul>
-        {%- endfor -%}
-    </li>
-    <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text | safe }}</a>
-        {%- endif -%}
-        {%- set prevLevel = item.level -%}
-        {%- endfor -%}
-        {%- for i in range(prevLevel - minLevel + 1) -%}
-    </li>
-    {%- if not loop.last %}</ul>{%- endif -%}
-    {%- endfor -%}
-    </ul>
+<div class="post-toc" id="tocPanel">
+  <button class="toc-close" type="button" aria-label="收起目录">×</button>
+  {%- set minLevel = tocItems[0].level -%}
+  {%- for item in tocItems %}{%- if item.level < minLevel %}{%- set minLevel=item.level %}{%- endif %}{%- endfor -%} <ul
+      id="toc" class="section-nav">
+      {%- set prevLevel = 0 -%}
+      {%- for item in tocItems -%}
+      {%- if prevLevel == 0 -%}
+      <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text | safe }}</a>
+          {%- elif item.level > prevLevel -%}
+          <ul>
+              <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text | safe }}</a>
+                  {%- elif item.level == prevLevel -%}
+              </li>
+              <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text | safe }}</a>
+                  {%- else -%}
+                  {%- for i in range(prevLevel - item.level) -%}
+              </li>
+          </ul>
+          {%- endfor -%}
+      </li>
+      <li class="toc-entry toc-h{{ item.level }}"><a href="#{{ item.id }}">{{ item.text | safe }}</a>
+          {%- endif -%}
+          {%- set prevLevel = item.level -%}
+          {%- endfor -%}
+          {%- for i in range(prevLevel - minLevel + 1) -%}
+      </li>
+      {%- if not loop.last %}</ul>{%- endif -%}
+      {%- endfor -%}
+  </ul>
+</div>
+<button class="toc-toggle" type="button" aria-expanded="false" aria-controls="tocPanel">目录</button>
+<script>
+    (function () {
+        var toggle = document.querySelector(".toc-toggle");
+        var close = document.querySelector(".toc-close");
+        var panel = document.getElementById("tocPanel");
+        if (!panel) return;
+
+        var moved = false;
+        var isMobile = window.matchMedia("(max-width: 1200px)");
+
+        function setOpen(open) {
+            panel.classList.toggle("toc-open", open);
+            panel.classList.toggle("toc-collapsed", !open);
+            if (toggle) toggle.setAttribute("aria-expanded", open ? "true" : "false");
+        }
+
+        if (toggle) toggle.addEventListener("click", function (e) {
+            if (moved) { e.preventDefault(); e.stopPropagation(); return; }
+            setOpen(!panel.classList.contains("toc-open"));
+        });
+
+        if (close) close.addEventListener("click", function () {
+            setOpen(false);
+        });
+
+        if (isMobile.matches) {
+            document.addEventListener("click", function (e) {
+                if (!panel.classList.contains("toc-open")) return;
+                if (panel.contains(e.target) || (toggle && toggle.contains(e.target))) return;
+                setOpen(false);
+            });
+        }
+
+        if (toggle) {
+            var dragging = false;
+            var offX = 0;
+            var offY = 0;
+            var startX = 0;
+            var startY = 0;
+
+            toggle.addEventListener("pointerdown", function (e) {
+                if (e.pointerType === "mouse" && e.button !== 0) return;
+                dragging = true;
+                moved = false;
+                startX = e.clientX;
+                startY = e.clientY;
+                var r = toggle.getBoundingClientRect();
+                offX = e.clientX - r.left;
+                offY = e.clientY - r.top;
+                toggle.setPointerCapture(e.pointerId);
+            });
+
+            toggle.addEventListener("pointermove", function (e) {
+                if (!dragging) return;
+                if (!moved && Math.abs(e.clientX - startX) < 6 && Math.abs(e.clientY - startY) < 6) return;
+                moved = true;
+                var x = e.clientX - offX;
+                var y = e.clientY - offY;
+                x = Math.max(8, Math.min(window.innerWidth - toggle.offsetWidth - 8, x));
+                y = Math.max(8, Math.min(window.innerHeight - toggle.offsetHeight - 8, y));
+                toggle.style.left = x + "px";
+                toggle.style.top = y + "px";
+                toggle.style.right = "auto";
+                toggle.style.bottom = "auto";
+            });
+
+            function stopDrag() { dragging = false; }
+            toggle.addEventListener("pointerup", stopDrag);
+            toggle.addEventListener("pointercancel", stopDrag);
+        }
+    })();
+</script>
     {%- endif -%}

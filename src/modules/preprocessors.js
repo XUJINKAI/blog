@@ -60,6 +60,26 @@ export function registerPreprocessors(eleventyConfig, siteData) {
         }
     });
 
+    // 预处理 excerpt：从原始 markdown 提取纯文本摘要
+    eleventyConfig.addPreprocessor("excerpt", "md", (data, content) => {
+        if (!content) {
+            data.excerpt = "";
+            return;
+        }
+        const plain = content
+            .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")  // 移除 <style> 块
+            .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "") // 移除 <script> 块
+            .replace(/<[^>]*>/g, "")                          // 移除其他 HTML 标签
+            .replace(/^---[\s\S]*?---\s*/m, "")               // 移除可能残留的 frontmatter
+            .replace(/!\[.*?\]\(.*?\)/g, "")                  // 移除图片
+            .replace(/\[([^\]]*)\]\(.*?\)/g, "$1")            // 链接保留文字
+            .replace(/[*_~>#\-|]/g, "")                       // 移除 markdown 标记符号
+            .replace(/\s+/g, " ")                             // 合并空白
+            .trim();
+        const excerptLength = siteData?.appearance?.excerpt_length || 140;
+        data.excerpt = plain.slice(0, excerptLength);
+    });
+
     // 预处理 toc：从原始 markdown 提取结构化目录，支持 toc: false 或 toc: { enabled, minLevel, maxLevel }
     eleventyConfig.addPreprocessor("tocItems", "md", (data, content) => {
         const toc = data.toc;

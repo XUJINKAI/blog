@@ -27,9 +27,7 @@ layout: layouts/base.njk
     {% endfor %}
     {% endif %}
   </div>
-  <div class="post-toc">
-    {% include "partials/toc.njk" %}
-  </div>
+  {% include "partials/toc.njk" %}
   <div class="post-content e-content" itemprop="articleBody">
     {{ content | safe }}
   </div>

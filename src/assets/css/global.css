@@ -935,7 +935,107 @@ table td {
 }
 
 .post-toc {
-  margin-top: 1.5rem;
+  position: fixed;
+  top: 110px;
+  right: 20px;
+  width: 300px;
+  max-width: calc(100vw - 64px);
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  margin: 12px;
+  background: #fdfdfd;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgb(0 0 0 / 12%);
+  z-index: 10;
+  transition: transform 0.25s ease;
+}
+
+.post-toc .section-nav,
+.post-toc .section-nav ul {
+  margin: 0;
+  list-style: none;
+}
+
+.post-toc .section-nav {
+  padding: 18px 34px 18px 20px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.toc-close {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  z-index: 1;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: rgb(134 144 156);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toc-close:hover {
+  color: rgb(47 107 224);
+  background: rgb(243 244 245);
+}
+
+.toc-toggle {
+  display: none;
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  z-index: 11;
+  padding: 8px 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgb(71 75 80);
+  background: #fdfdfd;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgb(0 0 0 / 22%);
+  user-select: none;
+  touch-action: none;
+}
+
+.toc-toggle:hover {
+  color: rgb(47 107 224);
+}
+
+@media screen and (max-width: 1200px) {
+  .toc-toggle {
+    display: block;
+  }
+
+  .post-toc {
+    width: min(300px, calc(100vw - 64px));
+    transform: translateX(130%);
+  }
+
+  .post-toc.toc-open {
+    transform: translateX(0);
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  #tocPanel.toc-collapsed {
+    transform: translateX(130%);
+  }
+
+  #tocPanel.toc-collapsed ~ .toc-toggle {
+    display: block;
+    top: 122px;
+    right: 32px;
+    bottom: auto;
+  }
 }
 
 .post-content .anchor {
@@ -953,6 +1053,15 @@ table td {
   padding-bottom: 15px;
   margin-bottom: 25px;
   border-bottom: solid 1px rgb(204, 207, 213);
+}
+
+.post-content > :first-child:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(style):not(script) {
+  margin-top: 1.5rem;
+}
+
+.post-content > style:first-child + :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(style):not(script),
+.post-content > script:first-child + :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(style):not(script) {
+  margin-top: 1.5rem;
 }
 
 .post-content h1,
