@@ -1,0 +1,607 @@
+/* markdown.css — 正文渲染样式
+   样式提取自 demo.mhtml（Markdown Preview Enhanced 的 github 导出风格），
+   仅作用于 md 渲染容器 .post-content 与 .home-content。
+*/
+
+.post-content,
+.home-content {
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333333;
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+}
+
+.post-content {
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+  border-bottom: solid 1px rgb(204, 207, 213);
+}
+
+.post-content > :first-child:not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(style):not(script) {
+  margin-top: 1.5rem;
+}
+
+.post-content > style:first-child + :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(style):not(script),
+.post-content > script:first-child + :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6):not(style):not(script) {
+  margin-top: 1.5rem;
+}
+
+.post-content .anchor {
+  position: absolute;
+  margin-left: -0.8rem;
+}
+
+.post-content :hover .anchor::before {
+  color: rgb(134 144 156);
+  content: "#";
+  font-size: 1rem;
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6,
+.home-content h1,
+.home-content h2,
+.home-content h3,
+.home-content h4,
+.home-content h5,
+.home-content h6 {
+  line-height: 1.2;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  color: #000000;
+  font-weight: 600;
+  position: relative;
+  margin-left: -2rem;
+  padding-left: 2rem;
+}
+
+.post-content h1,
+.home-content h1 {
+  font-size: 2.25em;
+  padding-bottom: 0.3em;
+}
+
+.post-content h2,
+.home-content h2 {
+  font-size: 1.75em;
+  padding-bottom: 0.3em;
+}
+
+.post-content h3,
+.home-content h3 {
+  font-size: 1.5em;
+}
+
+.post-content h4,
+.home-content h4 {
+  font-size: 1.25em;
+}
+
+.post-content h5,
+.home-content h5 {
+  font-size: 1em;
+}
+
+.post-content h6,
+.home-content h6 {
+  font-size: 1em;
+  color: #5c5c5c;
+}
+
+.post-content strong,
+.home-content strong {
+  color: #000000;
+}
+
+.post-content del,
+.home-content del {
+  color: #5c5c5c;
+}
+
+.post-content a:not([href]),
+.home-content a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.post-content a,
+.home-content a {
+  color: #0088cc;
+  text-decoration: none;
+}
+
+.post-content a:hover,
+.home-content a:hover {
+  color: #00a3f5;
+  text-decoration: none;
+}
+
+.post-content img,
+.home-content img {
+  max-width: 100%;
+}
+
+.post-content p,
+.home-content p {
+  margin-top: 0;
+  margin-bottom: 16px;
+  overflow-wrap: break-word;
+}
+
+.post-content ol,
+.post-content ul,
+.home-content ol,
+.home-content ul {
+  margin-left: 0;
+  margin-bottom: 16px;
+  padding-left: 2em;
+}
+
+.post-content ol ol,
+.post-content ol ul,
+.post-content ul ol,
+.post-content ul ul,
+.home-content ol ol,
+.home-content ol ul,
+.home-content ul ol,
+.home-content ul ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.post-content li,
+.home-content li {
+  margin-bottom: 0;
+}
+
+.post-content li > p,
+.home-content li > p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.post-content ul,
+.home-content ul {
+  list-style: disc;
+}
+
+.post-content ul ul,
+.home-content ul ul {
+  list-style: circle;
+}
+
+.post-content ul ul ul,
+.home-content ul ul ul {
+  list-style: square;
+}
+
+.post-content ol,
+.home-content ol {
+  list-style: decimal;
+}
+
+.post-content ol ol,
+.post-content ul ol,
+.home-content ol ol,
+.home-content ul ol {
+  list-style-type: lower-roman;
+}
+
+.post-content ol ol ol,
+.post-content ol ul ol,
+.post-content ul ol ol,
+.post-content ul ul ol,
+.home-content ol ol ol,
+.home-content ol ul ol,
+.home-content ul ol ol,
+.home-content ul ul ol {
+  list-style-type: lower-alpha;
+}
+
+.post-content blockquote,
+.home-content blockquote {
+  margin: 16px 0;
+  font-size: inherit;
+  padding: 0 15px;
+  color: #5c5c5c;
+  background-color: #f0f0f0;
+  border-left: 4px solid #d6d6d6;
+}
+
+.post-content blockquote > :first-child,
+.home-content blockquote > :first-child {
+  margin-top: 0;
+}
+
+.post-content blockquote > :last-child,
+.home-content blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.post-content hr,
+.home-content hr {
+  height: 4px;
+  margin: 32px 0;
+  background-color: #d6d6d6;
+  border: 0;
+}
+
+.post-content table,
+.home-content table {
+  margin: 10px 0 15px;
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: keep-all;
+}
+
+.post-content table th,
+.home-content table th {
+  font-weight: 700;
+  color: #000000;
+}
+
+.post-content table td,
+.post-content table th,
+.home-content table td,
+.home-content table th {
+  border: 1px solid #d6d6d6;
+  padding: 6px 13px;
+}
+
+.post-content dl,
+.home-content dl {
+  padding: 0;
+}
+
+.post-content dl dt,
+.home-content dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.post-content dl dd,
+.home-content dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+
+.post-content code,
+.home-content code {
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 0.85em;
+  color: #000000;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  padding: 0.2em 0;
+}
+
+.post-content code::after,
+.post-content code::before,
+.home-content code::after,
+.home-content code::before {
+  letter-spacing: -0.2em;
+  content: "\00A0";
+}
+
+.post-content pre > code,
+.home-content pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.post-content pre code::after,
+.post-content pre code::before,
+.home-content pre code::after,
+.home-content pre code::before {
+  content: normal;
+}
+
+.post-content pre,
+.home-content pre {
+  padding: 1em;
+  overflow: auto;
+  line-height: 1.45;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+}
+
+.post-content pre code,
+.post-content pre tt,
+.home-content pre code,
+.home-content pre tt {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  overflow-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.post-content blockquote,
+.post-content dl,
+.post-content ol,
+.post-content p,
+.post-content pre,
+.post-content ul,
+.home-content blockquote,
+.home-content dl,
+.home-content ol,
+.home-content p,
+.home-content pre,
+.home-content ul {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.post-content kbd,
+.home-content kbd {
+  color: #000000;
+  border-width: 1px 1px 2px;
+  border-style: solid;
+  border-color: #d6d6d6 #d6d6d6 #c7c7c7;
+  padding: 2px 4px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+}
+
+.post-content .token.blockquote,
+.post-content .token.comment,
+.home-content .token.blockquote,
+.home-content .token.comment {
+  color: #969896;
+}
+
+.post-content .token.cdata,
+.home-content .token.cdata {
+  color: #183691;
+}
+
+.post-content .token.doctype,
+.post-content .token.macro.property,
+.post-content .token.punctuation,
+.post-content .token.variable,
+.home-content .token.doctype,
+.home-content .token.macro.property,
+.home-content .token.punctuation,
+.home-content .token.variable {
+  color: #333333;
+}
+
+.post-content .token.builtin,
+.post-content .token.important,
+.post-content .token.keyword,
+.post-content .token.operator,
+.post-content .token.rule,
+.home-content .token.builtin,
+.home-content .token.important,
+.home-content .token.keyword,
+.home-content .token.operator,
+.home-content .token.rule {
+  color: #a71d5d;
+}
+
+.post-content .token.attr-value,
+.post-content .token.regex,
+.post-content .token.string,
+.post-content .token.url,
+.home-content .token.attr-value,
+.home-content .token.regex,
+.home-content .token.string,
+.home-content .token.url {
+  color: #183691;
+}
+
+.post-content .token.atrule,
+.post-content .token.boolean,
+.post-content .token.code,
+.post-content .token.command,
+.post-content .token.constant,
+.post-content .token.entity,
+.post-content .token.number,
+.post-content .token.property,
+.post-content .token.symbol,
+.home-content .token.atrule,
+.home-content .token.boolean,
+.home-content .token.code,
+.home-content .token.command,
+.home-content .token.constant,
+.home-content .token.entity,
+.home-content .token.number,
+.home-content .token.property,
+.home-content .token.symbol {
+  color: #0086b3;
+}
+
+.post-content .token.prolog,
+.post-content .token.selector,
+.post-content .token.tag,
+.home-content .token.prolog,
+.home-content .token.selector,
+.home-content .token.tag {
+  color: #63a35c;
+}
+
+.post-content .token.attr-name,
+.post-content .token.class,
+.post-content .token.class-name,
+.post-content .token.function,
+.post-content .token.id,
+.post-content .token.namespace,
+.post-content .token.pseudo-class,
+.post-content .token.pseudo-element,
+.post-content .token.url-reference .token.variable,
+.home-content .token.attr-name,
+.home-content .token.class,
+.home-content .token.class-name,
+.home-content .token.function,
+.home-content .token.id,
+.home-content .token.namespace,
+.home-content .token.pseudo-class,
+.home-content .token.pseudo-element,
+.home-content .token.url-reference .token.variable {
+  color: #795da3;
+}
+
+.post-content .token.entity,
+.home-content .token.entity {
+  cursor: help;
+}
+
+.post-content .token.title,
+.post-content .token.title .token.punctuation,
+.home-content .token.title,
+.home-content .token.title .token.punctuation {
+  font-weight: 700;
+  color: #1d3e81;
+}
+
+.post-content .token.list,
+.home-content .token.list {
+  color: #ed6a43;
+}
+
+.post-content .token.inserted,
+.home-content .token.inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+
+.post-content .token.deleted,
+.home-content .token.deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+
+.post-content .token.bold,
+.home-content .token.bold {
+  font-weight: 700;
+}
+
+.post-content .token.italic,
+.home-content .token.italic {
+  font-style: italic;
+}
+
+.post-content .language-json .token.property,
+.home-content .language-json .token.property {
+  color: #183691;
+}
+
+.post-content .language-markup .token.tag .token.punctuation,
+.home-content .language-markup .token.tag .token.punctuation {
+  color: #333333;
+}
+
+.post-content .language-css .token.function,
+.post-content code.language-css,
+.home-content .language-css .token.function,
+.home-content code.language-css {
+  color: #0086b3;
+}
+
+.post-content .language-yaml .token.atrule,
+.home-content .language-yaml .token.atrule {
+  color: #63a35c;
+}
+
+.post-content code.language-yaml,
+.home-content code.language-yaml {
+  color: #183691;
+}
+
+.post-content .language-ruby .token.function,
+.home-content .language-ruby .token.function {
+  color: #333333;
+}
+
+.post-content .language-markdown .token.url,
+.home-content .language-markdown .token.url {
+  color: #795da3;
+}
+
+.post-content .language-makefile .token.symbol,
+.home-content .language-makefile .token.symbol {
+  color: #795da3;
+}
+
+.post-content .language-makefile .token.variable,
+.home-content .language-makefile .token.variable {
+  color: #183691;
+}
+
+.post-content .language-makefile .token.builtin,
+.home-content .language-makefile .token.builtin {
+  color: #0086b3;
+}
+
+.post-content .language-bash .token.keyword,
+.home-content .language-bash .token.keyword {
+  color: #0086b3;
+}
+
+@media print {
+  .post-content h1,
+  .post-content h2,
+  .post-content h3,
+  .post-content h4,
+  .post-content h5,
+  .post-content h6,
+  .home-content h1,
+  .home-content h2,
+  .home-content h3,
+  .home-content h4,
+  .home-content h5,
+  .home-content h6 {
+    color: #000000;
+    break-after: avoid;
+  }
+
+  .post-content blockquote,
+  .home-content blockquote {
+    color: #5c5c5c;
+  }
+
+  .post-content pre,
+  .home-content pre {
+    break-inside: avoid;
+  }
+
+  .post-content table,
+  .home-content table {
+    display: table;
+  }
+
+  .post-content img,
+  .home-content img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .post-content code,
+  .post-content pre,
+  .home-content code,
+  .home-content pre {
+    overflow-wrap: break-word;
+    white-space: pre;
+  }
+}

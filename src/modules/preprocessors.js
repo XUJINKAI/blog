@@ -108,19 +108,37 @@ export function registerPreprocessors(eleventyConfig, siteData) {
             if (token.type !== "heading_open") continue;
 
             const level = Number(token.tag.slice(1));
-
             if (level < minLevel || level > maxLevel) continue;
 
             const inline = tokens[i + 1];
             if (!inline || inline.type !== "inline") continue;
 
-            const text = mdParser.renderer.renderInline(inline.children ?? [], mdParser.options, {});
-            const plain = text.replace(/<[^>]*>/g, "").trim();
-            if (!plain) continue;
+            const text = (inline.children ?? [])
+                .map((child) => {
+                    switch (child.type) {
+                        case "text":
+                        case "code_inline":
+                            return child.content;
+
+                        case "image":
+                            return child.content;
+
+                        case "softbreak":
+                        case "hardbreak":
+                            return " ";
+
+                        default:
+                            return "";
+                    }
+                })
+                .join("")
+                .trim();
+
+            if (!text) continue;
 
             headings.push({
                 level,
-                id: slugify(plain),
+                id: slugify(text),
                 text,
             });
         }
