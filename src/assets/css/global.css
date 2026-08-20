@@ -623,6 +623,40 @@ a[target="_blank"]::after {
   padding-left: 1em;
 }
 
+.toc-actions {
+  display: flex;
+  gap: 8px;
+  padding: 0 20px 16px;
+}
+
+.toc-action {
+  flex: 1;
+  padding: 6px 8px;
+  color: rgb(71 75 80);
+  background: rgb(243 244 245);
+  border-radius: 5px;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.toc-action:hover {
+  color: rgb(47 107 224);
+  text-decoration: none;
+  background: rgb(232 237 248);
+}
+
+body,
+.comments-section,
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  scroll-margin-top: 24px;
+}
+
 .toc-close {
   position: absolute;
   top: 6px;

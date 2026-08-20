@@ -30,6 +30,12 @@
       {%- if not loop.last %}</ul>{%- endif -%}
       {%- endfor -%}
   </ul>
+  <nav class="toc-actions" aria-label="页面导航">
+    <a class="toc-action" href="#page-top">回到顶部</a>
+    {%- if comments and site.integrations.disqus -%}
+    <a class="toc-action" href="#comments">前往评论</a>
+    {%- endif -%}
+  </nav>
 </div>
 <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="tocPanel">目录</button>
 <script>
@@ -55,6 +61,18 @@
 
         if (close) close.addEventListener("click", function () {
             setOpen(false);
+        });
+
+        panel.querySelectorAll('a[href^="#"]').forEach(function (link) {
+            link.addEventListener("click", function (e) {
+                var targetId = decodeURIComponent(link.hash.slice(1));
+                var target = document.getElementById(targetId);
+                if (!target) return;
+
+                e.preventDefault();
+                history.replaceState(null, "", link.hash);
+                target.scrollIntoView({ behavior: "smooth", block: "start" });
+            });
         });
 
         if (isMobile.matches) {
