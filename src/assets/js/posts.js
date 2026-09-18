@@ -36,11 +36,12 @@ function ready(fn) {
         });
     }
 }
+
 /* posts */
 function getPostsList() {
-    var posts_list = [];
-    var li_list = document.querySelectorAll("ul.post-list li");
-    li_list.forEach(li => {
+    var postsList = [];
+    var liList = document.querySelectorAll("ul.post-list li");
+    liList.forEach(li => {
         var post = {};
         post.item = li;
         post.title = li.querySelector("a").innerHTML;
@@ -48,25 +49,25 @@ function getPostsList() {
         post.date = li.getAttribute("date");
         post.update = li.getAttribute("update") || post.date;
         post.tags = [];
-        li.querySelectorAll("tags tag").forEach(tag_dom => { post.tags.push(tag_dom.innerHTML); });
+        li.querySelectorAll("tags tag").forEach(tagDom => { post.tags.push(tagDom.innerHTML); });
         post.emotag = li.querySelector("h3 emotag")?.innerHTML;
-        posts_list.push(post);
+        postsList.push(post);
     });
-    return posts_list;
+    return postsList;
 }
 function renderPostsList() {
     var postList = document.querySelector("ul.post-list");
     postList.innerHTML = "";
-    homeObj.posts
+    postsState.posts
         .filter(post => {
-            var isTag = isEmpty(homeQuery.tag) || post.tags.includes(homeQuery.tag);
-            var isEmoji = homeQuery.filter_emoji && !isEmpty(post.emotag) || !homeQuery.filter_emoji;
+            var isTag = isEmpty(postsQuery.tag) || post.tags.includes(postsQuery.tag);
+            var isEmoji = postsQuery.filter_emoji && !isEmpty(post.emotag) || !postsQuery.filter_emoji;
             return isTag && isEmoji;
         })
         .sort((a, b) => {
-            var textA = a[homeQuery.sort];
-            var textB = b[homeQuery.sort];
-            if (homeQuery.order == "asc") {
+            var textA = a[postsQuery.sort];
+            var textB = b[postsQuery.sort];
+            if (postsQuery.order == "asc") {
                 return (textA < textB) ? -1 : 1;
             } else {
                 return (textA > textB) ? -1 : 1;
@@ -74,16 +75,17 @@ function renderPostsList() {
         })
         .forEach(post => {
             var item = post.item;
-            item.querySelector("date").innerHTML = post[homeQuery.sort].substring(0, 10);
+            item.querySelector("date").innerHTML = post[postsQuery.sort].substring(0, 10);
             postList.appendChild(item);
         });
 }
+
 /* tags */
 function getTagsList(postsList) {
-    var tags_list = [];
+    var tagsList = [];
     postsList.forEach(post => {
         post.tags.forEach(tag => {
-            if (tags_list.find(x => x.name === tag) == undefined) {
+            if (tagsList.find(x => x.name === tag) == undefined) {
                 var tagItem = {};
                 tagItem.name = tag;
                 tagItem.count = 1;
@@ -92,87 +94,81 @@ function getTagsList(postsList) {
                 tagItem.item = document.createElement("a");
                 tagItem.item.href = "javascript:toggleTag('" + tagItem.name + "');";
                 tagItem.item.innerHTML = `<span class="tag-name">${tagItem.name}</span><span class="tag-count">${tagItem.count}</span>`;
-                tags_list.push(tagItem);
+                tagsList.push(tagItem);
             } else {
-                var tagItem = tags_list.find(x => x.name === tag);
-                tagItem.count++;
-                tagItem.item.querySelector("span.tag-count").innerHTML = tagItem.count;
-                tagItem.posts.push(post);
+                var existingTagItem = tagsList.find(x => x.name === tag);
+                existingTagItem.count++;
+                existingTagItem.item.querySelector("span.tag-count").innerHTML = existingTagItem.count;
+                existingTagItem.posts.push(post);
             }
         });
     });
-    return tags_list;
+    return tagsList;
 }
 function renderTagsList() {
     var tagsList = document.querySelector(".tags-list");
     tagsList.innerHTML = "";
-    homeObj.tags.forEach(tag => {
+    postsState.tags.forEach(tag => {
         var item = tag.item;
         item.classList.remove("active");
-        if (tag.name == homeQuery.tag) {
+        if (tag.name == postsQuery.tag) {
             item.classList.add("active");
         }
         tagsList.appendChild(item);
     });
 }
+
 /* API */
-function homeRenderPage() {
+function renderPostsPage() {
     document.querySelectorAll(".post-sort-sign").forEach(span => {
         span.innerHTML = "";
         span.parentElement.classList.remove("active");
     });
-    document.querySelector(`a[data-sort='${homeQuery.sort}'] .post-sort-sign`).innerHTML = homeQuery.order == "asc" ? "▲" : "▼";
-    document.querySelector(`a[data-sort='${homeQuery.sort}']`).classList.add("active");
+    document.querySelector(`a[data-sort='${postsQuery.sort}'] .post-sort-sign`).innerHTML = postsQuery.order == "asc" ? "▲" : "▼";
+    document.querySelector(`a[data-sort='${postsQuery.sort}']`).classList.add("active");
 
     document.querySelector('a.post-filter-emoji').classList.remove('active');
-    if (homeQuery.filter_emoji) {
+    if (postsQuery.filter_emoji) {
         document.querySelector('a.post-filter-emoji').classList.add('active');
     }
 
     renderTagsList();
     renderPostsList();
 }
-function homeRenderFromUrlQuery() {
-    homeQuery.tag = getUrlQueryVariable("tag", defaultQuery.tag);
-    homeQuery.sort = getUrlQueryVariable("sort", defaultQuery.sort);
-    homeQuery.order = getUrlQueryVariable("order", defaultQuery.order);
-    homeQuery.filter_emoji = getUrlQueryVariable("emoji", defaultQuery.filter_emoji);
-    homeRenderPage();
+function renderPostsFromUrlQuery() {
+    postsQuery.tag = getUrlQueryVariable("tag", defaultQuery.tag);
+    postsQuery.sort = getUrlQueryVariable("sort", defaultQuery.sort);
+    postsQuery.order = getUrlQueryVariable("order", defaultQuery.order);
+    postsQuery.filter_emoji = getUrlQueryVariable("emoji", defaultQuery.filter_emoji);
+    renderPostsPage();
 }
-function homeRenderIncludeUrl() {
+function renderPostsWithUrl() {
     var url = window.location.href;
-    url = setUrlQueryVariable(url, "tag", homeQuery.tag, defaultQuery.tag);
-    url = setUrlQueryVariable(url, "sort", homeQuery.sort, defaultQuery.sort);
-    url = setUrlQueryVariable(url, "order", homeQuery.order, defaultQuery.order);
-    url = setUrlQueryVariable(url, "emoji", homeQuery.filter_emoji, defaultQuery.filter_emoji);
+    url = setUrlQueryVariable(url, "tag", postsQuery.tag, defaultQuery.tag);
+    url = setUrlQueryVariable(url, "sort", postsQuery.sort, defaultQuery.sort);
+    url = setUrlQueryVariable(url, "order", postsQuery.order, defaultQuery.order);
+    url = setUrlQueryVariable(url, "emoji", postsQuery.filter_emoji, defaultQuery.filter_emoji);
     pushHistoryState(url);
-    homeRenderPage();
+    renderPostsPage();
 }
-function toggleSort(sort_by) {
-    if (homeQuery.sort == sort_by) {
-        if (homeQuery.order == "asc") {
-            homeQuery.order = "desc";
-        } else {
-            homeQuery.order = "asc";
-        }
+function toggleSort(sortBy) {
+    if (postsQuery.sort == sortBy) {
+        postsQuery.order = postsQuery.order == "asc" ? "desc" : "asc";
     } else {
-        homeQuery.sort = sort_by;
-        homeQuery.order = "desc";
+        postsQuery.sort = sortBy;
+        postsQuery.order = "desc";
     }
-    homeRenderIncludeUrl();
+    renderPostsWithUrl();
 }
 function toggleTag(name) {
-    if (homeQuery.tag == name) {
-        homeQuery.tag = null;
-    } else {
-        homeQuery.tag = name;
-    }
-    homeRenderIncludeUrl();
+    postsQuery.tag = postsQuery.tag == name ? null : name;
+    renderPostsWithUrl();
 }
 function toggleEmoji() {
-    homeQuery.filter_emoji = !homeQuery.filter_emoji;
-    homeRenderIncludeUrl();
+    postsQuery.filter_emoji = !postsQuery.filter_emoji;
+    renderPostsWithUrl();
 }
+
 /* onload */
 var defaultQuery = {
     tag: null,
@@ -180,17 +176,18 @@ var defaultQuery = {
     order: "desc",
     filter_emoji: false,
 };
-var homeQuery = JSON.parse(JSON.stringify(defaultQuery));
+var postsQuery = JSON.parse(JSON.stringify(defaultQuery));
 
-var homeObj = {
+var postsState = {
     posts: [],
     tags: [],
 };
-ready(function (window) {
-    homeObj.posts = getPostsList();
-    homeObj.tags = getTagsList(homeObj.posts);
 
-    homeObj.posts.forEach(post => {
+ready(function () {
+    postsState.posts = getPostsList();
+    postsState.tags = getTagsList(postsState.posts);
+
+    postsState.posts.forEach(post => {
         var date = post.date.substring(0, 10);
         var title = `创建于${date}`;
         if (post.update && post.update != post.date) {
@@ -201,7 +198,7 @@ ready(function (window) {
     });
 
     if (SITE_CONFIG.disqus != "") {
-        homeObj.posts.forEach(post => post.item.querySelector("pmeta").innerHTML += `<span class="disqus-comment-count" data-disqus-identifier="${post.url}"></span>`);
+        postsState.posts.forEach(post => post.item.querySelector("pmeta").innerHTML += `<span class="disqus-comment-count" data-disqus-identifier="${post.url}"></span>`);
         var script = document.createElement("script");
         script.async = true;
         script.id = "dsq-count-scr";
@@ -209,8 +206,8 @@ ready(function (window) {
         document.head.appendChild(script);
     }
 
-    homeRenderFromUrlQuery();
-    listenHistoryState(function (url) {
-        homeRenderFromUrlQuery();
+    renderPostsFromUrlQuery();
+    listenHistoryState(function () {
+        renderPostsFromUrlQuery();
     });
 });

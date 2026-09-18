@@ -18,7 +18,7 @@
     {% include "partials/header.njk" %}
 
     <main class="page-content" aria-label="Content">
-        <div class="wrapper">
+        <div class="wrapper{% if wide %} wrapper-wide{% endif %}">
             {{ content | safe }}
 
             {% if site.integrations.disqus and comments %}

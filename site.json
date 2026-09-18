@@ -7,26 +7,15 @@
     "timezone": "Asia/Shanghai",
     "left_nav": [
         {
-            "text": "Tweet",
-            "url": "/tweet"
+            "text": "博文",
+            "url": "/posts/"
         },
         {
-            "text": "关于",
+            "text": "留言",
             "url": "/about"
         }
     ],
-    "right_nav": [
-        {
-            "text": "OneQuick",
-            "url": "https://OneQuick.org",
-            "title": "Windows快捷热键工具"
-        },
-        {
-            "text": "Crypto",
-            "url": "/crypto/msg",
-            "title": "在线密码应用"
-        }
-    ],
+    "right_nav": [],
     "footer": [
         "© 2016-2026 XUJINKAI.NET",
         "Github Source: <a href=\"https://github.com/XUJINKAI/blog\">XUJINKAI blog</a>"

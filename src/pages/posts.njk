@@ -1,23 +1,20 @@
 ---
 layout: layouts/base.njk
+permalink: /posts/
+title: 文章
 ---
 
-<div class="home">
-
+<div class="posts-page">
     {% if site.debug %}
     <p style="float: right; font-size: 0.8em;">
         <a href="/debug">[调试页面]</a>
     </p>
     {% endif %}
 
-    <div class="home-content">
-        {{ content | safe }}
-    </div>
-
     {% include "partials/posts.njk" %}
-
 </div>
+
 <script>
-    /* 用于home.js配置*/
+    /* 用于 posts.js 配置 */
     var SITE_CONFIG = { disqus: "{{ site.integrations.disqus }}" };
 </script>

@@ -1,0 +1,592 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "name": "XUJINKAI-Home-Demo",
+    "author": "XUJINKAI"
+  },
+  "rules": {
+    "win": {
+      "type": "exit"
+    }
+  },
+  "width": 8,
+  "height": 10,
+  "entities": [
+    {
+      "type": "grass",
+      "x": 6,
+      "y": 1,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 7,
+      "y": 1,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 1,
+      "y": 2,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 2,
+      "y": 2,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 4,
+      "y": 2,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 5,
+      "y": 2,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 6,
+      "y": 2,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 7,
+      "y": 2,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 4,
+      "y": 3,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 5,
+      "y": 3,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 6,
+      "y": 3,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 7,
+      "y": 3,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 0,
+      "y": 7,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 1,
+      "y": 7,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 2,
+      "y": 7,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 3,
+      "y": 7,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 4,
+      "y": 7,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 5,
+      "y": 7,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 6,
+      "y": 7,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 7,
+      "y": 7,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 0,
+      "y": 8,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 1,
+      "y": 8,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 2,
+      "y": 8,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 3,
+      "y": 8,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 4,
+      "y": 8,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 5,
+      "y": 8,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 6,
+      "y": 8,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 7,
+      "y": 8,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 6,
+      "y": 9,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 7,
+      "y": 9,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "hedge",
+      "x": 0,
+      "y": 0,
+      "variant": "ts-4-5"
+    },
+    {
+      "type": "hedge",
+      "x": 1,
+      "y": 0,
+      "variant": "ts-4-5"
+    },
+    {
+      "type": "hedge",
+      "x": 2,
+      "y": 0,
+      "variant": "ts-4-5"
+    },
+    {
+      "type": "hedge",
+      "x": 3,
+      "y": 0,
+      "variant": "ts-4-5"
+    },
+    {
+      "type": "hedge",
+      "x": 4,
+      "y": 0,
+      "variant": "ts-4-5"
+    },
+    {
+      "type": "hedge",
+      "x": 5,
+      "y": 0,
+      "variant": "ts-4-5"
+    },
+    {
+      "type": "hedge",
+      "x": 6,
+      "y": 0,
+      "variant": "ts-4-5"
+    },
+    {
+      "type": "hedge",
+      "x": 7,
+      "y": 0,
+      "variant": "ts-4-5"
+    },
+    {
+      "type": "bobby",
+      "x": 2,
+      "y": 2,
+      "stackOrder": 1
+    },
+    {
+      "type": "grass",
+      "x": 2,
+      "y": 3,
+      "variant": "ts-10-2"
+    },
+    {
+      "type": "flower-pot",
+      "x": 3,
+      "y": 1
+    },
+    {
+      "type": "flower-pot",
+      "x": 0,
+      "y": 1
+    },
+    {
+      "type": "flower-pot",
+      "x": 0,
+      "y": 3
+    },
+    {
+      "type": "mushroom",
+      "x": 3,
+      "y": 2
+    },
+    {
+      "type": "mushroom",
+      "x": 1,
+      "y": 3
+    },
+    {
+      "type": "mushroom",
+      "x": 3,
+      "y": 3
+    },
+    {
+      "type": "mushroom",
+      "x": 0,
+      "y": 2
+    },
+    {
+      "type": "water",
+      "x": 0,
+      "y": 4,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 0,
+      "y": 5,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 2,
+      "y": 5,
+      "variant": "still"
+    },
+    {
+      "type": "grass",
+      "x": 2,
+      "y": 4,
+      "variant": "ts-7-5"
+    },
+    {
+      "type": "grass",
+      "x": 1,
+      "y": 4,
+      "variant": "ts-8-7"
+    },
+    {
+      "type": "grass",
+      "x": 3,
+      "y": 4,
+      "variant": "ts-8-8"
+    },
+    {
+      "type": "grass",
+      "x": 1,
+      "y": 1,
+      "variant": "ts-10-1"
+    },
+    {
+      "type": "grass",
+      "x": 2,
+      "y": 1,
+      "variant": "ts-10-2"
+    },
+    {
+      "type": "water",
+      "x": 4,
+      "y": 5,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 4,
+      "y": 6,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 2,
+      "y": 6,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 1,
+      "y": 6,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 0,
+      "y": 6,
+      "variant": "still"
+    },
+    {
+      "type": "portal",
+      "x": 2,
+      "y": 4,
+      "stackOrder": 1,
+      "channel": "1",
+      "color": "#46b7dd"
+    },
+    {
+      "type": "exit",
+      "x": 4,
+      "y": 2,
+      "stackOrder": 1
+    },
+    {
+      "type": "beaver",
+      "x": 1,
+      "y": 2,
+      "stackOrder": 1,
+      "dialogue": "你好，这是我复刻的《兔子波比5》网页版，引擎是完全重写的，还有地图编辑器，欢迎游玩~"
+    },
+    {
+      "type": "water",
+      "x": 1,
+      "y": 5,
+      "variant": "ripple"
+    },
+    {
+      "type": "water",
+      "x": 3,
+      "y": 6,
+      "variant": "ripple"
+    },
+    {
+      "type": "water",
+      "x": 4,
+      "y": 4,
+      "variant": "ripple"
+    },
+    {
+      "type": "water",
+      "x": 5,
+      "y": 4,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 6,
+      "y": 4,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 5,
+      "y": 5,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 6,
+      "y": 5,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 5,
+      "y": 6,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 6,
+      "y": 6,
+      "variant": "ripple"
+    },
+    {
+      "type": "water",
+      "x": 3,
+      "y": 5,
+      "variant": "still"
+    },
+    {
+      "type": "mushroom",
+      "x": 4,
+      "y": 1
+    },
+    {
+      "type": "mushroom",
+      "x": 5,
+      "y": 1
+    },
+    {
+      "type": "water",
+      "x": 7,
+      "y": 4,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 7,
+      "y": 5,
+      "variant": "still"
+    },
+    {
+      "type": "water",
+      "x": 7,
+      "y": 6,
+      "variant": "still"
+    },
+    {
+      "type": "mirror",
+      "x": 7,
+      "y": 7,
+      "stackOrder": 1,
+      "variant": "left-bottom"
+    },
+    {
+      "type": "dragon",
+      "x": 3,
+      "y": 7,
+      "stackOrder": 1,
+      "direction": "right"
+    },
+    {
+      "type": "portal",
+      "x": 0,
+      "y": 7,
+      "stackOrder": 1,
+      "channel": "1",
+      "color": "#46b7dd"
+    },
+    {
+      "type": "tide",
+      "x": 0,
+      "y": 6,
+      "stackOrder": 1,
+      "direction": "left"
+    },
+    {
+      "type": "leaf",
+      "x": 0,
+      "y": 6,
+      "stackOrder": 2
+    },
+    {
+      "type": "tide-switch",
+      "x": 7,
+      "y": 9,
+      "stackOrder": 1
+    },
+    {
+      "type": "ice-block",
+      "x": 7,
+      "y": 9,
+      "stackOrder": 2
+    },
+    {
+      "type": "pushable-box",
+      "x": 6,
+      "y": 3,
+      "stackOrder": 1
+    },
+    {
+      "type": "pushable-box",
+      "x": 6,
+      "y": 2,
+      "stackOrder": 1
+    },
+    {
+      "type": "pushable-box",
+      "x": 6,
+      "y": 1,
+      "stackOrder": 1
+    },
+    {
+      "type": "dream-machine",
+      "x": 7,
+      "y": 1,
+      "stackOrder": 1,
+      "dialogue": "哔~还能推箱子的说~"
+    },
+    {
+      "type": "stump",
+      "x": 5,
+      "y": 9
+    },
+    {
+      "type": "stump",
+      "x": 4,
+      "y": 9
+    },
+    {
+      "type": "stump",
+      "x": 3,
+      "y": 9
+    },
+    {
+      "type": "stump",
+      "x": 2,
+      "y": 9
+    },
+    {
+      "type": "stump",
+      "x": 1,
+      "y": 9
+    },
+    {
+      "type": "stump",
+      "x": 0,
+      "y": 9
+    },
+    {
+      "type": "ice-block",
+      "x": 7,
+      "y": 2,
+      "stackOrder": 1
+    },
+    {
+      "type": "ice-block",
+      "x": 7,
+      "y": 3,
+      "stackOrder": 1
+    }
+  ]
+}
