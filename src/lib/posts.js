@@ -1,16 +1,14 @@
-import path from "node:path";
+import { getCollection } from "astro:content";
 import { activityTime } from "./dates.js";
-import { listMarkdownFiles, readMarkdownFile } from "./content.js";
 import { site } from "./site.js";
 
-const postsDirectory = path.join(process.cwd(), "src", "posts");
-let publishedPostsPromise;
+export async function getPublishedPosts() {
+  const entries = await getCollection(
+    "posts",
+    ({ data }) => data.published !== false,
+  );
 
-export function getPublishedPosts() {
-  if (!publishedPostsPromise) {
-    publishedPostsPromise = loadPosts();
-  }
-  return publishedPostsPromise;
+  return entries.map(normalizePost);
 }
 
 export async function getPostsByDate() {
@@ -33,41 +31,15 @@ export async function getHomePosts() {
 export async function getPostRoutes() {
   const posts = await getPublishedPosts();
 
-  return posts.map((post) => {
-    if (!post.cleanUrl.startsWith("/posts/")) {
-      throw new Error(
-        "Post permalink must stay under /posts/: " + post.sourcePath + " -> " + post.cleanUrl,
-      );
-    }
-
-    return {
-      params: { slug: post.cleanUrl.slice("/posts/".length) },
-      props: { post },
-    };
-  });
-}
-
-async function loadPosts() {
-  const files = await listMarkdownFiles(postsDirectory);
-  const posts = [];
-
-  for (const filePath of files) {
-    const { data, body } = await readMarkdownFile(filePath);
-    if (data.published === false) continue;
-
-    posts.push(normalizePost({
-      data,
-      body,
-      sourcePath: path.relative(postsDirectory, filePath).replaceAll(path.sep, "/"),
-    }));
-  }
-
-  return posts;
+  return posts.map((post) => ({
+    params: { slug: post.cleanUrl.slice("/posts/".length) },
+    props: { post },
+  }));
 }
 
 function normalizePost(entry) {
-  const data = entry.data ?? {};
-  const permalink = normalizePermalink(data.permalink, entry.sourcePath);
+  const data = entry.data;
+  const permalink = data.permalink.trim();
   const cleanUrl = permalink.endsWith(".html")
     ? permalink.slice(0, -".html".length)
     : permalink;
@@ -77,12 +49,12 @@ function normalizePost(entry) {
       : permalink + ".html";
   const body = entry.body || "";
   const tags = normalizeTags(data.tags);
-  const date = data.date || null;
+  const date = data.date;
   const lastModified = data.last_modified_at || null;
 
   return {
-    sourcePath: entry.sourcePath,
-    title: data.title || "",
+    sourcePath: entry.id,
+    title: data.title,
     permalink,
     pageUrl,
     cleanUrl,
@@ -98,15 +70,6 @@ function normalizePost(entry) {
     body,
     excerpt: createExcerpt(body),
   };
-}
-
-function normalizePermalink(value, sourcePath) {
-  if (typeof value !== "string" || !value.trim()) {
-    throw new Error('Post is missing required frontmatter "permalink": ' + sourcePath);
-  }
-
-  const permalink = value.trim();
-  return permalink.startsWith("/") ? permalink : "/" + permalink;
 }
 
 function normalizeTags(raw) {
