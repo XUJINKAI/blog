@@ -412,6 +412,10 @@ a[target="_blank"]::after {
   border-top-width: 1px;
 }
 
+.post-list>li[hidden] {
+  display: none;
+}
+
 .post-list li>a {
   display: flex;
   flex-direction: column;

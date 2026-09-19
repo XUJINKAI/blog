@@ -29,6 +29,11 @@ for (const marker of [
   if (!home.includes(marker)) throw new Error("Homepage output is missing: " + marker);
 }
 
+const css = await readFile("dist/assets/css/global.css", "utf8");
+if (!css.includes(".post-list>li[hidden]")) {
+  throw new Error("Filtered posts are not guaranteed to hide.");
+}
+
 const posts = await readFile("dist/posts/index.html", "utf8");
 for (const marker of [
   'class="posts-page"',
