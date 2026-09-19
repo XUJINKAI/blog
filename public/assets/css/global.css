@@ -386,7 +386,7 @@ a[target="_blank"]::after {
 
 /** Page content */
 .page-content {
-  padding: 30px 0;
+  padding: 20px 0 40px 0;
   flex: 1 0 auto;
 }
 
