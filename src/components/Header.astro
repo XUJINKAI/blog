@@ -1,0 +1,31 @@
+---
+import { site } from "../lib/site.js";
+---
+<header class="site-header">
+  <div class="wrapper shell-wrapper">
+    <a class="site-title" rel="author" href="/">{site.title}</a>
+    <nav class="site-nav">
+      <div class="trigger">
+        <div class="left-nav">
+          {site.left_nav.map((link) => (
+            <a class="page-link" href={link.url} title={link.title || undefined}
+              target={link.blank ? "_blank" : undefined}
+              rel={link.blank ? "noopener noreferrer" : undefined}>{link.text}</a>
+          ))}
+        </div>
+        {site.right_nav?.length > 0 && (
+          <>
+            <div class="nav-divider"></div>
+            <div class="right-nav">
+              {site.right_nav.map((link) => (
+                <a class="page-link" href={link.url} title={link.title || undefined}
+                  target={link.blank ? "_blank" : undefined}
+                  rel={link.blank ? "noopener noreferrer" : undefined}>{link.text}</a>
+              ))}
+            </div>
+          </>
+        )}
+      </div>
+    </nav>
+  </div>
+</header>
