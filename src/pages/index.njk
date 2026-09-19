@@ -3,20 +3,17 @@ layout: layouts/base.njk
 permalink: /
 title:
 wide: true
+codeHighlight: false
 ---
 
 <div class="personal-home">
-    <article class="home-intro-card home-markdown">
-        {% set intro %}{% include "home/intro.md" %}{% endset %}
-        {{ intro | markdownFragment | safe }}
-    </article>
-
     <section class="home-projects">
         <div class="project-list">
             {% for project in homeProjects %}
-            <article class="project-card">
+            <article class="project-card{% if project.variant == "intro" %} home-intro-card{% endif %}"
+                data-project-width="{{ project.width }}">
                 <div class="project-copy home-markdown">
-                    {% set projectContent %}{% include project %}{% endset %}
+                    {% set projectContent %}{% include project.file %}{% endset %}
                     {{ projectContent | markdownFragment | safe }}
                 </div>
             </article>

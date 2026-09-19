@@ -35,6 +35,7 @@ export function registerMarkdown(eleventyConfig) {
     // 首页等组合式内容块使用同一套 Markdown 语法，但不为标题注入文章锚点。
     const fragmentMdLib = markdownIt(options);
     configureFragmentLinks(fragmentMdLib);
+    configureFragmentImages(fragmentMdLib);
 
     eleventyConfig.setLibrary("md", mdLib);
     eleventyConfig.addFilter("markdownFragment", (content) => fragmentMdLib.render(content || ""));
@@ -52,6 +53,20 @@ function configureFragmentLinks(md) {
             tokens[idx].attrSet("rel", "noopener noreferrer");
         }
         return defaultLinkOpen(tokens, idx, options, env, self);
+    };
+}
+
+function configureFragmentImages(md) {
+    const defaultImage =
+        md.renderer.rules.image ||
+        ((tokens, idx, options, env, self) => self.renderToken(tokens, idx, options));
+
+    md.renderer.rules.image = (tokens, idx, options, env, self) => {
+        const token = tokens[idx];
+        token.attrSet("loading", "lazy");
+        token.attrSet("decoding", "async");
+        token.attrSet("fetchpriority", "low");
+        return defaultImage(tokens, idx, options, env, self);
     };
 }
 

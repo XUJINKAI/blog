@@ -4,7 +4,10 @@
 
   const cards = [...list.querySelectorAll(".project-card")];
   const media = window.matchMedia("(max-width: 760px)");
-  const gap = 20;
+  function getGap(name, fallback) {
+    const value = getComputedStyle(list).getPropertyValue(name);
+    return Number.parseFloat(value) || fallback;
+  }
   let frame = 0;
   let layingOut = false;
 
@@ -36,18 +39,32 @@
     layingOut = true;
     list.classList.add("is-masonry");
 
-    const columnWidth = (width - gap) / 2;
+    const columnGap = getGap("--project-column-gap", 14);
+    const rowGap = getGap("--project-row-gap", 24);
+    const columnWidth = (width - columnGap) / 2;
     const heights = [0, 0];
 
     for (const card of cards) {
+      if (card.dataset.projectWidth === "full") {
+        const top = Math.max(...heights);
+        card.style.width = `${width}px`;
+        card.style.left = "0px";
+        card.style.top = `${top}px`;
+
+        const bottom = top + card.offsetHeight + rowGap;
+        heights[0] = bottom;
+        heights[1] = bottom;
+        continue;
+      }
+
       card.style.width = `${columnWidth}px`;
       const column = heights[0] <= heights[1] ? 0 : 1;
-      card.style.left = `${column * (columnWidth + gap)}px`;
+      card.style.left = `${column * (columnWidth + columnGap)}px`;
       card.style.top = `${heights[column]}px`;
-      heights[column] += card.offsetHeight + gap;
+      heights[column] += card.offsetHeight + rowGap;
     }
 
-    list.style.height = `${Math.max(0, Math.max(...heights) - gap)}px`;
+    list.style.height = `${Math.max(0, Math.max(...heights) - rowGap)}px`;
     layingOut = false;
   }
 

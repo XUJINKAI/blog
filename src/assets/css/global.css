@@ -196,135 +196,68 @@ a[target="_blank"]::after {
   float: left;
 }
 
-@media screen and (max-width: 600px) {
-  .site-title {
-    padding-right: 45px;
-  }
-}
-
 .site-title,
 .site-title:visited {
   color: #424242;
 }
 
+.site-header .wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.site-header .wrapper::after {
+  display: none;
+}
+
+.site-title {
+  float: none;
+  flex: 0 0 auto;
+  margin-right: 30px;
+}
+
 .site-nav {
-  position: absolute;
-  top: 9px;
-  right: 15px;
-  background-color: #fdfdfd;
-  border: 1px solid #e8e8e8;
-  border-radius: 5px;
+  flex: 1 1 auto;
+  min-width: 0;
   text-align: right;
 }
 
-.site-nav .nav-trigger {
-  display: none;
+.site-nav .trigger {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.site-nav .menu-icon {
-  float: right;
-  width: 36px;
-  height: 26px;
-  line-height: 0;
-  padding-top: 10px;
-  text-align: center;
-}
-
-.site-nav .menu-icon>svg path {
-  fill: #424242;
-}
-
-.site-nav label[for="nav-trigger"] {
-  display: block;
-  float: right;
-  width: 36px;
-  height: 36px;
-  z-index: 2;
-  cursor: pointer;
-}
-
-.site-nav input~.trigger {
-  clear: both;
-  display: none;
-}
-
-.site-nav input:checked~.trigger {
-  display: block;
-  padding-bottom: 5px;
-}
-
-.site-nav .page-link {
-  color: #111111;
-  line-height: 1.5;
-  display: block;
-  padding: 5px 10px;
-  margin-left: 20px;
-}
-
-.site-nav .page-link:not(:last-child) {
-  margin-right: 0;
+.site-nav .left-nav,
+.site-nav .right-nav {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
 
 .site-nav .nav-divider {
-  border-top: 1px solid #e8e8e8;
-  margin: 5px 15px;
+  display: none;
 }
 
-@media screen and (min-width: 600px) {
-  .site-header .wrapper {
-    display: flex;
-    align-items: center;
-  }
+.site-nav .page-link {
+  display: inline;
+  padding: 0;
+  margin-left: 20px;
+  color: #111111;
+  line-height: 1.5;
+}
 
-  .site-header .wrapper::after {
-    display: none;
-  }
+.site-nav .left-nav .page-link:first-child {
+  margin-left: 0;
+}
 
+@media screen and (max-width: 600px) {
   .site-title {
-    float: none;
-    margin-right: 30px;
-  }
-
-  .site-nav {
-    position: static;
-    float: none;
-    border: none;
-    background-color: inherit;
-    flex-grow: 1;
-  }
-
-  .site-nav label[for="nav-trigger"] {
-    display: none;
-  }
-
-  .site-nav .menu-icon {
-    display: none;
-  }
-
-  .site-nav input~.trigger {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .site-nav .left-nav,
-  .site-nav .right-nav {
-    display: flex;
-    align-items: center;
-  }
-
-  .site-nav .nav-divider {
-    display: none;
+    margin-right: 18px;
   }
 
   .site-nav .page-link {
-    display: inline;
-    padding: 0;
-    margin-left: 20px;
-  }
-
-  .site-nav .left-nav .page-link:first-child {
-    margin-left: 0;
+    margin-left: 16px;
   }
 }
 
@@ -798,8 +731,11 @@ body,
 }
 
 .personal-home {
+  --home-section-gap: 36px;
+  --project-column-gap: 14px;
+  --project-row-gap: 14px;
   display: grid;
-  gap: 36px;
+  gap: var(--home-section-gap);
 }
 
 .home-markdown > :last-child {
@@ -816,11 +752,11 @@ body,
   box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
 }
 
-.home-intro-card {
+.home-intro-card .project-copy {
   padding: 28px 30px;
 }
 
-.home-intro-card > p:first-child {
+.home-intro-card .project-copy > p:first-child {
   margin-bottom: 10px;
   color: #828282;
   font-size: .75rem;
@@ -828,11 +764,11 @@ body,
   letter-spacing: .08em;
 }
 
-.home-intro-card > p:first-child strong {
+.home-intro-card .project-copy > p:first-child strong {
   font-weight: inherit;
 }
 
-.home-intro-card h1 {
+.home-intro-card .project-copy h1 {
   margin-bottom: 14px;
   font-size: clamp(1.8rem, 4.5vw, 2.7rem);
   font-weight: 650;
@@ -840,7 +776,7 @@ body,
   letter-spacing: -.03em;
 }
 
-.home-intro-card > p:not(:first-child) {
+.home-intro-card .project-copy > p:not(:first-child) {
   max-width: 820px;
   color: rgb(71 75 80);
   font-size: 1rem;
@@ -1037,7 +973,7 @@ body,
 
 
 .home-contact {
-  padding: 24px 0 10px;
+  padding: 0 0 10px;
 }
 
 .home-contact > p:first-child {
@@ -1062,11 +998,7 @@ body,
 }
 
 @media screen and (max-width: 760px) {
-  .personal-home {
-    gap: 28px;
-  }
-
-  .home-intro-card {
+  .home-intro-card .project-copy {
     padding: 22px 20px;
   }
 
@@ -1074,13 +1006,13 @@ body,
     height: auto !important;
   }
 
-  .project-list.is-masonry .project-card {
+  .project-list .project-card {
     position: static;
     width: 100% !important;
-    margin-bottom: 20px;
+    margin-bottom: var(--project-row-gap);
   }
 
-  .project-list.is-masonry .project-card:last-child {
+  .project-list .project-card:last-child {
     margin-bottom: 0;
   }
 

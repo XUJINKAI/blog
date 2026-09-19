@@ -1,6 +1,23 @@
 export default [
-    "home/onequick.md",
-    "home/bc5r.md",
-    "home/crypto.md",
-    "home/github.md",
+    {
+        file: "home/intro.md",
+        width: "full",
+        variant: "intro",
+    },
+    {
+        file: "home/onequick.md",
+        width: "half",
+    },
+    {
+        file: "home/bc5r.md",
+        width: "half",
+    },
+    {
+        file: "home/crypto.md",
+        width: "half",
+    },
+    {
+        file: "home/github.md",
+        width: "half",
+    },
 ];
