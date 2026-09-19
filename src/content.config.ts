@@ -1,6 +1,6 @@
 import { defineCollection } from "astro:content";
-import { postsLoader } from "./loaders/posts.js";
-import { postSchema } from "./content/post-schema.js";
+import { postsLoader } from "./loaders/posts.ts";
+import { postSchema } from "./content/post-schema.ts";
 
 const posts = defineCollection({
   loader: postsLoader(),
