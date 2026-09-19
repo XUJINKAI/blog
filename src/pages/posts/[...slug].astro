@@ -1,0 +1,7 @@
+---
+import Post from "../../layouts/Post.astro";
+import { getPostRoutes } from "../../lib/posts.js";
+export async function getStaticPaths() { return getPostRoutes(); }
+const { post } = Astro.props;
+---
+<Post post={post} />
