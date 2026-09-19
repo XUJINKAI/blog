@@ -1,15 +1,21 @@
 {
-  "name": "xujinkai-blog-11ty",
+  "name": "xujinkai-blog",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-    "dev": "eleventy --serve",
-    "build": "eleventy"
+    "dev": "astro dev --host 0.0.0.0",
+    "build": "astro build",
+    "preview": "astro preview --host 0.0.0.0",
+    "verify": "npm run build && node tools/verify-output.mjs"
   },
   "dependencies": {
-    "@11ty/eleventy": "^3.1.6",
-    "@11ty/eleventy-plugin-rss": "^3.0.0",
+    "astro": "^7.3.3",
+    "gray-matter": "^4.0.3",
     "highlight.js": "^11.12.0",
+    "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.1"
   }
 }

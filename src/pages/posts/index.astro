@@ -1,0 +1,87 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getPostsByDate } from "../../lib/posts.js";
+import { buildSeo } from "../../lib/seo.js";
+import { dateFormat, toISODate } from "../../lib/dates.js";
+import { site } from "../../lib/site.js";
+
+const posts = await getPostsByDate();
+const seo = buildSeo({ title: "文章", canonicalPath: "/posts/" });
+
+const tags = [];
+const tagMap = new Map();
+for (const post of posts) {
+  for (const tag of post.tags) {
+    let item = tagMap.get(tag);
+    if (!item) {
+      item = { name: tag, count: 0 };
+      tagMap.set(tag, item);
+      tags.push(item);
+    }
+    item.count += 1;
+  }
+}
+
+const disqusCountUrl = site.integrations.disqus
+  ? "https://" + site.integrations.disqus + ".disqus.com/count.js"
+  : null;
+---
+<Base seo={seo}>
+  <div class="posts-page">
+    <div class="post-selector-panel">
+      <div class="post-sort-panel">
+        <span class="post-panel-tip">排序: </span>
+        <a href="/posts/?sort=update" class="post-sort-button" data-sort="update">
+          更新时间<span class="post-sort-sign"></span>
+        </a>
+        <a href="/posts/?sort=date" class="post-sort-button" data-sort="date">
+          创建时间<span class="post-sort-sign"></span>
+        </a>
+        <span class="post-panel-tip">筛选: </span>
+        <a href="/posts/?emoji=true" class="post-filter-emoji">emoji</a>
+      </div>
+      <div class="post-filter-panel">
+        <span class="post-panel-tip">标签: </span>
+        <div class="tags-list">
+          {tags.map((tag) => (
+            <a href={"/posts/?tag=" + encodeURIComponent(tag.name)} data-tag={tag.name}>
+              <span class="tag-name">{tag.name}</span><span class="tag-count">{tag.count}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    {posts.length > 0 && (
+      <ul class="post-list">
+        {posts.map((post) => (
+          <li
+            date={toISODate(post.date)}
+            update={post.lastModified ? toISODate(post.lastModified) : undefined}
+          >
+            <a href={post.cleanUrl}>
+              <h3>{post.title}{post.emotag && <emotag>{post.emotag}</emotag>}</h3>
+              {site.appearance.show_excerpts && <excerpt>{post.excerpt}</excerpt>}
+            </a>
+            <pmeta>
+              <date>{dateFormat(post.displayDate, site.timezone)}</date>
+              <tags>{post.tags.map((tag) => <tag>{tag}</tag>)}</tags>
+              {site.integrations.disqus && (
+                <span
+                  class="disqus-comment-count"
+                  data-disqus-identifier={post.cleanUrl}
+                  data-disqus-url={site.url + post.cleanUrl}
+                ></span>
+              )}
+            </pmeta>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+
+  <script is:inline src="/assets/js/posts.js" defer></script>
+  {disqusCountUrl && (
+    <script is:inline async id="dsq-count-scr" src={disqusCountUrl}></script>
+  )}
+</Base>

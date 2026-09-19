@@ -1,0 +1,27 @@
+---
+import path from "node:path";
+import Base from "../layouts/Base.astro";
+import { readMarkdownFile } from "../lib/content.js";
+import { renderMarkdown } from "../lib/markdown.js";
+import { buildSeo } from "../lib/seo.js";
+
+const aboutPath = path.join(process.cwd(), "src", "about.md");
+const { data, body } = await readMarkdownFile(aboutPath);
+const cleanUrl = typeof data.permalink === "string"
+  ? data.permalink.replace(/\.html$/, "")
+  : "/about";
+const seo = buildSeo({
+  title: data.title || "留言",
+  description: data.description,
+  canonicalPath: cleanUrl,
+});
+---
+<Base
+  seo={seo}
+  keywords={data.keywords || ""}
+  comments={data.comments === true}
+>
+  <article class="post">
+    <div class="post-content" set:html={renderMarkdown(body)}></div>
+  </article>
+</Base>

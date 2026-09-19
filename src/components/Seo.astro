@@ -1,0 +1,24 @@
+---
+import { site } from "../lib/site.js";
+import { toISODate } from "../lib/dates.js";
+
+const { seo, keywords, publishedDate } = Astro.props;
+---
+<title>{seo.pageTitle}</title>
+<meta name="description" content={seo.description} />
+<meta name="author" content={site.author} />
+<meta property="og:title" content={seo.ogTitle} />
+<meta property="og:description" content={seo.description} />
+<meta property="og:url" content={seo.canonicalUrl} />
+<meta property="og:type" content={seo.ogType} />
+<meta property="og:site_name" content={site.title} />
+<meta property="og:locale" content={site.locale.replace("-", "_")} />
+{seo.isPost && publishedDate && (
+  <meta property="article:published_time" content={toISODate(publishedDate)} />
+)}
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content={seo.ogTitle} />
+<link rel="canonical" href={seo.canonicalUrl} />
+<script type="application/ld+json" set:html={seo.jsonLd}></script>
+{keywords && <meta name="keywords" content={keywords} />}
+<link type="application/atom+xml" rel="alternate" href={site.url + "/feed.xml"} title={site.title} />

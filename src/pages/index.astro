@@ -1,0 +1,53 @@
+---
+import Base from "../layouts/Base.astro";
+import { getHomeProjects, getHomeSection } from "../lib/home.js";
+import { renderFragment } from "../lib/markdown.js";
+import { getHomePosts } from "../lib/posts.js";
+import { buildSeo } from "../lib/seo.js";
+import { dateFormat, toISODate } from "../lib/dates.js";
+import { site } from "../lib/site.js";
+
+const projects = await getHomeProjects();
+const contact = await getHomeSection("contact.md");
+const posts = await getHomePosts();
+const seo = buildSeo({ canonicalPath: "/" });
+---
+<Base seo={seo} wide={true} codeHighlight={false}>
+  <div class="personal-home">
+    <section class="home-projects">
+      <div class="project-list">
+        {projects.map((project) => (
+          <article
+            class:list={["project-card", { "home-intro-card": project.variant === "intro" }]}
+            data-project-width={project.width}
+          >
+            <div class="project-copy home-markdown" set:html={renderFragment(project.content)}></div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="home-section home-writing">
+      <a class="home-writing-heading" href="/posts/">
+        <h2>最近博文</h2><span>全部博文 →</span>
+      </a>
+
+      <ol class="home-writing-list">
+        {posts.map((post) => (
+          <li>
+            <a href={post.cleanUrl}>
+              <time datetime={toISODate(post.displayDate)}>
+                {dateFormat(post.displayDate, site.timezone)}
+              </time>
+              <span>{post.title}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="home-section home-contact home-markdown" set:html={renderFragment(contact)}></section>
+  </div>
+
+  <script is:inline src="/assets/js/home-projects.js" defer></script>
+</Base>
