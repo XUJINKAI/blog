@@ -8,32 +8,11 @@ export function postsLoader({ base = "src/posts" } = {}): Loader {
     name: "blog-posts-loader",
 
     async load(context) {
-      const { config, watcher } = context;
-      const rootDirectory = fileURLToPath(new URL(base + "/", config.root));
+      const rootDirectory = fileURLToPath(
+        new URL(base + "/", context.config.root),
+      );
 
       await syncPosts(rootDirectory, context);
-
-      if (!watcher) return;
-
-      watcher.add(rootDirectory);
-
-      let timer: ReturnType<typeof setTimeout> | undefined;
-      const scheduleSync = (changedPath: string) => {
-        if (!isMarkdownInside(changedPath, rootDirectory)) return;
-
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-          void syncPosts(rootDirectory, context).catch((error) => {
-            context.logger.error(
-              error instanceof Error ? error.message : String(error),
-            );
-          });
-        }, 30);
-      };
-
-      watcher.on("add", scheduleSync);
-      watcher.on("change", scheduleSync);
-      watcher.on("unlink", scheduleSync);
     },
   };
 }
@@ -83,14 +62,4 @@ async function syncPosts(
   for (const entry of entries) {
     store.set(entry);
   }
-}
-
-function isMarkdownInside(changedPath: string, rootDirectory: string) {
-  if (!changedPath.toLowerCase().endsWith(".md")) return false;
-
-  const absolutePath = path.resolve(changedPath);
-  return (
-    absolutePath === rootDirectory ||
-    absolutePath.startsWith(rootDirectory + path.sep)
-  );
 }
