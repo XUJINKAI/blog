@@ -2,7 +2,7 @@
 
 > Windows App
 
-![OneQuick 使用屏幕角和鼠标滚轮调整系统音量的演示](https://onequick.org/feature/screen-volume.gif)
+<p><img src="https://onequick.org/feature/screen-volume.gif" alt="OneQuick 使用屏幕角和鼠标滚轮调整系统音量的演示" width="568" height="352" loading="lazy" decoding="async" fetchpriority="low"></p>
 
 开箱即用，符合直觉，简单高效的 Windows 快捷键工具。
 

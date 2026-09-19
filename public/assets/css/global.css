@@ -794,11 +794,23 @@ body,
 .project-list {
   position: relative;
   min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: var(--project-column-gap);
+  row-gap: var(--project-row-gap);
 }
 
 .project-list .project-card {
   width: 100%;
   box-sizing: border-box;
+}
+
+.project-list .project-card[data-project-width="full"] {
+  grid-column: 1 / -1;
+}
+
+.project-list.is-masonry {
+  display: block;
 }
 
 .project-list.is-masonry .project-card {
@@ -883,6 +895,7 @@ body,
   width: min(72%, 340px);
   max-height: 260px;
   margin: 0 auto;
+  height: auto;
   object-fit: contain;
   border-radius: 7px;
 }
@@ -1006,7 +1019,9 @@ body,
     padding: 22px 20px;
   }
 
+  .project-list,
   .project-list.is-masonry {
+    display: block;
     height: auto !important;
   }
 

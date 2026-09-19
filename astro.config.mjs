@@ -1,7 +1,12 @@
+import { readFileSync } from "node:fs";
 import { defineConfig } from "astro/config";
 
+const site = JSON.parse(
+  readFileSync(new URL("./site.json", import.meta.url), "utf8"),
+);
+
 export default defineConfig({
-  site: "https://xujinkai.net",
+  site: site.url,
   output: "static",
   build: {
     // Keep the legacy output shape:

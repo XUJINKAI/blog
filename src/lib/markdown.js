@@ -1,6 +1,7 @@
 import markdownIt from "markdown-it";
 import markdownItAnchor from "markdown-it-anchor";
 import hljs from "highlight.js";
+import { site } from "./site.js";
 
 export function slugify(value) {
   return String(value)
@@ -135,7 +136,7 @@ function isExternalLink(href) {
   if (!href || !/^https?:\/\//i.test(href)) return false;
 
   try {
-    return new URL(href).origin !== new URL("https://xujinkai.net").origin;
+    return new URL(href).origin !== new URL(site.url).origin;
   } catch {
     return false;
   }
