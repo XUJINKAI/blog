@@ -21,6 +21,10 @@ for (const post of posts) {
     item.count += 1;
   }
 }
+
+const disqusCountUrl = site.integrations.disqus
+  ? "https://" + site.integrations.disqus + ".disqus.com/count.js"
+  : null;
 ---
 <Base seo={seo}>
   <div class="posts-page">
@@ -62,6 +66,13 @@ for (const post of posts) {
             <pmeta>
               <date>{dateFormat(post.displayDate, site.timezone)}</date>
               <tags>{post.tags.map((tag) => <tag>{tag}</tag>)}</tags>
+              {site.integrations.disqus && (
+                <span
+                  class="disqus-comment-count"
+                  data-disqus-identifier={post.cleanUrl}
+                  data-disqus-url={site.url + post.cleanUrl}
+                ></span>
+              )}
             </pmeta>
           </li>
         ))}
@@ -69,8 +80,8 @@ for (const post of posts) {
     )}
   </div>
 
-  <script is:inline define:vars={{ disqus: site.integrations.disqus }}>
-    var SITE_CONFIG = { disqus: disqus };
-  </script>
   <script is:inline src="/assets/js/posts.js" defer></script>
+  {disqusCountUrl && (
+    <script is:inline async id="dsq-count-scr" src={disqusCountUrl}></script>
+  )}
 </Base>

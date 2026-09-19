@@ -21,7 +21,6 @@
 
         bindControls();
         addDateTooltips();
-        addDisqusCounts();
         applyUrlState(false);
 
         window.addEventListener("popstate", function () {
@@ -170,26 +169,6 @@
             var date = post.item.querySelector("date");
             if (date) date.title = title;
         });
-    }
-
-    function addDisqusCounts() {
-        if (!window.SITE_CONFIG?.disqus) return;
-
-        state.posts.forEach(function (post) {
-            var meta = post.item.querySelector("pmeta");
-            if (!meta) return;
-
-            var count = document.createElement("span");
-            count.className = "disqus-comment-count";
-            count.dataset.disqusIdentifier = post.url;
-            meta.appendChild(count);
-        });
-
-        var script = document.createElement("script");
-        script.async = true;
-        script.id = "dsq-count-scr";
-        script.src = "//" + window.SITE_CONFIG.disqus + ".disqus.com/count.js";
-        document.head.appendChild(script);
     }
 
     if (document.readyState === "loading") {
