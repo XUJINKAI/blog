@@ -5,9 +5,14 @@ import Seo from "../components/Seo.astro";
 import Disqus from "../components/Disqus.astro";
 import GoogleAnalytics from "../components/GoogleAnalytics.astro";
 import { site } from "../lib/site.js";
+
 const {
-  seo, keywords = "", publishedDate, wide = false, codeHighlight = true,
-  comments = false, identifier = seo.canonicalUrl.replace(site.url, "") || "/",
+  seo,
+  keywords = "",
+  publishedDate,
+  wide = false,
+  codeHighlight = true,
+  comments = false,
 } = Astro.props;
 ---
 <!DOCTYPE html>
@@ -25,17 +30,21 @@ const {
 </head>
 <body id="page-top">
   <Header />
+
   <main class="page-content" aria-label="Content">
     <div class:list={["wrapper", { "wrapper-wide": wide }]}>
       <slot />
+
       {site.integrations.disqus && comments && (
         <div id="comments" class="comments-section">
-          <Disqus canonicalUrl={seo.canonicalUrl} identifier={identifier} />
+          <Disqus canonicalUrl={seo.canonicalUrl} />
         </div>
       )}
     </div>
   </main>
+
   <Footer />
+
   {site.integrations.ga4 && <GoogleAnalytics />}
 </body>
 </html>

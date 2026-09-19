@@ -3,7 +3,7 @@ import { z } from "astro/zod";
 const dateValue = z.union([
   z.date().refine((value) => !Number.isNaN(value.getTime()), "Invalid date"),
   z.string().refine((value) => !Number.isNaN(Date.parse(value)), "Invalid date"),
-]);
+]).transform((value) => value instanceof Date ? value : new Date(value));
 
 const tocSchema = z.object({
   enabled: z.boolean().optional(),

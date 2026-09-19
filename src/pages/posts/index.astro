@@ -56,8 +56,8 @@ const disqusCountUrl = site.integrations.disqus
       <ul class="post-list">
         {posts.map((post) => (
           <li
-            date={toISODate(post.date, site.timezone)}
-            update={post.lastModified ? toISODate(post.lastModified, site.timezone) : undefined}
+            date={toISODate(post.date)}
+            update={post.lastModified ? toISODate(post.lastModified) : undefined}
           >
             <a href={post.cleanUrl}>
               <h3>{post.title}{post.emotag && <emotag>{post.emotag}</emotag>}</h3>

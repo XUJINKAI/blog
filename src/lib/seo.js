@@ -1,3 +1,4 @@
+import { toISODate } from "./dates.js";
 import { site } from "./site.js";
 
 export function buildSeo({
@@ -25,8 +26,8 @@ export function buildSeo({
           "@context": "https://schema.org",
           "@type": "BlogPosting",
           author: { "@type": "Person", name: site.author },
-          dateModified: formatDate(lastModified || publishedDate),
-          datePublished: formatDate(publishedDate),
+          dateModified: toISODate(lastModified || publishedDate),
+          datePublished: toISODate(publishedDate),
           description: pageDescription,
           headline: ogTitle,
           mainEntityOfPage: { "@type": "WebPage", "@id": canonicalUrl },
@@ -51,11 +52,4 @@ export function buildSeo({
     jsonLd,
     isPost,
   };
-}
-
-function formatDate(value) {
-  if (!value) return undefined;
-  if (typeof value === "string") return value;
-  const date = value instanceof Date ? value : new Date(value);
-  return Number.isNaN(date.getTime()) ? String(value) : date.toISOString();
 }

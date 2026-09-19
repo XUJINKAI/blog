@@ -6,6 +6,7 @@ import { getHomePosts } from "../lib/posts.js";
 import { buildSeo } from "../lib/seo.js";
 import { dateFormat, toISODate } from "../lib/dates.js";
 import { site } from "../lib/site.js";
+
 const projects = await getHomeProjects();
 const contact = await getHomeSection("contact.md");
 const posts = await getHomePosts();
@@ -16,8 +17,10 @@ const seo = buildSeo({ canonicalPath: "/" });
     <section class="home-projects">
       <div class="project-list">
         {projects.map((project) => (
-          <article class:list={["project-card", { "home-intro-card": project.variant === "intro" }]}
-            data-project-width={project.width}>
+          <article
+            class:list={["project-card", { "home-intro-card": project.variant === "intro" }]}
+            data-project-width={project.width}
+          >
             <div class="project-copy home-markdown" set:html={renderFragment(project.content)}></div>
           </article>
         ))}
@@ -28,11 +31,14 @@ const seo = buildSeo({ canonicalPath: "/" });
       <a class="home-writing-heading" href="/posts/">
         <h2>最近博文</h2><span>全部博文 →</span>
       </a>
+
       <ol class="home-writing-list">
         {posts.map((post) => (
           <li>
             <a href={post.cleanUrl}>
-              <time datetime={toISODate(post.displayDate, site.timezone)}>{dateFormat(post.displayDate, site.timezone)}</time>
+              <time datetime={toISODate(post.displayDate)}>
+                {dateFormat(post.displayDate, site.timezone)}
+              </time>
               <span>{post.title}</span>
             </a>
           </li>
@@ -42,5 +48,6 @@ const seo = buildSeo({ canonicalPath: "/" });
 
     <section class="home-section home-contact home-markdown" set:html={renderFragment(contact)}></section>
   </div>
+
   <script is:inline src="/assets/js/home-projects.js" defer></script>
 </Base>

@@ -4,7 +4,9 @@ import { toISODate } from "../lib/dates.js";
 
 export async function GET() {
   const posts = (await getPostsByDate()).slice(0, site.feed.posts_limit);
-  const latestDate = posts.length > 0 ? toISODate(posts[0].date, site.timezone) : "";
+  const latestDate = posts.length > 0
+    ? toISODate(posts[0].lastModified || posts[0].date)
+    : "";
 
   const entries = posts.map((post) => {
     const postUrl = site.url + post.cleanUrl;
@@ -16,8 +18,8 @@ export async function GET() {
       "    <entry>",
       '        <title type="html">' + escapeXml(post.title) + "</title>",
       '        <link href="' + postUrl + '" rel="alternate" type="text/html" title="' + escapeXml(post.title) + '" />',
-      "        <published>" + toISODate(post.date, site.timezone) + "</published>",
-      "        <updated>" + toISODate(post.lastModified || post.date, site.timezone) + "</updated>",
+      "        <published>" + toISODate(post.date) + "</published>",
+      "        <updated>" + toISODate(post.lastModified || post.date) + "</updated>",
       "        <id>" + postUrl + "</id>",
       categories,
       '        <summary type="html">',
@@ -44,11 +46,14 @@ export async function GET() {
     "</feed>",
   ].join("\n");
 
-  return new Response(body, { headers: { "Content-Type": "application/atom+xml; charset=utf-8" } });
+  return new Response(body, {
+    headers: { "Content-Type": "application/atom+xml; charset=utf-8" },
+  });
 }
 
 function escapeXml(value) {
   if (!value) return "";
+
   return String(value)
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")

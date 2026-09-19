@@ -1,11 +1,13 @@
 ---
 import { site } from "../lib/site.js";
+
 const ga4 = site.integrations.ga4;
+const gtagUrl = "https://www.googletagmanager.com/gtag/js?id=" + ga4;
 ---
-<script is:inline async src={"https://www.googletagmanager.com/gtag/js?id=" + ga4}></script>
-<script is:inline define:vars={{ ga4 }}>
+<script is:inline async src={gtagUrl}></script>
+<script is:inline data-ga-id={ga4}>
   window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  gtag('js', new Date());
-  gtag('config', ga4);
+  window.gtag = function () { window.dataLayer.push(arguments); };
+  window.gtag("js", new Date());
+  window.gtag("config", document.currentScript.dataset.gaId);
 </script>

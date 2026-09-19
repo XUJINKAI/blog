@@ -18,8 +18,12 @@ const seo = buildSeo({
 const tocItems = extractTocItems(post.body, post.toc);
 const content = renderMarkdown(post.body);
 ---
-<Base seo={seo} keywords={post.keywords} publishedDate={post.date}
-  comments={post.comments} identifier={post.cleanUrl}>
+<Base
+  seo={seo}
+  keywords={post.keywords}
+  publishedDate={post.date}
+  comments={post.comments}
+>
   <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
     <header class="post-header">
       <h1 class="post-title p-name" itemprop="name headline">{post.title}</h1>
@@ -28,14 +32,14 @@ const content = renderMarkdown(post.body);
       {post.lastModified && (
         <>
           <span>更新于 </span>
-          <time class="dt-modified" datetime={toISODate(post.lastModified, site.timezone)} itemprop="dateModified">
+          <time class="dt-modified" datetime={toISODate(post.lastModified)} itemprop="dateModified">
             {dateFormat(post.lastModified, site.timezone)}
           </time>
           <span>, </span>
         </>
       )}
       <span>创建于 </span>
-      <time class="dt-published" datetime={toISODate(post.date, site.timezone)} itemprop="datePublished">
+      <time class="dt-published" datetime={toISODate(post.date)} itemprop="datePublished">
         {dateFormat(post.date, site.timezone)}
       </time>
     </div>
@@ -47,6 +51,7 @@ const content = renderMarkdown(post.body);
     </div>
     <Toc items={tocItems} comments={post.comments} disqus={site.integrations.disqus} />
     <div class="post-content e-content" itemprop="articleBody" set:html={content}></div>
+
     <a class="u-url" href={seo.canonicalUrl} hidden></a>
   </article>
 </Base>
