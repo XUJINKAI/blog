@@ -1,6 +1,5 @@
 ---
 permalink: /about
-layout: layouts/page.njk
 title: 留言
 comments: true
 ---

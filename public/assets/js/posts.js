@@ -1,213 +1,200 @@
-/* Window, document */
-function isEmpty(obj) {
-    return obj === null || obj === undefined || obj === "";
-}
-function getUrlQueryVariable(variable, defaultValue) {
-    var searchParams = new URLSearchParams(window.location.search);
-    var value = searchParams.get(variable);
-    if (isEmpty(value)) { value = defaultValue; }
-    return value;
-};
-function setUrlQueryVariable(url, key, value, defaultValue) {
-    var searchParams = new URLSearchParams(url.split('?')[1]);
-    if (isEmpty(value) || value === defaultValue) { searchParams.delete(key); }
-    else { searchParams.set(key, value); }
-    var newUrl = url.split('?')[0];
-    var searchQuery = searchParams.toString();
-    if (!isEmpty(searchQuery)) {
-        newUrl = newUrl + "?" + searchQuery;
-    }
-    return newUrl;
-};
-function pushHistoryState(url) {
-    history.pushState(null, '', url);
-}
-function listenHistoryState(fn) {
-    window.addEventListener('popstate', function (event) {
-        fn(event.state);
-    });
-}
-function ready(fn) {
-    if (document.readyState != 'loading') {
-        fn(window);
-    } else {
-        document.addEventListener('DOMContentLoaded', function () {
-            fn(window);
+(function () {
+    "use strict";
+
+    var defaults = {
+        tag: null,
+        sort: "update",
+        order: "desc",
+        emoji: false,
+    };
+
+    var state = {
+        posts: [],
+        query: { ...defaults },
+    };
+
+    function init() {
+        var list = document.querySelector("ul.post-list");
+        if (!list) return;
+
+        state.posts = Array.from(list.querySelectorAll(":scope > li")).map(readPost);
+
+        bindControls();
+        addDateTooltips();
+        addDisqusCounts();
+        applyUrlState(false);
+
+        window.addEventListener("popstate", function () {
+            applyUrlState(false);
         });
     }
-}
 
-/* posts */
-function getPostsList() {
-    var postsList = [];
-    var liList = document.querySelectorAll("ul.post-list li");
-    liList.forEach(li => {
-        var post = {};
-        post.item = li;
-        post.title = li.querySelector("a").innerHTML;
-        post.url = li.querySelector("a").getAttribute("href");
-        post.date = li.getAttribute("date");
-        post.update = li.getAttribute("update") || post.date;
-        post.tags = [];
-        li.querySelectorAll("tags tag").forEach(tagDom => { post.tags.push(tagDom.innerHTML); });
-        post.emotag = li.querySelector("h3 emotag")?.innerHTML;
-        postsList.push(post);
-    });
-    return postsList;
-}
-function renderPostsList() {
-    var postList = document.querySelector("ul.post-list");
-    postList.innerHTML = "";
-    postsState.posts
-        .filter(post => {
-            var isTag = isEmpty(postsQuery.tag) || post.tags.includes(postsQuery.tag);
-            var isEmoji = postsQuery.filter_emoji && !isEmpty(post.emotag) || !postsQuery.filter_emoji;
-            return isTag && isEmoji;
-        })
-        .sort((a, b) => {
-            var textA = a[postsQuery.sort];
-            var textB = b[postsQuery.sort];
-            if (postsQuery.order == "asc") {
-                return (textA < textB) ? -1 : 1;
-            } else {
-                return (textA > textB) ? -1 : 1;
+    function readPost(item) {
+        var tags = Array.from(item.querySelectorAll("tags tag"), function (tag) {
+            return tag.textContent.trim();
+        });
+
+        return {
+            item: item,
+            url: item.querySelector("a").getAttribute("href"),
+            date: item.getAttribute("date") || "",
+            update: item.getAttribute("update") || item.getAttribute("date") || "",
+            tags: tags,
+            emotag: item.querySelector("h3 emotag")?.textContent.trim() || "",
+        };
+    }
+
+    function bindControls() {
+        document.querySelectorAll(".post-sort-button").forEach(function (control) {
+            control.addEventListener("click", function (event) {
+                event.preventDefault();
+                var sort = control.dataset.sort;
+
+                if (state.query.sort === sort) {
+                    state.query.order = state.query.order === "asc" ? "desc" : "asc";
+                } else {
+                    state.query.sort = sort;
+                    state.query.order = "desc";
+                }
+
+                commitState();
+            });
+        });
+
+        var emojiControl = document.querySelector(".post-filter-emoji");
+        emojiControl?.addEventListener("click", function (event) {
+            event.preventDefault();
+            state.query.emoji = !state.query.emoji;
+            commitState();
+        });
+
+        document.querySelectorAll(".tags-list a[data-tag]").forEach(function (control) {
+            control.addEventListener("click", function (event) {
+                event.preventDefault();
+                var tag = control.dataset.tag;
+                state.query.tag = state.query.tag === tag ? null : tag;
+                commitState();
+            });
+        });
+    }
+
+    function applyUrlState(push) {
+        var params = new URLSearchParams(window.location.search);
+        var sort = params.get("sort");
+        var order = params.get("order");
+
+        state.query = {
+            tag: params.get("tag") || null,
+            sort: sort === "date" || sort === "update" ? sort : defaults.sort,
+            order: order === "asc" || order === "desc" ? order : defaults.order,
+            emoji: params.get("emoji") === "true",
+        };
+
+        if (push) updateUrl();
+        render();
+    }
+
+    function commitState() {
+        updateUrl();
+        render();
+    }
+
+    function updateUrl() {
+        var params = new URLSearchParams();
+
+        if (state.query.tag) params.set("tag", state.query.tag);
+        if (state.query.sort !== defaults.sort) params.set("sort", state.query.sort);
+        if (state.query.order !== defaults.order) params.set("order", state.query.order);
+        if (state.query.emoji) params.set("emoji", "true");
+
+        var query = params.toString();
+        history.pushState(null, "", "/posts/" + (query ? "?" + query : ""));
+    }
+
+    function render() {
+        renderControls();
+        renderPosts();
+    }
+
+    function renderControls() {
+        document.querySelectorAll(".post-sort-button").forEach(function (control) {
+            var active = control.dataset.sort === state.query.sort;
+            control.classList.toggle("active", active);
+
+            var sign = control.querySelector(".post-sort-sign");
+            if (sign) sign.textContent = active
+                ? (state.query.order === "asc" ? "▲" : "▼")
+                : "";
+        });
+
+        document.querySelector(".post-filter-emoji")
+            ?.classList.toggle("active", state.query.emoji);
+
+        document.querySelectorAll(".tags-list a[data-tag]").forEach(function (control) {
+            control.classList.toggle("active", control.dataset.tag === state.query.tag);
+        });
+    }
+
+    function renderPosts() {
+        var list = document.querySelector("ul.post-list");
+        var posts = state.posts.slice().sort(comparePosts);
+
+        posts.forEach(function (post) {
+            var tagMatches = !state.query.tag || post.tags.includes(state.query.tag);
+            var emojiMatches = !state.query.emoji || Boolean(post.emotag);
+            post.item.hidden = !(tagMatches && emojiMatches);
+
+            var date = post.item.querySelector("date");
+            if (date) date.textContent = post[state.query.sort].substring(0, 10);
+
+            list.appendChild(post.item);
+        });
+    }
+
+    function comparePosts(left, right) {
+        var a = left[state.query.sort];
+        var b = right[state.query.sort];
+
+        if (a === b) return 0;
+        if (state.query.order === "asc") return a < b ? -1 : 1;
+        return a > b ? -1 : 1;
+    }
+
+    function addDateTooltips() {
+        state.posts.forEach(function (post) {
+            var title = "创建于" + post.date.substring(0, 10);
+            if (post.update && post.update !== post.date) {
+                title += ", 更新于" + post.update.substring(0, 10);
             }
-        })
-        .forEach(post => {
-            var item = post.item;
-            item.querySelector("date").innerHTML = post[postsQuery.sort].substring(0, 10);
-            postList.appendChild(item);
+
+            var date = post.item.querySelector("date");
+            if (date) date.title = title;
         });
-}
-
-/* tags */
-function getTagsList(postsList) {
-    var tagsList = [];
-    postsList.forEach(post => {
-        post.tags.forEach(tag => {
-            if (tagsList.find(x => x.name === tag) == undefined) {
-                var tagItem = {};
-                tagItem.name = tag;
-                tagItem.count = 1;
-                tagItem.posts = [];
-                tagItem.posts.push(post);
-                tagItem.item = document.createElement("a");
-                tagItem.item.href = "javascript:toggleTag('" + tagItem.name + "');";
-                tagItem.item.innerHTML = `<span class="tag-name">${tagItem.name}</span><span class="tag-count">${tagItem.count}</span>`;
-                tagsList.push(tagItem);
-            } else {
-                var existingTagItem = tagsList.find(x => x.name === tag);
-                existingTagItem.count++;
-                existingTagItem.item.querySelector("span.tag-count").innerHTML = existingTagItem.count;
-                existingTagItem.posts.push(post);
-            }
-        });
-    });
-    return tagsList;
-}
-function renderTagsList() {
-    var tagsList = document.querySelector(".tags-list");
-    tagsList.innerHTML = "";
-    postsState.tags.forEach(tag => {
-        var item = tag.item;
-        item.classList.remove("active");
-        if (tag.name == postsQuery.tag) {
-            item.classList.add("active");
-        }
-        tagsList.appendChild(item);
-    });
-}
-
-/* API */
-function renderPostsPage() {
-    document.querySelectorAll(".post-sort-sign").forEach(span => {
-        span.innerHTML = "";
-        span.parentElement.classList.remove("active");
-    });
-    document.querySelector(`a[data-sort='${postsQuery.sort}'] .post-sort-sign`).innerHTML = postsQuery.order == "asc" ? "▲" : "▼";
-    document.querySelector(`a[data-sort='${postsQuery.sort}']`).classList.add("active");
-
-    document.querySelector('a.post-filter-emoji').classList.remove('active');
-    if (postsQuery.filter_emoji) {
-        document.querySelector('a.post-filter-emoji').classList.add('active');
     }
 
-    renderTagsList();
-    renderPostsList();
-}
-function renderPostsFromUrlQuery() {
-    postsQuery.tag = getUrlQueryVariable("tag", defaultQuery.tag);
-    postsQuery.sort = getUrlQueryVariable("sort", defaultQuery.sort);
-    postsQuery.order = getUrlQueryVariable("order", defaultQuery.order);
-    postsQuery.filter_emoji = getUrlQueryVariable("emoji", defaultQuery.filter_emoji);
-    renderPostsPage();
-}
-function renderPostsWithUrl() {
-    var url = window.location.href;
-    url = setUrlQueryVariable(url, "tag", postsQuery.tag, defaultQuery.tag);
-    url = setUrlQueryVariable(url, "sort", postsQuery.sort, defaultQuery.sort);
-    url = setUrlQueryVariable(url, "order", postsQuery.order, defaultQuery.order);
-    url = setUrlQueryVariable(url, "emoji", postsQuery.filter_emoji, defaultQuery.filter_emoji);
-    pushHistoryState(url);
-    renderPostsPage();
-}
-function toggleSort(sortBy) {
-    if (postsQuery.sort == sortBy) {
-        postsQuery.order = postsQuery.order == "asc" ? "desc" : "asc";
-    } else {
-        postsQuery.sort = sortBy;
-        postsQuery.order = "desc";
-    }
-    renderPostsWithUrl();
-}
-function toggleTag(name) {
-    postsQuery.tag = postsQuery.tag == name ? null : name;
-    renderPostsWithUrl();
-}
-function toggleEmoji() {
-    postsQuery.filter_emoji = !postsQuery.filter_emoji;
-    renderPostsWithUrl();
-}
+    function addDisqusCounts() {
+        if (!window.SITE_CONFIG?.disqus) return;
 
-/* onload */
-var defaultQuery = {
-    tag: null,
-    sort: "update",
-    order: "desc",
-    filter_emoji: false,
-};
-var postsQuery = JSON.parse(JSON.stringify(defaultQuery));
+        state.posts.forEach(function (post) {
+            var meta = post.item.querySelector("pmeta");
+            if (!meta) return;
 
-var postsState = {
-    posts: [],
-    tags: [],
-};
+            var count = document.createElement("span");
+            count.className = "disqus-comment-count";
+            count.dataset.disqusIdentifier = post.url;
+            meta.appendChild(count);
+        });
 
-ready(function () {
-    postsState.posts = getPostsList();
-    postsState.tags = getTagsList(postsState.posts);
-
-    postsState.posts.forEach(post => {
-        var date = post.date.substring(0, 10);
-        var title = `创建于${date}`;
-        if (post.update && post.update != post.date) {
-            var update = post.update.substring(0, 10);
-            title += `, 更新于${update}`;
-        }
-        post.item.querySelector('date').title = title;
-    });
-
-    if (SITE_CONFIG.disqus != "") {
-        postsState.posts.forEach(post => post.item.querySelector("pmeta").innerHTML += `<span class="disqus-comment-count" data-disqus-identifier="${post.url}"></span>`);
         var script = document.createElement("script");
         script.async = true;
         script.id = "dsq-count-scr";
-        script.src = `//${SITE_CONFIG.disqus}.disqus.com/count.js`;
+        script.src = "//" + window.SITE_CONFIG.disqus + ".disqus.com/count.js";
         document.head.appendChild(script);
     }
 
-    renderPostsFromUrlQuery();
-    listenHistoryState(function () {
-        renderPostsFromUrlQuery();
-    });
-});
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init, { once: true });
+    } else {
+        init();
+    }
+})();

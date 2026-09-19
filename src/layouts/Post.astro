@@ -5,10 +5,15 @@ import { buildSeo } from "../lib/seo.js";
 import { dateFormat, toISODate } from "../lib/dates.js";
 import { extractTocItems, renderMarkdown } from "../lib/markdown.js";
 import { site } from "../lib/site.js";
+
 const { post } = Astro.props;
 const seo = buildSeo({
-  title: post.title, description: post.description, canonicalPath: post.cleanUrl,
-  isPost: true, publishedDate: post.date, lastModified: post.lastModified,
+  title: post.title,
+  description: post.description,
+  canonicalPath: post.cleanUrl,
+  isPost: true,
+  publishedDate: post.date,
+  lastModified: post.lastModified,
 });
 const tocItems = extractTocItems(post.body, post.toc);
 const content = renderMarkdown(post.body);
@@ -36,7 +41,9 @@ const content = renderMarkdown(post.body);
     </div>
     <div class="post-meta">
       标签:
-      {post.tags.map((tag) => <a class="tag" href={"/?tag=" + encodeURIComponent(tag)}>{tag}</a>)}
+      {post.tags.map((tag) => (
+        <a class="tag" href={"/posts/?tag=" + encodeURIComponent(tag)}>{tag}</a>
+      ))}
     </div>
     <Toc items={tocItems} comments={post.comments} disqus={site.integrations.disqus} />
     <div class="post-content e-content" itemprop="articleBody" set:html={content}></div>

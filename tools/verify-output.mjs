@@ -35,8 +35,29 @@ for (const marker of [
   'class="post-selector-panel"',
   'class="post-list"',
   '/assets/js/posts.js',
+  'data-tag=',
+  '/posts/?tag=',
 ]) {
   if (!posts.includes(marker)) throw new Error("Posts output is missing: " + marker);
+}
+
+const postFiles = posts.match(/href="\/posts\/[^"?]+/g) || [];
+if (postFiles.length === 0) throw new Error("Posts page has no post links.");
+
+const articleCandidates = [
+  "dist/posts/how-to-structure-docs-for-ai-coding.html",
+  "dist/posts/git-commands.html",
+];
+for (const file of articleCandidates) {
+  try {
+    const article = await readFile(file, "utf8");
+    if (!article.includes('href="/posts/?tag=')) {
+      throw new Error("Article tag links do not target /posts/: " + file);
+    }
+    break;
+  } catch (error) {
+    if (file === articleCandidates[articleCandidates.length - 1]) throw error;
+  }
 }
 
 console.log("Static output shape verified.");
