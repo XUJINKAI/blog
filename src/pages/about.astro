@@ -1,11 +1,11 @@
 ---
-import { fileURLToPath } from "node:url";
+import path from "node:path";
 import Base from "../layouts/Base.astro";
 import { readMarkdownFile } from "../lib/content.js";
 import { renderMarkdown } from "../lib/markdown.js";
 import { buildSeo } from "../lib/seo.js";
 
-const aboutPath = fileURLToPath(new URL("../about.md", import.meta.url));
+const aboutPath = path.join(process.cwd(), "src", "about.md");
 const { data, body } = await readMarkdownFile(aboutPath);
 const cleanUrl = typeof data.permalink === "string" ? data.permalink.replace(/\.html$/, "") : "/about";
 const seo = buildSeo({

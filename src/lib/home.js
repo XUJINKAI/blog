@@ -1,7 +1,8 @@
 import { readFile } from "node:fs/promises";
+import path from "node:path";
 import projects from "../home/projects.js";
 
-const homeDirectory = new URL("../home/", import.meta.url);
+const homeDirectory = path.join(process.cwd(), "src", "home");
 
 export async function getHomeProjects() {
   return Promise.all(
@@ -17,5 +18,5 @@ export function getHomeSection(file) {
 }
 
 function readHomeFile(file) {
-  return readFile(new URL(file, homeDirectory), "utf8");
+  return readFile(path.join(homeDirectory, file), "utf8");
 }

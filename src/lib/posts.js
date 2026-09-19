@@ -1,10 +1,9 @@
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { activityTime } from "./dates.js";
 import { listMarkdownFiles, readMarkdownFile } from "./content.js";
 import { site } from "./site.js";
 
-const postsDirectory = fileURLToPath(new URL("../posts/", import.meta.url));
+const postsDirectory = path.join(process.cwd(), "src", "posts");
 let publishedPostsPromise;
 
 export function getPublishedPosts() {
