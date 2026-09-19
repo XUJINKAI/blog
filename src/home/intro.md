@@ -1,4 +1,4 @@
-**XUJINKAI · Software / Systems / AI-native**
+**XUJINKAI · Software / Products / AI-native**
 
 ## 做点有趣的东西
 
