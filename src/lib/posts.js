@@ -1,15 +1,15 @@
-import { getCollection } from "astro:content";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { activityTime } from "./dates.js";
+import { listMarkdownFiles, readMarkdownFile } from "./content.js";
 import { site } from "./site.js";
 
+const postsDirectory = fileURLToPath(new URL("../posts/", import.meta.url));
 let publishedPostsPromise;
 
 export function getPublishedPosts() {
   if (!publishedPostsPromise) {
-    publishedPostsPromise = getCollection(
-      "posts",
-      ({ data }) => data.published !== false,
-    ).then((entries) => entries.map(normalizePost));
+    publishedPostsPromise = loadPosts();
   }
   return publishedPostsPromise;
 }
@@ -42,17 +42,33 @@ export async function getPostRoutes() {
     }
 
     return {
-      params: {
-        slug: post.cleanUrl.slice("/posts/".length),
-      },
+      params: { slug: post.cleanUrl.slice("/posts/".length) },
       props: { post },
     };
   });
 }
 
+async function loadPosts() {
+  const files = await listMarkdownFiles(postsDirectory);
+  const posts = [];
+
+  for (const filePath of files) {
+    const { data, body } = await readMarkdownFile(filePath);
+    if (data.published === false) continue;
+
+    posts.push(normalizePost({
+      data,
+      body,
+      sourcePath: path.relative(postsDirectory, filePath).replaceAll(path.sep, "/"),
+    }));
+  }
+
+  return posts;
+}
+
 function normalizePost(entry) {
   const data = entry.data ?? {};
-  const permalink = normalizePermalink(data.permalink, entry.filePath || entry.id);
+  const permalink = normalizePermalink(data.permalink, entry.sourcePath);
   const cleanUrl = permalink.endsWith(".html")
     ? permalink.slice(0, -".html".length)
     : permalink;
@@ -66,8 +82,7 @@ function normalizePost(entry) {
   const lastModified = data.last_modified_at || null;
 
   return {
-    id: entry.id,
-    sourcePath: entry.filePath || entry.id,
+    sourcePath: entry.sourcePath,
     title: data.title || "",
     permalink,
     pageUrl,

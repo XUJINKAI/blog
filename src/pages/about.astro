@@ -1,15 +1,21 @@
 ---
-import { getCollection } from "astro:content";
+import { fileURLToPath } from "node:url";
 import Base from "../layouts/Base.astro";
+import { readMarkdownFile } from "../lib/content.js";
 import { renderMarkdown } from "../lib/markdown.js";
 import { buildSeo } from "../lib/seo.js";
-const [entry] = await getCollection("pages");
-if (!entry) throw new Error("src/about.md was not found");
-const data = entry.data ?? {};
-const body = entry.body || "";
+
+const aboutPath = fileURLToPath(new URL("../about.md", import.meta.url));
+const { data, body } = await readMarkdownFile(aboutPath);
 const cleanUrl = typeof data.permalink === "string" ? data.permalink.replace(/\.html$/, "") : "/about";
-const seo = buildSeo({ title: data.title || "留言", description: data.description, canonicalPath: cleanUrl });
+const seo = buildSeo({
+  title: data.title || "留言",
+  description: data.description,
+  canonicalPath: cleanUrl,
+});
 ---
 <Base seo={seo} keywords={data.keywords || ""} comments={data.comments === true} identifier={cleanUrl}>
-  <article class="post"><div class="post-content" set:html={renderMarkdown(body)}></div></article>
+  <article class="post">
+    <div class="post-content" set:html={renderMarkdown(body)}></div>
+  </article>
 </Base>
