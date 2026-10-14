@@ -3,14 +3,16 @@
     "github": {
         "silent": true
     },
-    "rewrites": [
+    "redirects": [
         {
-            "source": "/crypto/",
-            "destination": "https://crypto-online-seven.vercel.app/"
+            "source": "/crypto",
+            "destination": "https://xujinkai.github.io/crypto-online/",
+            "permanent": true
         },
         {
             "source": "/crypto/:match*",
-            "destination": "https://crypto-online-seven.vercel.app/:match*"
+            "destination": "https://xujinkai.github.io/crypto-online/:match*",
+            "permanent": true
         }
     ]
 }
